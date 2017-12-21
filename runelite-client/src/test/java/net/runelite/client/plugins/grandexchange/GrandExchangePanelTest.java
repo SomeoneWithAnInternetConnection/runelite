@@ -10,6 +10,7 @@ import static net.runelite.api.GameState.LOGGED_IN;
 import net.runelite.api.GrandExchangeOffer;
 import net.runelite.api.ItemComposition;
 import net.runelite.client.RuneLite;
+import net.runelite.client.game.ItemManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,23 +19,26 @@ import static org.mockito.Matchers.anyInt;
 import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.inject.Inject;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GrandExchangePanelTest
 {
+
 	@Mock(answer = RETURNS_DEEP_STUBS)
 	private RuneLite runeLite;
 
 	@Mock
 	private Client client;
 
-	@Before
-	public void before()
-	{
-		RuneLite.setRunelite(runeLite);
-		RuneLite.setClient(client);
-	}
+	@Mock
+	private ItemManager itemManager;
 
 	@Test
 	public void testUpdateOffers()
@@ -54,8 +58,9 @@ public class GrandExchangePanelTest
 		when(client.getGrandExchangeOffers()).thenReturn(offers);
 		when(client.getGameState()).thenReturn(LOGGED_IN);
 		when(client.getItemDefinition(anyInt())).thenReturn(mock(ItemComposition.class));
+		when(itemManager.getImage(anyInt())).thenReturn(mock(BufferedImage.class));
 
-		GrandExchangePanel grandExchangePanel = new GrandExchangePanel();
+		GrandExchangePanel grandExchangePanel = new GrandExchangePanel(client, itemManager);
 		grandExchangePanel.updateOffers();
 	}
 

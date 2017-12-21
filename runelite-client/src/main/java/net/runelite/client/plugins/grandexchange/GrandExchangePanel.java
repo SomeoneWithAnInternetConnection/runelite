@@ -6,35 +6,36 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
-import javax.swing.GroupLayout;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.GrandExchangeOffer;
-import net.runelite.client.RuneLite;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.PluginPanel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+
+@Slf4j
 class GrandExchangePanel extends PluginPanel
 {
-	private static final Logger logger = LoggerFactory.getLogger(GrandExchangePanel.class);
 	private static final int OFFERS = 8;
 
-	private final RuneLite runelite = RuneLite.getRunelite();
-	private final Client client = RuneLite.getClient();
+	@Nullable
+	private final Client client;
+
+	private final ItemManager itemManager;
 	private GrandExchangeOfferSlot[] offers = new GrandExchangeOfferSlot[OFFERS];
 
-	GrandExchangePanel()
+	@Inject
+	GrandExchangePanel(@Nullable Client client, ItemManager itemManager)
 	{
+		this.client = client;
+		this.itemManager = itemManager;
 		setMinimumSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 		setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 		setSize(PANEL_WIDTH, PANEL_HEIGHT);
@@ -45,13 +46,12 @@ class GrandExchangePanel extends PluginPanel
 			offers[i] = new GrandExchangeOfferSlot();
 		}
 
-		JComponent component = buildPanel();
-		add(component);
+		add(buildPanel());
 	}
 
 	void updateOffers()
 	{
-		if (client.getGameState() != GameState.LOGGED_IN)
+		if (client == null || client.getGameState() != GameState.LOGGED_IN)
 		{
 			//TODO: only repaint/update if offer changed.
 			return;
@@ -79,7 +79,7 @@ class GrandExchangePanel extends PluginPanel
 			int total = offer.getTotalQuantity();
 
 			final String itemName = client.getItemDefinition(itemId).getName();
-			final Image itemImage = runelite.getItemManager().getImage(itemId);
+			final Image itemImage = itemManager.getImage(itemId);
 
 			EventQueue.invokeLater(() ->
 			{
@@ -97,7 +97,7 @@ class GrandExchangePanel extends PluginPanel
 				}
 				catch (Exception ex)
 				{
-					logger.warn("error updating slot", ex);
+					log.warn("error updating slot", ex);
 				}
 			});
 		}

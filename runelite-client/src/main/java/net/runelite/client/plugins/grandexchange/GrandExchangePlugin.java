@@ -2,10 +2,10 @@ package net.runelite.client.plugins.grandexchange;
 
 import com.google.common.eventbus.Subscribe;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.swing.ImageIcon;
 import net.runelite.api.events.GrandExchangeOfferChanged;
-import net.runelite.client.RuneLite;
-import net.runelite.client.events.GrandExchangeOfferChanged;
+import com.google.inject.Binder;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientUI;
@@ -24,23 +24,23 @@ public class GrandExchangePlugin extends Plugin
 
 	private GrandExchangePanel panel;
 
+	@Inject
+	ClientUI ui;
+
 	@Override
-	protected void startUp() throws Exception
+	public void configure(Binder binder)
 	{
-		panel = new GrandExchangePanel();
-
-		button = new NavigationButton("GE Offers", () -> panel);
-		icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("ge_icon.png")));
-		button.getButton().setIcon(icon);
-
-		ClientUI ui = RuneLite.getRunelite().getGui();
-		ui.getPluginToolbar().addNavigation(button);
+		binder.bind(GrandExchangePanel.class);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void startUp() throws Exception
 	{
-
+		panel = injector.getInstance(GrandExchangePanel.class);
+		button = new NavigationButton("GE Offers", () -> panel);
+		icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("ge_icon.png")));
+		button.getButton().setIcon(icon);
+		ui.getPluginToolbar().addNavigation(button);
 	}
 
 	@Subscribe
