@@ -3,13 +3,14 @@ package net.runelite.client.plugins.grandexchange;
 import com.google.common.eventbus.Subscribe;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
-import javax.swing.ImageIcon;
 import net.runelite.api.events.GrandExchangeOfferChanged;
 import com.google.inject.Binder;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.NavigationButton;
+
+import java.awt.image.BufferedImage;
 
 /**
  * @author Robbie, created on 29/10/2017 09:59 AM
@@ -19,7 +20,7 @@ import net.runelite.client.ui.NavigationButton;
 )
 public class GrandExchangePlugin extends Plugin
 {
-	private ImageIcon icon;
+	private BufferedImage icon;
 	private NavigationButton button;
 
 	private GrandExchangePanel panel;
@@ -37,9 +38,8 @@ public class GrandExchangePlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		panel = injector.getInstance(GrandExchangePanel.class);
-		button = new NavigationButton("GE Offers", () -> panel);
-		icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("ge_icon.png")));
-		button.getButton().setIcon(icon);
+		icon = ImageIO.read(getClass().getResourceAsStream("ge_icon.png"));
+		button = new NavigationButton("GE Offers", icon, () -> panel);
 		ui.getPluginToolbar().addNavigation(button);
 	}
 

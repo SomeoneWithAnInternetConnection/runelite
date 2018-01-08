@@ -36,9 +36,6 @@ class GrandExchangePanel extends PluginPanel
 	{
 		this.client = client;
 		this.itemManager = itemManager;
-		setMinimumSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
-		setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
-		setSize(PANEL_WIDTH, PANEL_HEIGHT);
 		setVisible(true);
 
 		for (int i = 0; i < offers.length; ++i)
