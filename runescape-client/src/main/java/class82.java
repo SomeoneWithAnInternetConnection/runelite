@@ -1028,7 +1028,7 @@ public class class82 {
                                     }
 
                                     if((var69.isStackable == 1 || var10.itemQuantity != 1) && var10.itemQuantity != -1) {
-                                       var68 = Buffer.getColTags(16748608) + var68 + "</col>" + " " + 'x' + class61.method1015(var10.itemQuantity);
+                                       var68 = Buffer.getColTags(16748608) + var68 + "</col>" + " " + 'x' + class61.generateCommaSeparatedStackText(var10.itemQuantity);
                                     }
                                  }
 
@@ -1179,7 +1179,7 @@ public class class82 {
                                              if(var53.isStackable != 1 && var10.itemQuantities[var20] == 1) {
                                                 var54 = Buffer.getColTags(16748608) + var53.name + "</col>";
                                              } else {
-                                                var54 = Buffer.getColTags(16748608) + var53.name + "</col>" + " " + 'x' + class61.method1015(var10.itemQuantities[var20]);
+                                                var54 = Buffer.getColTags(16748608) + var53.name + "</col>" + " " + 'x' + class61.generateCommaSeparatedStackText(var10.itemQuantities[var20]);
                                              }
 
                                              var25 = var22 * (var10.paddingX + 115) + var12;

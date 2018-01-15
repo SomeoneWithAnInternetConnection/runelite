@@ -336,7 +336,7 @@ public final class class61 {
       signature = "(II)Ljava/lang/String;",
       garbageValue = "795956452"
    )
-   static final String method1015(int var0) {
+   static final String generateCommaSeparatedStackText(int var0) {
       String var1 = Integer.toString(var0);
 
       for(int var2 = var1.length() - 3; var2 > 0; var2 -= 3) {
