@@ -87,15 +87,15 @@ public final class BoundingBox3D extends BoundingBox {
          int var2 = (var4 & 2) == 0?this.int2:this.int5;
          int var3 = (var4 & 4) == 0?this.int3:this.int6;
          if((var4 & 1) == 0) {
-            class89.method1664(var1, var2, var3, this.int4, var2, var3, this.color);
+            class89.drawAABB(var1, var2, var3, this.int4, var2, var3, this.color);
          }
 
          if((var4 & 2) == 0) {
-            class89.method1664(var1, var2, var3, var1, this.int5, var3, this.color);
+            class89.drawAABB(var1, var2, var3, var1, this.int5, var3, this.color);
          }
 
          if((var4 & 4) == 0) {
-            class89.method1664(var1, var2, var3, var1, var2, this.int6, this.color);
+            class89.drawAABB(var1, var2, var3, var1, var2, this.int6, this.color);
          }
       }
 

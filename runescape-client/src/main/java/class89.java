@@ -1,4 +1,6 @@
 import java.math.BigInteger;
+
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -65,7 +67,8 @@ public class class89 {
       signature = "(IIIIIIII)V",
       garbageValue = "585277700"
    )
-   static final void method1664(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+   @Export("drawAABB")
+   static final void drawAABB(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
       int[] var7 = Region.method2784(var0, var1, var2);
       int[] var8 = Region.method2784(var3, var4, var5);
       Rasterizer2D.drawLine(var7[0], var7[1], var8[0], var8[1], var6);
