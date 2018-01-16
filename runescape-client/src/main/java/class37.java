@@ -92,7 +92,7 @@ public class class37 {
                return 1;
             } else if(var0 == 3605) {
                var11 = class82.scriptStringStack[--class35.scriptStringStackSize];
-               class7.method34(var11);
+               class7.addFriend(var11);
                return 1;
             } else if(var0 == 3606) {
                var11 = class82.scriptStringStack[--class35.scriptStringStackSize];

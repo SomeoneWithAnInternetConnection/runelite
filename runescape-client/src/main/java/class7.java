@@ -45,7 +45,8 @@ public class class7 {
       signature = "(Ljava/lang/String;I)V",
       garbageValue = "1884317379"
    )
-   static final void method34(String var0) {
+   @Export("addFriend")
+   static final void addFriend(String var0) {
       if(var0 != null) {
          if((Client.friendCount < 200 || Client.field918 == 1) && Client.friendCount < 400) {
             String var1 = class221.cleanUsername(var0, PendingSpawn.jagexLoginType);
