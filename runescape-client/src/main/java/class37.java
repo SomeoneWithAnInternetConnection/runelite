@@ -397,7 +397,7 @@ public class class37 {
    @Export("addMenuEntry")
    @Hook("addMenuEntry")
    public static final void addMenuEntry(String var0, String var1, int var2, int var3, int var4, int var5) {
-      Varcs.method1806(var0, var1, var2, var3, var4, var5, false);
+      Varcs.addMenuEntry(var0, var1, var2, var3, var4, var5, false);
    }
 
    @ObfuscatedName("ic")

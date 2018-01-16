@@ -106,7 +106,7 @@ public class ScriptState {
       }
 
       if(var6 != -1 && var7 != null) {
-         Varcs.method1806(var7, Buffer.getColTags(16748608) + var1.name, var6, var1.id, var2, var0.id, var4);
+         Varcs.addMenuEntry(var7, Buffer.getColTags(16748608) + var1.name, var6, var1.id, var2, var0.id, var4);
       }
 
    }

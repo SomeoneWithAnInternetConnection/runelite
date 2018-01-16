@@ -359,7 +359,8 @@ public class Varcs {
       signature = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
       garbageValue = "-86"
    )
-   static final void method1806(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
+   @Export("addMenuEntry")
+   static final void addMenuEntry(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
       if(!Client.isMenuOpen) {
          if(Client.menuOptionCount < 500) {
             Client.menuOptions[Client.menuOptionCount] = var0;
