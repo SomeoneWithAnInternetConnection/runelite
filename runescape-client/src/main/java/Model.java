@@ -132,7 +132,8 @@ public class Model extends Renderable {
    @ObfuscatedName("p")
    int[][] field1835;
    @ObfuscatedName("ab")
-   public boolean field1851;
+   @Export("isCharacter")
+   public boolean isCharacter;
    @ObfuscatedName("ad")
    @Export("boundsType")
    int boundsType;
@@ -196,7 +197,7 @@ public class Model extends Renderable {
       this.indicesCount = 0;
       this.field1829 = 0;
       this.field1830 = 0;
-      this.field1851 = false;
+      this.isCharacter = false;
       this.field1845 = -1;
       this.field1824 = -1;
       this.field1847 = -1;
@@ -210,7 +211,7 @@ public class Model extends Renderable {
       this.indicesCount = 0;
       this.field1829 = 0;
       this.field1830 = 0;
-      this.field1851 = false;
+      this.isCharacter = false;
       this.field1845 = -1;
       this.field1824 = -1;
       this.field1847 = -1;
@@ -386,7 +387,7 @@ public class Model extends Renderable {
                var11.field1833 = this.field1833;
                var11.field1850 = this.field1850;
                var11.field1835 = this.field1835;
-               var11.field1851 = this.field1851;
+               var11.isCharacter = this.isCharacter;
                var11.verticesY = new int[var11.verticesCount];
             } else {
                var11 = this;
@@ -516,7 +517,7 @@ public class Model extends Renderable {
       var2.field1833 = this.field1833;
       var2.field1850 = this.field1850;
       var2.field1835 = this.field1835;
-      var2.field1851 = this.field1851;
+      var2.isCharacter = this.isCharacter;
       var2.resetBounds();
       return var2;
    }
@@ -576,7 +577,7 @@ public class Model extends Renderable {
             this.field1847 = 32;
          }
 
-         if(this.field1851) {
+         if(this.isCharacter) {
             this.field1845 += 8;
             this.field1847 += 8;
          }
@@ -1685,7 +1686,7 @@ public class Model extends Renderable {
                         }
 
                         if(var45) {
-                           if(this.field1851) {
+                           if(this.isCharacter) {
                               class133.Viewport_entityIdsAtMouse[++class133.Viewport_entityCountAtMouse - 1] = var9;
                            } else {
                               var46 = true;
@@ -1737,7 +1738,7 @@ public class Model extends Renderable {
                      }
 
                      try {
-                        this.method0(var23, var46, this.field1851, var9);
+                        this.method0(var23, var46, this.isCharacter, var9);
                      } catch (Exception var44) {
                         ;
                      }

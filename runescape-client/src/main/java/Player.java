@@ -334,7 +334,7 @@ public final class Player extends Actor {
                }
             }
 
-            var3.field1851 = true;
+            var3.isCharacter = true;
             return var3;
          }
       }

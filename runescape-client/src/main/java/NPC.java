@@ -143,7 +143,7 @@ public final class NPC extends Actor {
             }
 
             if(this.composition.field3620 == 1) {
-               var3.field1851 = true;
+               var3.isCharacter = true;
             }
 
             return var3;
