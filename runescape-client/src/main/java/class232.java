@@ -1,6 +1,8 @@
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.util.Iterator;
+
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -202,7 +204,8 @@ public enum class232 implements Enumerated {
       signature = "(Ljn;IIIB)V",
       garbageValue = "-111"
    )
-   static final void method4202(NPCComposition var0, int var1, int var2, int var3) {
+   @Export("addNPCMenu")
+   static final void addNPCMenu(NPCComposition var0, int var1, int var2, int var3) {
       if(Client.menuOptionCount < 400) {
          if(var0.configs != null) {
             var0 = var0.transform();

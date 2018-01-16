@@ -258,7 +258,7 @@ public class class44 extends WorldMapData {
                   for(var13 = 0; var13 < Client.npcIndexesCount; ++var13) {
                      var14 = Client.cachedNPCs[Client.npcIndices[var13]];
                      if(var14 != null && var14 != var23 && var14.composition.field3620 == 1 && var14.x == var23.x && var14.y == var23.y) {
-                        class232.method4202(var14.composition, Client.npcIndices[var13], var8, var9);
+                        class232.addNPCMenu(var14.composition, Client.npcIndices[var13], var8, var9);
                      }
                   }
 
@@ -273,7 +273,7 @@ public class class44 extends WorldMapData {
                   }
                }
 
-               class232.method4202(var23.composition, var11, var8, var9);
+               class232.addNPCMenu(var23.composition, var11, var8, var9);
             }
 
             if(var10 == 0) {
@@ -286,7 +286,7 @@ public class class44 extends WorldMapData {
                   for(var13 = 0; var13 < Client.npcIndexesCount; ++var13) {
                      var14 = Client.cachedNPCs[Client.npcIndices[var13]];
                      if(var14 != null && var14.composition.field3620 == 1 && var24.x == var14.x && var24.y == var14.y) {
-                        class232.method4202(var14.composition, Client.npcIndices[var13], var8, var9);
+                        class232.addNPCMenu(var14.composition, Client.npcIndices[var13], var8, var9);
                      }
                   }
 
