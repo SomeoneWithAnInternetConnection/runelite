@@ -1109,7 +1109,7 @@ public class Model extends Renderable {
                   var11 = modelViewportYs[var8];
                   var12 = modelViewportYs[var9];
                   var13 = modelViewportYs[var10];
-                  class61.method1021(modelViewportXs[var8], modelViewportXs[var9], modelViewportXs[var10], var11, var12, var13, var5);
+                  class61.createDebugBoundingBox2D(modelViewportXs[var8], modelViewportXs[var9], modelViewportXs[var10], var11, var12, var13, var5);
                }
             }
          }

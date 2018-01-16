@@ -90,7 +90,8 @@ public final class class61 {
       signature = "(IIIIIIII)V",
       garbageValue = "1237725702"
    )
-   public static final void method1021(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+   @Export("createDebugBoundingBox2D")
+   public static final void createDebugBoundingBox2D(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
       int var7 = Math.min(var3, Math.min(var4, var5)) - var6;
       int var8 = Math.max(var3, Math.max(var4, var5)) + var6;
       int var9 = Math.min(var0, Math.min(var1, var2)) - var6;
