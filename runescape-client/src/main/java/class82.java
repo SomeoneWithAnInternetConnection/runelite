@@ -774,7 +774,7 @@ public class class82 {
                      }
 
                      if(var10.contentType == 1338) {
-                        UnitPriceComparator.method126(var10, var12, var13, var11);
+                        UnitPriceComparator.drawMinimap(var10, var12, var13, var11);
                         Rasterizer2D.setDrawRegion(var2, var3, var4, var5);
                         continue;
                      }

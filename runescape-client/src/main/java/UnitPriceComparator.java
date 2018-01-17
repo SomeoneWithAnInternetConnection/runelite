@@ -107,7 +107,8 @@ final class UnitPriceComparator implements Comparator {
       signature = "(Lhz;IIII)V",
       garbageValue = "-100248967"
    )
-   static final void method126(Widget var0, int var1, int var2, int var3) {
+   @Export("drawMinimap")
+   static final void drawMinimap(Widget var0, int var1, int var2, int var3) {
       NPC.method1648();
       class221 var4 = var0.method4148(false);
       if(var4 != null) {
