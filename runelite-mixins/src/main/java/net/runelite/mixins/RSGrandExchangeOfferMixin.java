@@ -12,6 +12,6 @@ public abstract class RSGrandExchangeOfferMixin implements RSGrandExchangeOffer
 	@Override
 	public GrandExchangeOfferState getState()
 	{
-		return GrandExchangeOfferState.progressToState(getProgress());
+		return GrandExchangeOfferState.progressToState(getRSState());
 	}
 }

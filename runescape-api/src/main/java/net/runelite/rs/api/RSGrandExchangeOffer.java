@@ -49,7 +49,7 @@ public interface RSGrandExchangeOffer extends GrandExchangeOffer
 	@Override
 	int getSpent();
 
-	@Import("progress")
-	byte getProgress();
+	@Import("state")
+	byte getRSState();
 
 }
