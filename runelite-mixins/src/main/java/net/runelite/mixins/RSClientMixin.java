@@ -495,6 +495,7 @@ public abstract class RSClientMixin implements RSClient
 		GrandExchangeOfferChanged offerChangedEvent = new GrandExchangeOfferChanged();
 		// Or a null-check? -- InternetPerson
 		offerChangedEvent.setOffer(internalOffer);
+		offerChangedEvent.setSlot(idx);
 		eventBus.post(offerChangedEvent);
 	}
 

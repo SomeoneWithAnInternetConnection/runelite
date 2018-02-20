@@ -31,4 +31,5 @@ import net.runelite.api.GrandExchangeOffer;
 public class GrandExchangeOfferChanged
 {
 	private GrandExchangeOffer offer;
+	private int slot;
 }
