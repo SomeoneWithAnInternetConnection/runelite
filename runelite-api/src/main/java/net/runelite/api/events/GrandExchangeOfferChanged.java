@@ -24,19 +24,11 @@
  */
 package net.runelite.api.events;
 
+import lombok.Data;
 import net.runelite.api.GrandExchangeOffer;
 
+@Data
 public class GrandExchangeOfferChanged
 {
 	private GrandExchangeOffer offer;
-
-	public GrandExchangeOffer getOffer()
-	{
-		return offer;
-	}
-
-	public void setOffer(GrandExchangeOffer offer)
-	{
-		this.offer = offer;
-	}
 }
