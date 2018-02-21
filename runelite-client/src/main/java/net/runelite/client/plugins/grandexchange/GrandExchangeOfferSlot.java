@@ -1,118 +1,170 @@
 package net.runelite.client.plugins.grandexchange;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import javax.annotation.Nullable;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.border.TitledBorder;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.GrandExchangeOffer;
 import net.runelite.api.GrandExchangeOfferState;
+import static net.runelite.api.GrandExchangeOfferState.EMPTY;
+import net.runelite.api.ItemComposition;
+import net.runelite.client.game.ItemManager;
 
-/**
- * @author Robbie, created on 30/10/2017 10:51 PM
- */
-public class GrandExchangeOfferSlot
+@Slf4j
+public class GrandExchangeOfferSlot extends JPanel
 {
-	GrandExchangeOffer offer;
-	private JLabel imageLabel = new JLabel("");
-	private ImageIcon offerImage = new ImageIcon();
-	private JLabel itemNameLabel = new JLabel("");
-	private JLabel offerPriceLabel = new JLabel("");
-	private GrandExchangeOfferState statusIndicator = GrandExchangeOfferState.EMPTY;
-	private JLabel statusIndicatorLabel = new JLabel("");
-	private JProgressBar progressBar = new JProgressBar();
+	private static final Color GE_INPROGRESS_ORANGE = new Color(0xd8, 0x80, 0x20).brighter();
+	private static final Color GE_FINISHED_GREEN = new Color(0, 0x5f, 0);
+	private static final Color GE_CANCELLED_RED = new Color(0x8f, 0, 0);
 
-	public GrandExchangeOfferSlot()
+	private static final String INFO_CARD = "INFO_CARD";
+	private static final String EMPTY_CARD = "EMPTY_CARD";
+
+	private final ItemManager itemManager;
+
+	private final CardLayout cardLayout = new CardLayout();
+	private final JLabel itemIcon = new JLabel();
+	private final TitledBorder itemName = BorderFactory.createTitledBorder("Nothing");
+	private final JLabel offerState = new JLabel("Text so the label has height");
+	private final JProgressBar progressBar = new JProgressBar();
+
+	/**
+	 * This (sub)panel is used for each GE slot displayed
+	 * in the sidebar
+	 */
+	GrandExchangeOfferSlot(ItemManager itemManager)
 	{
-		imageLabel.setIcon(offerImage);
+		this.itemManager = itemManager;
+		buildPanel();
 	}
 
-	public JLabel getImageLabel()
+	private void buildPanel()
 	{
-		imageLabel.setIcon(getOfferImage());
-		return imageLabel;
+		setBorder(BorderFactory.createCompoundBorder(
+				// Add a margin underneath each slot panel to space them out
+				BorderFactory.createEmptyBorder(0, 0, 3, 0),
+				itemName
+		));
+
+		// The default border color is kind of dark, so we change it to something lighter
+		itemName.setBorder(BorderFactory.createLineBorder(getBackground().brighter()));
+
+		progressBar.setStringPainted(true);
+
+		setLayout(cardLayout);
+
+		// Card for when the slot has an offer in it
+		JPanel infoCard = new JPanel();
+		add(infoCard, INFO_CARD);
+		// Add padding to give the icon and progress bar room to breathe
+		infoCard.setBorder(BorderFactory.createEmptyBorder(0, 2, 2, 2));
+
+		infoCard.setLayout(new BoxLayout(infoCard, BoxLayout.X_AXIS));
+		// Icon on the left
+		infoCard.add(itemIcon);
+
+		// Info on the right
+		JPanel offerStatePanel = new JPanel();
+		offerStatePanel.setLayout(new BoxLayout(offerStatePanel, BoxLayout.Y_AXIS));
+		offerStatePanel.add(offerState);
+		offerStatePanel.add(progressBar);
+		infoCard.add(offerStatePanel);
+
+		// Card for when the slot is empty
+		JPanel emptySlotCard = new JPanel();
+		add(emptySlotCard, EMPTY_CARD);
+		// Counteract the height lost to the text at the top of the TitledBorder
+		int itemNameBorderHeight = itemName.getBorderInsets(this).top;
+		emptySlotCard.setBorder(BorderFactory.createEmptyBorder(0, 0, (itemNameBorderHeight - 1) / 2, 0));
+		// Center the "Empty" label horizontally
+		emptySlotCard.setLayout( new BoxLayout(emptySlotCard, BoxLayout.X_AXIS));
+		emptySlotCard.add(Box.createHorizontalGlue());
+		emptySlotCard.add(new JLabel(getNameForState(EMPTY)), BorderLayout.CENTER);
+		emptySlotCard.add(Box.createHorizontalGlue());
+
+		cardLayout.show(this, EMPTY_CARD);
+
+
+
 	}
 
-	public ImageIcon getOfferImage()
+	void updateOffer(@Nullable GrandExchangeOffer newOffer)
 	{
-		return offerImage;
-	}
-
-	public void setOfferImage(ImageIcon offerImage)
-	{
-		this.offerImage = offerImage;
-		this.imageLabel.setIcon(offerImage);
-	}
-
-	public JLabel getItemNameLabel()
-	{
-		return itemNameLabel;
-	}
-
-	public void setItemNameLabel(String newItemName)
-	{
-		this.itemNameLabel.setText(newItemName);
-	}
-
-	public JLabel getOfferPriceLabel()
-	{
-		return offerPriceLabel;
-	}
-
-	public void setOfferPriceLabel(String newOfferPriceLabel)
-	{
-		this.offerPriceLabel.setText(newOfferPriceLabel);
-	}
-
-	public GrandExchangeOfferState getStatusIndicator()
-	{
-		return statusIndicator;
-	}
-
-	public void setStatusIndicator(GrandExchangeOfferState statusIndicator)
-	{
-		this.statusIndicator = statusIndicator;
-	}
-
-	public JLabel getStatusIndicatorLabel()
-	{
-		return statusIndicatorLabel;
-	}
-
-	public String getStatusIndicatorAsString()
-	{
-		return this.statusIndicator.toString();
-	}
-
-	public void setStatusIndicatorLabel(JLabel statusIndicatorLabel)
-	{
-		this.statusIndicatorLabel = statusIndicatorLabel;
-	}
-
-	public JProgressBar getProgressBar()
-	{
-		return progressBar;
-	}
-
-	public void setProgressBar(int newValue)
-	{
-		this.progressBar.setValue(newValue);
-		this.progressBar.setBackground(getProgressBarColour());
-	}
-
-	public Color getProgressBarColour()
-	{
-		switch ((int) this.progressBar.getPercentComplete() * 100)
+		if (newOffer == null || newOffer.getState() == EMPTY)
 		{
-			case 0:
-				return Color.GRAY;
+			cardLayout.show(this, EMPTY_CARD);
+			itemName.setTitle("Nothing");
+		}
+		else
+		{
+			cardLayout.show(this, INFO_CARD);
 
-			case 100:
-				return Color.GREEN;
+			ItemComposition offerItem = itemManager.getItemComposition(newOffer.getItemId());
 
+			itemName.setTitle(offerItem.getName());
+
+			boolean shouldStack = offerItem.isStackable() || newOffer.getTotalQuantity() > 1;
+			ImageIcon newItemIcon = new ImageIcon(itemManager.getImage(newOffer.getItemId(), newOffer.getTotalQuantity(), shouldStack));
+			itemIcon.setIcon(newItemIcon);
+
+			offerState.setText(getNameForState(newOffer.getState()) + " at " + newOffer.getPrice() + (newOffer.getTotalQuantity() > 1 ? "gp ea" : "gp"));
+
+			progressBar.setMaximum(newOffer.getTotalQuantity());
+			progressBar.setValue(newOffer.getQuantitySold());
+			progressBar.setBackground(getColorForState(newOffer.getState()));
+			progressBar.setString(newOffer.getQuantitySold() + "/" + newOffer.getTotalQuantity());
+		}
+		repaint();
+	}
+
+	private String getNameForState(GrandExchangeOfferState state)
+	{
+		switch (state)
+		{
+			case CANCELLED:
+				return "Cancelled";
+			case BUYING:
+				return "Buying";
+			case BOUGHT:
+				return "Bought";
+			case SELLING:
+				return "Selling";
+			case SOLD:
+				return "Sold";
+			case EMPTY:
 			default:
-				return Color.ORANGE;
+				return "Empty";
+
 		}
 	}
+
+	private Color getColorForState(GrandExchangeOfferState state)
+	{
+		switch (state)
+		{
+			case CANCELLED:
+				return GE_CANCELLED_RED;
+			case BUYING:
+			case SELLING:
+				return GE_INPROGRESS_ORANGE;
+			case BOUGHT:
+			case SOLD:
+				return GE_FINISHED_GREEN;
+			case EMPTY:
+			default:
+				return null;
+		}
+	}
+
 }
 
 
