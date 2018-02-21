@@ -58,6 +58,9 @@ public interface RSItemComposition extends ItemComposition
 	@Override
 	boolean isMembers();
 
+	@Import("isStackable")
+	boolean isStackable();
+
 	@Import("maleModel")
 	int getMaleModel();
 }
