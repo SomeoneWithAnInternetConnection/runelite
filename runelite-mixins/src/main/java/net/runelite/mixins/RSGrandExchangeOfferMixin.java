@@ -53,7 +53,7 @@ public abstract class RSGrandExchangeOfferMixin implements RSGrandExchangeOffer
 		{
 			return EMPTY;
 		}
-		else if (getQuantitySold() < getTotalQuantity())
+		else if (isFinished && getQuantitySold() < getTotalQuantity())
 		{
 			return CANCELLED;
 		}
