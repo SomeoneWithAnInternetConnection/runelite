@@ -26,6 +26,7 @@ package net.runelite.mixins;
 
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import net.runelite.api.Actor;
 import net.runelite.api.NPC;
@@ -187,5 +188,12 @@ public abstract class RSActorMixin implements RSActor
 		GraphicChanged graphicChanged = new GraphicChanged();
 		graphicChanged.setActor(this);
 		eventBus.post(graphicChanged);
+	}
+	
+	@Inject
+	@Override
+	public Area getClickbox()
+	{
+		return Perspective.getClickbox(client, getModel(), getOrientation(), getX(), getY());
 	}
 }

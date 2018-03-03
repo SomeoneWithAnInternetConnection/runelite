@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,53 +22,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.npcindicators;
 
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
-import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.coords.WorldPoint;
+import javax.inject.Inject;
 
-public interface Actor extends Renderable
+import com.google.inject.Provides;
+
+import net.runelite.api.Client;
+import net.runelite.client.config.ConfigManager;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.overlay.Overlay;
+
+@PluginDescriptor(
+	name = "NPC Highlight"
+)
+public class NpcIndicatorsPlugin extends Plugin
 {
-	int getCombatLevel();
+	@Inject
+	private Client client;
 
-	String getName();
-
-	Actor getInteracting();
-
-	int getHealthRatio();
-
-	int getHealth();
-
-	WorldPoint getWorldLocation();
-
-	LocalPoint getLocalLocation();
-
-	int getOrientation();
-
-	int getAnimation();
-
-	int getGraphic();
-
-	int getModelHeight();
-
-	Polygon getCanvasTilePoly();
-
-	Point getCanvasTextLocation(Graphics2D graphics, String text, int zOffset);
-
-	Point getCanvasImageLocation(Graphics2D graphics, BufferedImage image, int zOffset);
-
-	Point getCanvasSpriteLocation(Graphics2D graphics, SpritePixels sprite, int zOffset);
-
-	Point getMinimapLocation();
-
-	/**
-	 * Returns the logical height of the actor's model. This is roughly where the health bar is drawn.
-	 */
-	int getLogicalHeight();
+	@Inject
+	private NpcIndicatorsConfig config;
 	
-	Area getClickbox();
+	NpcIndicatorsOverlay npcIndicatorsOverlay;
+
+	@Provides
+	NpcIndicatorsConfig provideConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(NpcIndicatorsConfig.class);
+	}
+
+	@Override
+	protected void startUp() throws Exception
+	{
+		npcIndicatorsOverlay = new NpcIndicatorsOverlay(client, config);
+	}
+
+	@Override
+	public Overlay getOverlay()
+	{
+		return npcIndicatorsOverlay;
+	}
 }
