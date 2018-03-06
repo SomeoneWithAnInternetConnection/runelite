@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Cameron <https://github.com/noremac201>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,47 +22,91 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.experiencedrop;
+package net.runelite.api;
 
-import java.awt.Color;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
+import java.util.EnumSet;
 
-@ConfigGroup(
-	keyName = "xpdrop",
-	name = "Experience Drop",
-	description = "Configuration for experience drops customization"
-)
-public interface ExperienceDropConfig extends Config
+/**
+ * Enum representing world type.
+ */
+public enum WorldType
 {
-	@ConfigItem(
-		keyName = "meleePrayerColor",
-		name = "Melee Prayer Color",
-		description = "Xp Drop color when a melee prayer is active"
-	)
-	default Color getMeleePrayerColor()
+	/**
+	 * Members world type.
+	 */
+	MEMBERS(1),
+	/**
+	 * Pvp world type.
+	 */
+	PVP(1 << 2),
+	/**
+	 * Bounty world type.
+	 */
+	BOUNTY(1 << 5),
+	/**
+	 * Skill total world type.
+	 */
+	SKILL_TOTAL(1 << 7),
+	/**
+	 * Pvp high risk world type.
+	 */
+	PVP_HIGH_RISK(1 << 10),
+	/**
+	 * Last man standing world type.
+	 */
+	LAST_MAN_STANDING(1 << 14),
+	/**
+	 * Deadman world type.
+	 */
+	DEADMAN(1 << 29),
+	/**
+	 * Seasonal deadman world type.
+	 */
+	SEASONAL_DEADMAN(1 << 30);
+
+	private final int mask;
+
+	WorldType(int mask)
 	{
-		return new Color(0x15, 0x80, 0xAD);
+		this.mask = mask;
 	}
 
-	@ConfigItem(
-		keyName = "rangePrayerColor",
-		name = "Range Prayer Color",
-		description = "Xp Drop color when a range prayer is active"
-	)
-	default Color getRangePrayerColor()
+	/**
+	 * Create enum set of world types from mask.
+	 *
+	 * @param mask the mask
+	 * @return the enum set
+	 */
+	public static EnumSet<WorldType> fromMask(final int mask)
 	{
-		return new Color(0x15, 0x80, 0xAD);
+		final EnumSet<WorldType> types = EnumSet.noneOf(WorldType.class);
+
+		for (WorldType type : WorldType.values())
+		{
+			if ((mask & type.mask) != 0)
+			{
+				types.add(type);
+			}
+		}
+
+		return types;
 	}
 
-	@ConfigItem(
-		keyName = "magePrayerColor",
-		name = "Mage Prayer Color",
-		description = "Xp Drop color when a mage prayer is active"
-	)
-	default Color getMagePrayerColor()
+	/**
+	 * Create mask from enum set of world types.
+	 *
+	 * @param types the types
+	 * @return the int
+	 */
+	public static int toMask(final EnumSet<WorldType> types)
 	{
-		return new Color(0x15, 0x80, 0xAD);
+		int mask = 0;
+
+		for (WorldType type : types)
+		{
+			mask |= type.mask;
+		}
+
+		return mask;
 	}
 }

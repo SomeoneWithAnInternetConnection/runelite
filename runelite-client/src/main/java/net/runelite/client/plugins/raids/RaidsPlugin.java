@@ -325,7 +325,7 @@ public class RaidsPlugin extends Plugin
 
 	private void updateLists()
 	{
-		updateList(roomWhitelist, config.blacklistedRooms());
+		updateList(roomWhitelist, config.whitelistedRooms());
 		updateList(roomBlacklist, config.blacklistedRooms());
 		updateList(rotationWhitelist, config.whitelistedRotations());
 		updateList(layoutWhitelist, config.whitelistedLayouts());
@@ -340,7 +340,7 @@ public class RaidsPlugin extends Plugin
 			Matcher m = ROTATION_REGEX.matcher(input);
 			while (m.find())
 			{
-				String rotation = m.group(1);
+				String rotation = m.group(1).toLowerCase();
 
 				if (!list.contains(rotation))
 				{

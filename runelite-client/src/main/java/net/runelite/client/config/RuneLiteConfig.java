@@ -25,6 +25,7 @@
 package net.runelite.client.config;
 
 import java.awt.Dimension;
+import net.runelite.api.Constants;
 
 @ConfigGroup(
 	keyName = "runelite",
@@ -40,17 +41,7 @@ public interface RuneLiteConfig extends Config
 	)
 	default Dimension gameSize()
 	{
-		return new Dimension(765, 503);
-	}
-
-	@ConfigItem(
-		keyName = "chatCommandsRecolorEnabled",
-		name = "Enable chat commands recolor",
-		description = "Determines if recoloring of custom RuneLite chat commands is enabled"
-	)
-	default boolean chatCommandsRecolorEnabled()
-	{
-		return true;
+		return Constants.GAME_FIXED_SIZE;
 	}
 
 	@ConfigItem(

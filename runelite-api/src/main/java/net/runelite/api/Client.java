@@ -25,6 +25,7 @@
 package net.runelite.api;
 
 import java.awt.Canvas;
+import java.awt.Dimension;
 import java.util.List;
 import java.util.Map;
 import net.runelite.api.widgets.Widget;
@@ -112,6 +113,12 @@ public interface Client extends GameEngine
 	boolean[] getPlayerOptionsPriorities();
 
 	int[] getPlayerMenuTypes();
+
+	/**
+	 * Get list of all RuneScape worlds
+	 * @return world list
+	 */
+	World[] getWorldList();
 
 	MenuEntry[] getMenuEntries();
 
@@ -295,4 +302,28 @@ public interface Client extends GameEngine
 	void setCameraPitchRelaxerEnabled(boolean enabled);
 
 	RenderOverview getRenderOverview();
+
+	boolean isStretchedEnabled();
+
+	void setStretchedEnabled(boolean state);
+
+	boolean isStretchedFast();
+
+	void setStretchedFast(boolean state);
+
+	void setStretchedKeepAspectRatio(boolean state);
+
+	Dimension getStretchedDimensions();
+
+	/**
+	 * Changes world. Works only on login screen
+	 * @param world world
+	 */
+	void changeWorld(World world);
+
+	/**
+	 * Creates instance of new world
+	 * @return world
+	 */
+	World createWorld();
 }
