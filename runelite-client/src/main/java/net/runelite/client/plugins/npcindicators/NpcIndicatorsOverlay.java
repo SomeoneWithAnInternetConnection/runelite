@@ -30,11 +30,18 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import net.runelite.api.Client;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
+import net.runelite.api.Varbits;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -55,7 +62,7 @@ public class NpcIndicatorsOverlay extends Overlay
 		this.client = client;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
-		setLayer(OverlayLayer.ABOVE_SCENE);
+		setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
 
 	@Override
@@ -63,12 +70,12 @@ public class NpcIndicatorsOverlay extends Overlay
 	{
 		String configNpcs = config.getNpcToHighlight().toLowerCase();
 		List<String> highlightedNpcs = Arrays.asList(configNpcs.split(DELIMITER_REGEX));
-
+		
 		for (NPC npc : client.getNpcs())
 		{
 			if (npc == null || npc.getName() == null)
 				continue;
-
+			//System.out.println(client.getSetting(Varbits.TEST));
 			for (String highlight : highlightedNpcs)
 			{
 				highlight = highlight.replaceAll("\\*", ".*");
@@ -78,6 +85,27 @@ public class NpcIndicatorsOverlay extends Overlay
 				}
 			}
 		}
+		
+//		String debug = Stream.of(client.getMenuEntries()).map(m -> m.getOption() + ":" + m.getTarget()).collect(Collectors.joining(", "));
+//		System.out.println(debug);
+		
+//		MenuEntry[] entryArr = client.getMenuEntries();
+//		ArrayUtils.reverse(entryArr);
+//		
+//		List<MenuEntry> entries = new ArrayList<>();
+//		for(MenuEntry entry : entryArr) {
+//			if(entry.getOption().equals("Bank"))
+//			{
+//				entries.add(0, entry);
+//			}
+//			else
+//				entries.add(entry);
+//		}
+//		
+//		entryArr = entries.toArray(new MenuEntry[0]);
+//		ArrayUtils.reverse(entryArr);
+//		
+//		client.setMenuEntries(entryArr);
 
 		return null;
 	}
@@ -93,18 +121,15 @@ public class NpcIndicatorsOverlay extends Overlay
 			graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 20));
 			graphics.fill(objectClickbox);
 		}
+		final String name = actor.getName().replace('\u00A0', ' ') + actor.getId();
 
 		net.runelite.api.Point minimapLocation = actor.getMinimapLocation();
 		if (minimapLocation != null)
 		{
-			graphics.setColor(color);
-			graphics.fillOval(minimapLocation.getX(), minimapLocation.getY(), 5, 5);
-			graphics.setColor(Color.WHITE);
-			graphics.setStroke(new BasicStroke(1));
-			graphics.drawOval(minimapLocation.getX(), minimapLocation.getY(), 5, 5);
+			OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color.darker());
+			OverlayUtil.renderTextLocation(graphics, minimapLocation, name, color);
 		}
 
-		final String name = actor.getName().replace('\u00A0', ' ');
 		net.runelite.api.Point textLocation = actor.getCanvasTextLocation(graphics, name,
 				actor.getLogicalHeight() + 40);
 
