@@ -44,7 +44,6 @@ import net.runelite.api.GroundObject;
 import net.runelite.api.Item;
 import net.runelite.api.ItemLayer;
 import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
 import net.runelite.api.Node;
 import net.runelite.api.Perspective;
 import net.runelite.api.Player;
@@ -110,7 +109,8 @@ public class DevToolsOverlay extends Overlay
 			renderNpcs(graphics);
 		}
 
-		if (plugin.isToggleGroundItems() || plugin.isToggleGroundObjects() || plugin.isToggleGameObjects() || plugin.isToggleWalls() || plugin.isToggleDecor())
+		if (plugin.isToggleGroundItems() || plugin.isToggleGroundObjects() || plugin.isToggleGameObjects()
+				|| plugin.isToggleWalls() || plugin.isToggleDecor())
 		{
 			renderTileObjects(graphics);
 		}
@@ -236,7 +236,8 @@ public class DevToolsOverlay extends Overlay
 				while (current instanceof Item)
 				{
 					Item item = (Item) current;
-					OverlayUtil.renderTileOverlay(graphics, itemLayer, "ID: " + item.getId() + " Qty:" + item.getQuantity(), RED);
+					OverlayUtil.renderTileOverlay(graphics, itemLayer,
+							"ID: " + item.getId() + " Qty:" + item.getQuantity(), RED);
 					current = current.getNext();
 				}
 			}
@@ -380,6 +381,18 @@ public class DevToolsOverlay extends Overlay
 		}
 	}
 
+	public void renderProjectileOrigin(Graphics2D graphics, Projectile projectile, int floor,
+			net.runelite.api.Point origin)
+	{
+		Polygon poly = Perspective.getCanvasTilePoly(client, origin);
+
+		graphics.setColor(Color.RED);
+		graphics.setStroke(new BasicStroke(2));
+		graphics.drawPolygon(poly);
+		graphics.setColor(Color.RED);
+		graphics.fillPolygon(poly);
+	}
+
 	public void renderWidgets(Graphics2D graphics)
 	{
 		Widget widget = plugin.currentWidget;
@@ -399,8 +412,7 @@ public class DevToolsOverlay extends Overlay
 			return;
 		}
 
-		if (widget.getItemId() != ITEM_EMPTY
-			&& widget.getItemId() != ITEM_FILLED)
+		if (widget.getItemId() != ITEM_EMPTY && widget.getItemId() != ITEM_FILLED)
 		{
 			Rectangle componentBounds = widget.getBounds();
 
@@ -411,9 +423,7 @@ public class DevToolsOverlay extends Overlay
 		}
 
 		WidgetItem widgetItem = widget.getWidgetItem(itemIndex);
-		if (widgetItem == null
-			|| widgetItem.getId() == ITEM_EMPTY
-			|| widgetItem.getId() == ITEM_FILLED)
+		if (widgetItem == null || widgetItem.getId() == ITEM_EMPTY || widgetItem.getId() == ITEM_FILLED)
 		{
 			return;
 		}
