@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.npcindicators;
+package net.runelite.client.plugins.npchighlightor;
 
 import java.awt.Polygon;
 import java.awt.geom.Area;
@@ -10,7 +10,7 @@ import java.util.List;
 class Point implements Comparable<Point>
 {
 	int x, y;
-	
+
 	public Point(int x, int y)
 	{
 		this.x = x;
@@ -22,7 +22,8 @@ class Point implements Comparable<Point>
 		if (this.x == p.x)
 		{
 			return this.y - p.y;
-		} else
+		}
+		else
 		{
 			return this.x - p.x;
 		}
@@ -35,7 +36,8 @@ class Point implements Comparable<Point>
 
 }
 
-// Algorithm credit goes to https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain#Java
+// Algorithm credit goes to
+// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain#Java
 public class ConvexHull
 {
 
@@ -43,39 +45,43 @@ public class ConvexHull
 	{
 		return (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
 	}
-	
+
 	public static Point[] convertArea(Area area)
 	{
 		PathIterator iterator = area.getPathIterator(null);
 		float[] floats = new float[6];
-	    List<Point> points = new ArrayList<>();
-	    while (!iterator.isDone()) {
-	        int type = iterator.currentSegment(floats);
-	        int x = (int) floats[0];
-	        int y = (int) floats[1];
-	        if(type != PathIterator.SEG_CLOSE) {
-	        	points.add(new Point(x, y));
-	        }
-	        iterator.next();
-	    }
-	    
-	    return points.toArray(new Point[0]);
+		List<Point> points = new ArrayList<>();
+		while (!iterator.isDone())
+		{
+			int type = iterator.currentSegment(floats);
+			int x = (int) floats[0];
+			int y = (int) floats[1];
+			if (type != PathIterator.SEG_CLOSE)
+			{
+				points.add(new Point(x, y));
+			}
+			iterator.next();
+		}
+
+		return points.toArray(new Point[0]);
 	}
-	
-	public static Polygon convertPoints(Point[] points) {
+
+	public static Polygon convertPoints(Point[] points)
+	{
 		Polygon poly = new Polygon();
-		for(int i = 0; i < points.length; i++) {
+		for (int i = 0; i < points.length; i++)
+		{
 			poly.addPoint(points[i].x, points[i].y);
 		}
-		
+
 		return poly;
 	}
 
 	public static Polygon convexHull(Area area)
 	{
-		if(area == null)
+		if (area == null)
 			return null;
-		
+
 		Point[] P = convertArea(area);
 		if (P.length > 1)
 		{
@@ -105,12 +111,14 @@ public class ConvexHull
 														// after k; remove k - 1
 														// which is a duplicate
 			}
-			
+
 			return convertPoints(H);
-		} else if (P.length <= 1)
+		}
+		else if (P.length <= 1)
 		{
 			return convertPoints(P);
-		} else
+		}
+		else
 		{
 			return null;
 		}

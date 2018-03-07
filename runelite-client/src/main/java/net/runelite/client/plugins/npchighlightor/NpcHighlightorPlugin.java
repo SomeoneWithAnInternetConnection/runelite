@@ -22,7 +22,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.npcindicators;
+package net.runelite.client.plugins.npchighlightor;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.inject.Inject;
 
@@ -35,38 +38,40 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.Overlay;
 
-@PluginDescriptor(
-	name = "NPC Highlight"
-)
-public class NpcIndicatorsPlugin extends Plugin
+@PluginDescriptor(name = "NPC Highlight")
+public class NpcHighlightorPlugin extends Plugin
 {
 	private static final String TAG = "Tag";
-	
+
 	@Inject
 	private Client client;
-	
+
 	@Inject
 	private MenuManager menuManager;
 
 	@Inject
-	private NpcIndicatorsConfig config;
-	
-	NpcIndicatorsOverlay npcIndicatorsOverlay;
+	private NpcHighlightorConfig config;
+
+	NpcClickboxOverlay npcClickboxOverlay;
+
+	NpcMinimapOverlay npcMinimapOverlay;
 
 	@Provides
-	NpcIndicatorsConfig provideConfig(ConfigManager configManager)
+	NpcHighlightorConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(NpcIndicatorsConfig.class);
+		return configManager.getConfig(NpcHighlightorConfig.class);
 	}
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		npcIndicatorsOverlay = new NpcIndicatorsOverlay(client, config);
-		
+		npcClickboxOverlay = new NpcClickboxOverlay(client, config);
+
+		npcMinimapOverlay = new NpcMinimapOverlay(client, config);
+
 		menuManager.addPlayerMenuItem(TAG);
 	}
-	
+
 	@Override
 	protected void shutDown() throws Exception
 	{
@@ -74,8 +79,8 @@ public class NpcIndicatorsPlugin extends Plugin
 	}
 
 	@Override
-	public Overlay getOverlay()
+	public Collection<Overlay> getOverlays()
 	{
-		return npcIndicatorsOverlay;
+		return Arrays.asList(npcClickboxOverlay, npcMinimapOverlay);
 	}
 }
