@@ -69,7 +69,7 @@ class GrandExchangeSearchPanel extends JPanel
 	private IconTextField searchBox = new IconTextField();
 	private JPanel container = new JPanel();
 	private JPanel searchItemsPanel = new JPanel();
-	private JLabel searchingLabel = new JLabel("Searching...");
+	private JLabel searchingLabel = new JLabel();
 
 	GrandExchangeSearchPanel(Client client, ItemManager itemManager, ScheduledExecutorService executor, LinkBrowser linkBrowser)
 	{
@@ -88,7 +88,12 @@ class GrandExchangeSearchPanel extends JPanel
 		// Search Box
 		try
 		{
-			search = new ImageIcon(ImageIO.read(GrandExchangePlugin.class.getResourceAsStream("search.png")));
+			BufferedImage icon;
+			synchronized (ImageIO.class)
+			{
+				icon = ImageIO.read(GrandExchangePlugin.class.getResourceAsStream("search.png"));
+			}
+			search = new ImageIcon(icon);
 		}
 		catch (IOException e)
 		{
@@ -129,7 +134,7 @@ class GrandExchangeSearchPanel extends JPanel
 
 		// Input is not empty, add searching label
 		searchItemsPanel.removeAll();
-		showSearchString(true);
+		showSearchString("Searching...");
 
 		SearchResult result;
 
@@ -140,7 +145,7 @@ class GrandExchangeSearchPanel extends JPanel
 		catch (ExecutionException ex)
 		{
 			log.warn("Unable to search for item {}", lookup, ex);
-			showSearchString(false);
+			showSearchString("Error performing search");
 			return;
 		}
 
@@ -159,7 +164,7 @@ class GrandExchangeSearchPanel extends JPanel
 					continue;
 				}
 
-				ItemPrice itemPrice;
+				ItemPrice itemPrice = null;
 				try
 				{
 					itemPrice = itemManager.getItemPrice(itemId);
@@ -167,11 +172,9 @@ class GrandExchangeSearchPanel extends JPanel
 				catch (IOException ex)
 				{
 					log.warn("Unable to fetch item price for {}", itemId, ex);
-					showSearchString(false);
-					return;
 				}
 
-				BufferedImage itemImage;
+				BufferedImage itemImage = null;
 				try
 				{
 					itemImage = itemClient.getIcon(itemId);
@@ -179,18 +182,14 @@ class GrandExchangeSearchPanel extends JPanel
 				catch (IOException ex)
 				{
 					log.warn("Unable to fetch item icon for {}", itemId, ex);
-					showSearchString(false);
-					return;
 				}
 
 				if (itemImage == null)
 				{
 					log.warn("Unable to fetch item icon for {}", itemId);
-					showSearchString(false);
-					return;
 				}
 
-				ITEMS_LIST.add(new GrandExchangeItems(itemImage, item.getName(), itemId, itemPrice.getPrice(), itemComp.getPrice() * 0.6));
+				ITEMS_LIST.add(new GrandExchangeItems(itemImage, item.getName(), itemId, itemPrice != null ? itemPrice.getPrice() : 0, itemComp.getPrice() * 0.6));
 
 				// If using hotkey to lookup item, stop after finding match.
 				if (exactMatch && item.getName().equalsIgnoreCase(lookup))
@@ -213,14 +212,16 @@ class GrandExchangeSearchPanel extends JPanel
 			ITEMS_LIST.clear();
 
 			// Remove searching label after search is complete
-			showSearchString(false);
+			showSearchString(null);
 		});
 	}
 
-	private void showSearchString(boolean shown)
+	private void showSearchString(String str)
 	{
-		if (shown)
+		if (str != null)
 		{
+			remove(searchingLabel);
+			searchingLabel.setText(str);
 			add(searchingLabel, BorderLayout.CENTER);
 		}
 		else

@@ -28,6 +28,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Provides;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -52,6 +53,8 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
@@ -151,8 +154,13 @@ public class ScreenshotPlugin extends Plugin
 	{
 		try
 		{
-			BufferedImage iconImage = ImageIO.read(ScreenshotPlugin.class.getResourceAsStream("screenshot.png"));
-			BufferedImage invertedIconImage = ImageIO.read(ScreenshotPlugin.class.getResourceAsStream("screenshot_inverted.png"));
+			BufferedImage iconImage;
+			BufferedImage invertedIconImage;
+			synchronized (ImageIO.class)
+			{
+				iconImage = ImageIO.read(ScreenshotPlugin.class.getResourceAsStream("screenshot.png"));
+				invertedIconImage = ImageIO.read(ScreenshotPlugin.class.getResourceAsStream("screenshot_inverted.png"));
+			}
 
 			SwingUtilities.invokeLater(() ->
 			{
@@ -164,9 +172,31 @@ public class ScreenshotPlugin extends Plugin
 					public void mouseClicked(MouseEvent e)
 					{
 						super.mouseClicked(e);
-						takeScreenshot(TIME_FORMAT.format(new Date()), client.getLocalPlayer() != null);
+
+						if (SwingUtilities.isLeftMouseButton(e))
+						{
+							takeScreenshot(TIME_FORMAT.format(new Date()), client.getLocalPlayer() != null);
+						}
 					}
 				});
+
+				JPopupMenu popupMenu = new JPopupMenu();
+
+				JMenuItem folderItem = new JMenuItem("Open screenshot folder...");
+				folderItem.addActionListener(e ->
+				{
+					try
+					{
+						Desktop.getDesktop().open(RuneLite.SCREENSHOT_DIR);
+					}
+					catch (IOException ex)
+					{
+						log.warn("Error opening screenshot directory", ex);
+					}
+				});
+				popupMenu.add(folderItem);
+
+				titleBarButton.setComponentPopupMenu(popupMenu);
 
 				clientUi.getTitleToolbar().addButton(titleBarButton, iconImage, invertedIconImage);
 			});
@@ -391,7 +421,11 @@ public class ScreenshotPlugin extends Plugin
 			{
 				try (InputStream reportButton = ScreenshotPlugin.class.getResourceAsStream("report_button.png"))
 				{
-					BufferedImage reportButtonImage = ImageIO.read(reportButton);
+					BufferedImage reportButtonImage;
+					synchronized (ImageIO.class)
+					{
+						reportButtonImage = ImageIO.read(reportButton);
+					}
 
 					int x = gameOffsetX + 403;
 					int y = gameOffsetY + image.getHeight() - reportButtonImage.getHeight() - 1;

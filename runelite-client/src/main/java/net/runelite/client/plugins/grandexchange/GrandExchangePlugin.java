@@ -52,7 +52,7 @@ import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.NavigationButton;
 
 @PluginDescriptor(
-	name = "Grand Exchange offers"
+	name = "Grand Exchange"
 )
 public class GrandExchangePlugin extends Plugin
 {
@@ -84,7 +84,11 @@ public class GrandExchangePlugin extends Plugin
 	protected void startUp() throws IOException
 	{
 		panel = injector.getInstance(GrandExchangePanel.class);
-		BufferedImage icon = ImageIO.read(getClass().getResourceAsStream("ge_icon.png"));
+		BufferedImage icon;
+		synchronized (ImageIO.class)
+		{
+			icon = ImageIO.read(getClass().getResourceAsStream("ge_icon.png"));
+		}
 		button = new NavigationButton("GE Offers", icon, () -> panel);
 		ui.getPluginToolbar().addNavigation(button);
 

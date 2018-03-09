@@ -96,7 +96,10 @@ public class ClientUI extends JFrame
 
 		try
 		{
-			icon = ImageIO.read(ClientUI.class.getResourceAsStream("/runelite.png"));
+			synchronized (ImageIO.class)
+			{
+				icon = ImageIO.read(ClientUI.class.getResourceAsStream("/runelite.png"));
+			}
 		}
 		catch (IOException e)
 		{
@@ -243,6 +246,11 @@ public class ClientUI extends JFrame
 			{
 				this.setAlwaysOnTop(Boolean.valueOf(event.getNewValue()));
 			}
+		}
+
+		if (event.getKey().equals("lockWindowSize"))
+		{
+			SwingUtilities.invokeLater(() -> setResizable(!Boolean.valueOf(event.getNewValue())));
 		}
 
 		if (!event.getKey().equals("gameSize"))

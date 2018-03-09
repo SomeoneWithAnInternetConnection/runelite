@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Mathieu Bernier <https://github.com/Matsyir>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,61 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.specorb;
+package net.runelite.client.plugins.teamcapes;
 
-import com.google.common.eventbus.Subscribe;
-import java.awt.Image;
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.VarbitChanged;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-@PluginDescriptor(
-	name = "Special Attack Orb"
+@ConfigGroup(
+	keyName = "teamCapes",
+	name = "Team Capes",
+	description = "Configuration for the team cape plugin"
 )
-public class SpecOrbPlugin extends Plugin
+public interface TeamCapesConfig extends Config
 {
-	private Image minimapOrbBackground;
-	private Image specialAttackIcon;
-
-	@Inject
-	private SpecOrbOverlay overlay;
-
-	@Override
-	public Overlay getOverlay()
+	@ConfigItem(
+		keyName = "minimumCapeCount",
+		name = "Minimum Cape Count",
+		description = "Configures the minimum number of team capes which must be present before being displayed.",
+		position = 0
+	)
+	default int getMinimumCapeCount()
 	{
-		return overlay;
-	}
-
-	@Override
-	protected void startUp() throws Exception
-	{
-		minimapOrbBackground = ImageIO.read(getClass().getResourceAsStream("minimap_orb_background.png"));
-		specialAttackIcon = ImageIO.read(getClass().getResourceAsStream("special_orb_icon.png"));
-	}
-
-	@Subscribe
-	public void onVarbitChanged(VarbitChanged event)
-	{
-		overlay.onVarbitChanged(event);
-	}
-
-	@Subscribe
-	public void onTick(GameTick event)
-	{
-		overlay.onTick(event);
-	}
-
-	public Image getMinimapOrbBackground()
-	{
-		return minimapOrbBackground;
-	}
-
-	public Image getSpecialAttackIcon()
-	{
-		return specialAttackIcon;
+		return 1;
 	}
 }

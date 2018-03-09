@@ -45,6 +45,16 @@ public interface RuneLiteConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "lockWindowSize",
+		name = "Lock window size",
+		description = "Determines if the window resizing is allowed or not"
+	)
+	default boolean lockWindowSize()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "uiEnableCustomChrome",
 		name = "Enable custom window chrome",
 		description = "Use Runelite's custom window title and borders.",

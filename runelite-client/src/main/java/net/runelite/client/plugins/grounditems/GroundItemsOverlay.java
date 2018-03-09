@@ -52,6 +52,7 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.util.StackFormatter;
 import net.runelite.http.api.item.ItemPrice;
 
 public class GroundItemsOverlay extends Overlay
@@ -235,7 +236,7 @@ public class GroundItemsOverlay extends Overlay
 						itemId = item.getLinkedNoteId();
 					}
 
-					Color textColor = Color.WHITE; // Color to use when drawing the ground item
+					Color textColor = config.defaultColor(); // Color to use when drawing the ground item
 					ItemPrice itemPrice = itemManager.getItemPriceAsync(itemId);
 					if (itemPrice != null && config.showGEPrice())
 					{
@@ -259,7 +260,7 @@ public class GroundItemsOverlay extends Overlay
 						}
 
 						itemStringBuilder.append(" (EX: ")
-							.append(ItemManager.quantityToStackSize(cost))
+							.append(StackFormatter.quantityToStackSize(cost))
 							.append(" gp)");
 					}
 

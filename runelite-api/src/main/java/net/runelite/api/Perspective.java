@@ -230,7 +230,9 @@ public class Perspective
 			int xx = y * sin + cos * x >> 16;
 			int yy = sin * x - y * cos >> 16;
 
-			int miniMapX = client.getCanvas().getWidth() - (!client.isResized() ? 208 : 167);
+			int miniMapX = client.isResized()
+				? client.getCanvas().getWidth() - 167
+				: Constants.GAME_FIXED_WIDTH - 208;
 
 			x = (miniMapX + 167 / 2) + xx;
 			y = (167 / 2 - 1) + yy;
@@ -347,8 +349,8 @@ public class Perspective
 		Point topLeft = new Point(localLocation.getX() - (aoeSize * LOCAL_TILE_SIZE) - halfTile,
 			localLocation.getY() - (aoeSize * LOCAL_TILE_SIZE) - halfTile);
 		// expand by size
-		Point bottomRight = new Point(topLeft.getX() + size * LOCAL_TILE_SIZE,
-			topLeft.getY() + size * LOCAL_TILE_SIZE);
+		Point bottomRight = new Point(topLeft.getX() + size * LOCAL_TILE_SIZE - 1,
+			topLeft.getY() + size * LOCAL_TILE_SIZE - 1);
 		// Take the x of top left and the y of bottom right to create bottom left
 		Point bottomLeft = new Point(topLeft.getX(), bottomRight.getY());
 		// Similarly for top right
