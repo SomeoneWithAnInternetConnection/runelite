@@ -31,7 +31,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -48,11 +50,13 @@ public class NpcClickboxOverlay extends Overlay
 
 	private final Client client;
 	private final NpcHighlightConfig config;
+	private final Set<Integer> npcTags;
 
 	NpcClickboxOverlay(Client client, NpcHighlightConfig config)
 	{
 		this.config = config;
 		this.client = client;
+		this.npcTags = new HashSet<>();
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
@@ -65,16 +69,10 @@ public class NpcClickboxOverlay extends Overlay
 
 		for (NPC npc : client.getNpcs())
 		{
-			NPCComposition composition = npc.getComposition();
-			//composition.get
-			if (composition.getConfigs() != null && composition.transform() != null)
-			{
-				composition = composition.transform();
-			}
+			NPCComposition composition = getComposition(npc);
 			if (npc == null || composition == null || composition.getName() == null)
 				continue;
-			
-			// System.out.println(client.getSetting(Varbits.TEST));
+
 			for (String highlight : highlightedNpcs)
 			{
 				String name = composition.getName().replace('\u00A0', ' ');
@@ -86,30 +84,45 @@ public class NpcClickboxOverlay extends Overlay
 			}
 		}
 
-		// String debug = Stream.of(client.getMenuEntries()).map(m ->
-		// m.getOption() + ":" + m.getTarget()).collect(Collectors.joining(",
-		// "));
-		// System.out.println(debug);
+		if (config.isTagEnabled())
+		{
+			for (int tag : npcTags)
+			{
+				NPC npc = client.getNpcAtIndex(tag);
 
-		// MenuEntry[] entryArr = client.getMenuEntries();
-		// ArrayUtils.reverse(entryArr);
-		//
-		// List<MenuEntry> entries = new ArrayList<>();
-		// for(MenuEntry entry : entryArr) {
-		// if(entry.getOption().equals("Bank"))
-		// {
-		// entries.add(0, entry);
-		// }
-		// else
-		// entries.add(entry);
-		// }
-		//
-		// entryArr = entries.toArray(new MenuEntry[0]);
-		// ArrayUtils.reverse(entryArr);
-		//
-		// client.setMenuEntries(entryArr);
+				NPCComposition composition = getComposition(npc);
+				if (npc == null || composition == null || composition.getName() == null)
+					continue;
+
+				String name = composition.getName().replace('\u00A0', ' ');
+				renderNpcOverlay(graphics, npc, name, config.getTagColor());
+
+			}
+		}
 
 		return null;
+	}
+
+	protected void toggleTag(int tag)
+	{
+		if (npcTags.contains(tag))
+			npcTags.remove(tag);
+		else
+			npcTags.add(tag);
+	}
+
+	private NPCComposition getComposition(NPC npc)
+	{
+		if (npc == null)
+			return null;
+
+		NPCComposition composition = npc.getComposition();
+		if (composition != null && composition.getConfigs() != null && composition.transform() != null)
+		{
+			composition = composition.transform();
+		}
+
+		return composition;
 	}
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color)

@@ -43,4 +43,16 @@ public interface NpcHighlightConfig extends Config
 	{
 		return Color.CYAN;
 	}
+	
+	@ConfigItem(position = 2, keyName = "enableTag", name = "Enable Tag Option", description = "Enable the NPC tag menu option")
+	default boolean isTagEnabled()
+	{
+		return false;
+	}
+	
+	@ConfigItem(position = 3, keyName = "tagColor", name = "Tag Color", description = "Color of the NPC tag highlight")
+	default Color getTagColor()
+	{
+		return Color.CYAN;
+	}
 }

@@ -546,6 +546,7 @@ package net.runelite.rs.api;
 import java.util.Map;
 import net.runelite.api.BufferProvider;
 import net.runelite.api.Client;
+import net.runelite.api.NPC;
 import net.runelite.api.World;
 import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
@@ -1028,4 +1029,7 @@ public interface RSClient extends RSGameEngine, Client
 	@Construct
 	@Override
 	RSWorld createWorld();
+	
+	@Override
+	NPC getNpcAtIndex(int idx);
 }
