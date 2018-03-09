@@ -25,7 +25,15 @@
 package net.runelite.rs.api;
 
 import net.runelite.api.PacketBuffer;
+import net.runelite.mapping.Import;
 
 public interface RSPacketBuffer extends PacketBuffer
 {
+	@Import("getBits")
+	@Override
+	int getBits(int var1);
+
+	@Import("bitAccess")
+	@Override
+	public void bitAccess();
 }

@@ -22,14 +22,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.npchighlightor;
+package net.runelite.client.plugins.npchighlight;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,20 +39,20 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-public class NpcClickboxOverlay extends Overlay
+public class NpcMinimapOverlay extends Overlay
 {
 	// Regex for splitting the hidden items in the config.
 	private static final String DELIMITER_REGEX = "\\s*,\\s*";
 
 	private final Client client;
-	private final NpcHighlightorConfig config;
+	private final NpcHighlightConfig config;
 
-	NpcClickboxOverlay(Client client, NpcHighlightorConfig config)
+	NpcMinimapOverlay(Client client, NpcHighlightConfig config)
 	{
 		this.config = config;
 		this.client = client;
 		setPosition(OverlayPosition.DYNAMIC);
-		setLayer(OverlayLayer.ABOVE_SCENE);
+		setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
 
 	@Override
@@ -112,22 +110,11 @@ public class NpcClickboxOverlay extends Overlay
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color)
 	{
-		Polygon objectClickbox = ConvexHull.convexHull(actor.getClickbox());
-		if (objectClickbox != null)
+		net.runelite.api.Point minimapLocation = actor.getMinimapLocation();
+		if (minimapLocation != null)
 		{
-			graphics.setColor(color);
-			graphics.setStroke(new BasicStroke(2));
-			graphics.draw(objectClickbox);
-			graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 20));
-			graphics.fill(objectClickbox);
-		}
-
-		net.runelite.api.Point textLocation = actor.getCanvasTextLocation(graphics, name,
-				actor.getLogicalHeight() + 40);
-
-		if (textLocation != null)
-		{
-			OverlayUtil.renderTextLocation(graphics, textLocation, name, color);
+			OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color.darker());
+			OverlayUtil.renderTextLocation(graphics, minimapLocation, name, color);
 		}
 	}
 }

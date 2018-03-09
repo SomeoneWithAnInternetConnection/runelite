@@ -22,65 +22,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.npchighlightor;
+package net.runelite.client.plugins.npchighlight;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.awt.Color;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-import javax.inject.Inject;
-
-import com.google.inject.Provides;
-
-import net.runelite.api.Client;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.menus.MenuManager;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.overlay.Overlay;
-
-@PluginDescriptor(name = "NPC Highlight")
-public class NpcHighlightorPlugin extends Plugin
+@ConfigGroup(keyName = "npchighlight", name = "NPC Highlight", description = "Configuration for the NPC highlight plugin")
+public interface NpcHighlightConfig extends Config
 {
-	private static final String TAG = "Tag";
-
-	@Inject
-	private Client client;
-
-	@Inject
-	private MenuManager menuManager;
-
-	@Inject
-	private NpcHighlightorConfig config;
-
-	NpcClickboxOverlay npcClickboxOverlay;
-
-	NpcMinimapOverlay npcMinimapOverlay;
-
-	@Provides
-	NpcHighlightorConfig provideConfig(ConfigManager configManager)
+	@ConfigItem(position = 0, keyName = "npcToHighlight", name = "NPCs to Highlight", description = "List of NPC names to highlight")
+	default String getNpcToHighlight()
 	{
-		return configManager.getConfig(NpcHighlightorConfig.class);
+		return "";
 	}
 
-	@Override
-	protected void startUp() throws Exception
+	@ConfigItem(position = 1, keyName = "npcColor", name = "Highlight Color", description = "Color of the NPC highlight")
+	default Color getNpcColor()
 	{
-		npcClickboxOverlay = new NpcClickboxOverlay(client, config);
-
-		npcMinimapOverlay = new NpcMinimapOverlay(client, config);
-
-		menuManager.addPlayerMenuItem(TAG);
-	}
-
-	@Override
-	protected void shutDown() throws Exception
-	{
-		menuManager.removePlayerMenuItem(TAG);
-	}
-
-	@Override
-	public Collection<Overlay> getOverlays()
-	{
-		return Arrays.asList(npcClickboxOverlay, npcMinimapOverlay);
+		return Color.CYAN;
 	}
 }

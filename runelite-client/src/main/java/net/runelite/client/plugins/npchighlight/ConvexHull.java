@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.npchighlightor;
+package net.runelite.client.plugins.npchighlight;
 
 import java.awt.Polygon;
 import java.awt.geom.Area;

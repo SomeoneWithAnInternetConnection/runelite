@@ -26,4 +26,7 @@ package net.runelite.api;
 
 public interface PacketBuffer
 {
+	int getBits(int var1);
+	
+	void bitAccess();
 }
