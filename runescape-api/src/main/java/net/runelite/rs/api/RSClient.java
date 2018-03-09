@@ -27,6 +27,10 @@ package net.runelite.rs.api;
 import java.util.Map;
 import net.runelite.api.BufferProvider;
 import net.runelite.api.Client;
+<<<<<<< HEAD
+=======
+import net.runelite.api.NPC;
+>>>>>>> ac1de8b... fix EOL
 import net.runelite.api.World;
 import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
@@ -129,7 +133,10 @@ public interface RSClient extends RSGameEngine, Client
 	int[] getNpcIndices();
 
 	@Import("cachedNPCs")
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> ac1de8b... fix EOL
 	RSNPC[] getCachedNPCs();
 
 	@Import("collisionMaps")
@@ -213,6 +220,13 @@ public interface RSClient extends RSGameEngine, Client
 	@Override
 	@Import("getObjectDefinition")
 	RSObjectComposition getObjectDefinition(int objectId);
+<<<<<<< HEAD
+=======
+	
+	@Override
+	@Import("getNpcDefinition")
+	RSNPCComposition getNpcDefinition(int npcId);
+>>>>>>> ac1de8b... fix EOL
 
 	@Override
 	@Import("getNpcDefinition")
@@ -515,6 +529,7 @@ public interface RSClient extends RSGameEngine, Client
 	@Construct
 	@Override
 	RSWorld createWorld();
+<<<<<<< HEAD
 }
 =======
 /*
@@ -1033,3 +1048,9 @@ public interface RSClient extends RSGameEngine, Client
 	@Override
 	NPC getNpcAtIndex(int idx);
 }
+=======
+	
+	@Override
+	NPC getNpcAtIndex(int idx);
+}
+>>>>>>> ac1de8b... fix EOL
