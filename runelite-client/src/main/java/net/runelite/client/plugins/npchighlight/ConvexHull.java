@@ -1,6 +1,9 @@
 /*
  * Copyright (c) 2018, James Swindle <wilingua@gmail.com>
  * All rights reserved.
+ * 
+ * Algorithm credit goes to WikiBooks
+ * https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain#Java
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,43 +34,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class Point implements Comparable<Point>
-{
-	int x, y;
+import net.runelite.api.Point;
 
-	public Point(int x, int y)
-	{
-		this.x = x;
-		this.y = y;
-	}
-
-	public int compareTo(Point p)
-	{
-		if (this.x == p.x)
-		{
-			return this.y - p.y;
-		}
-		else
-		{
-			return this.x - p.x;
-		}
-	}
-
-	public String toString()
-	{
-		return "(" + x + "," + y + ")";
-	}
-
-}
-
-// Algorithm credit goes to
-// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain#Java
 public class ConvexHull
 {
 
 	public static long cross(Point O, Point A, Point B)
 	{
-		return (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
+		return (A.getX() - O.getX()) * (B.getY() - O.getY()) - (A.getY() - O.getY()) * (B.getX() - O.getX());
 	}
 
 	public static Point[] convertArea(Area area)
@@ -95,7 +69,7 @@ public class ConvexHull
 		Polygon poly = new Polygon();
 		for (int i = 0; i < points.length; i++)
 		{
-			poly.addPoint(points[i].x, points[i].y);
+			poly.addPoint(points[i].getX(), points[i].getY());
 		}
 
 		return poly;

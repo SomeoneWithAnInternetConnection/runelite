@@ -110,8 +110,7 @@ public class DevToolsOverlay extends Overlay
 			renderNpcs(graphics);
 		}
 
-		if (plugin.isToggleGroundItems() || plugin.isToggleGroundObjects() || plugin.isToggleGameObjects()
-				|| plugin.isToggleWalls() || plugin.isToggleDecor())
+		if (plugin.isToggleGroundItems() || plugin.isToggleGroundObjects() || plugin.isToggleGameObjects() || plugin.isToggleWalls() || plugin.isToggleDecor())
 		{
 			renderTileObjects(graphics);
 		}
@@ -161,8 +160,7 @@ public class DevToolsOverlay extends Overlay
 				composition = composition.transform();
 			}
 
-			String text = composition.getName() + " (ID: " + composition.getId() + ") (A: " + npc.getAnimation()
-					+ ") (G: " + npc.getGraphic() + ")";
+			String text = composition.getName() + " (ID: " + composition.getId() + ") (A: " + npc.getAnimation() + ") (G: " + npc.getGraphic() + ")";
 			if (npc.getCombatLevel() > 1)
 			{
 				OverlayUtil.renderActorOverlay(graphics, npc, text, YELLOW);
@@ -237,8 +235,7 @@ public class DevToolsOverlay extends Overlay
 				while (current instanceof Item)
 				{
 					Item item = (Item) current;
-					OverlayUtil.renderTileOverlay(graphics, itemLayer,
-							"ID: " + item.getId() + " Qty:" + item.getQuantity(), RED);
+					OverlayUtil.renderTileOverlay(graphics, itemLayer, "ID: " + item.getId() + " Qty:" + item.getQuantity(), RED);
 					current = current.getNext();
 				}
 			}
@@ -382,8 +379,7 @@ public class DevToolsOverlay extends Overlay
 		}
 	}
 
-	public void renderProjectileOrigin(Graphics2D graphics, Projectile projectile, int floor,
-			net.runelite.api.Point origin)
+	public void renderProjectileOrigin(Graphics2D graphics, Projectile projectile, int floor, net.runelite.api.Point origin)
 	{
 		Polygon poly = Perspective.getCanvasTilePoly(client, origin);
 

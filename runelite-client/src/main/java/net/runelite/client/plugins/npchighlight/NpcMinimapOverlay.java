@@ -28,12 +28,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
-import net.runelite.api.Client;
 import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -41,16 +38,13 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 public class NpcMinimapOverlay extends Overlay
 {
-	// Regex for splitting the hidden items in the config.
-	private static final String DELIMITER_REGEX = "\\s*,\\s*";
-
-	private final Client client;
 	private final NpcHighlightConfig config;
+	private final NpcHighlightPlugin plugin;
 
-	NpcMinimapOverlay(Client client, NpcHighlightConfig config)
+	NpcMinimapOverlay(NpcHighlightConfig config, NpcHighlightPlugin plugin)
 	{
 		this.config = config;
-		this.client = client;
+		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
@@ -58,52 +52,11 @@ public class NpcMinimapOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics, Point parent)
 	{
-		String configNpcs = config.getNpcToHighlight().toLowerCase();
-		List<String> highlightedNpcs = Arrays.asList(configNpcs.split(DELIMITER_REGEX));
-
-		for (NPC npc : client.getNpcs())
+		Map<NPC, String> npcMap = plugin.getNpcsToHighlight();
+		for (NPC npc : npcMap.keySet())
 		{
-			NPCComposition composition = npc.getComposition();
-			if (composition.getConfigs() != null && composition.transform() != null)
-			{
-				composition = composition.transform();
-			}
-			if (npc == null || composition == null || composition.getName() == null)
-				continue;
-			// System.out.println(client.getSetting(Varbits.TEST));
-			for (String highlight : highlightedNpcs)
-			{
-				String name = composition.getName().replace('\u00A0', ' ');
-				highlight = highlight.replaceAll("\\*", ".*");
-				if (name.toLowerCase().matches(highlight))
-				{
-					renderNpcOverlay(graphics, npc, name, config.getNpcColor());
-				}
-			}
+			renderNpcOverlay(graphics, npc, npcMap.get(npc), config.getNpcColor());
 		}
-
-		// String debug = Stream.of(client.getMenuEntries()).map(m ->
-		// m.getOption() + ":" + m.getTarget()).collect(Collectors.joining(",
-		// "));
-		// System.out.println(debug);
-
-		// MenuEntry[] entryArr = client.getMenuEntries();
-		// ArrayUtils.reverse(entryArr);
-		//
-		// List<MenuEntry> entries = new ArrayList<>();
-		// for(MenuEntry entry : entryArr) {
-		// if(entry.getOption().equals("Bank"))
-		// {
-		// entries.add(0, entry);
-		// }
-		// else
-		// entries.add(entry);
-		// }
-		//
-		// entryArr = entries.toArray(new MenuEntry[0]);
-		// ArrayUtils.reverse(entryArr);
-		//
-		// client.setMenuEntries(entryArr);
 
 		return null;
 	}

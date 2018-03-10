@@ -30,9 +30,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.runelite.api.Client;
@@ -45,17 +44,16 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 public class NpcClickboxOverlay extends Overlay
 {
-	// Regex for splitting the hidden items in the config.
-	private static final String DELIMITER_REGEX = "\\s*,\\s*";
-
 	private final Client client;
 	private final NpcHighlightConfig config;
+	private final NpcHighlightPlugin plugin;
 	private final Set<Integer> npcTags;
 
-	NpcClickboxOverlay(Client client, NpcHighlightConfig config)
+	NpcClickboxOverlay(Client client, NpcHighlightConfig config, NpcHighlightPlugin plugin)
 	{
-		this.config = config;
 		this.client = client;
+		this.config = config;
+		this.plugin = plugin;
 		this.npcTags = new HashSet<>();
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -64,24 +62,10 @@ public class NpcClickboxOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics, Point parent)
 	{
-		String configNpcs = config.getNpcToHighlight().toLowerCase();
-		List<String> highlightedNpcs = Arrays.asList(configNpcs.split(DELIMITER_REGEX));
-
-		for (NPC npc : client.getNpcs())
+		Map<NPC, String> npcMap = plugin.getNpcsToHighlight();
+		for (NPC npc : npcMap.keySet())
 		{
-			NPCComposition composition = getComposition(npc);
-			if (npc == null || composition == null || composition.getName() == null)
-				continue;
-
-			for (String highlight : highlightedNpcs)
-			{
-				String name = composition.getName().replace('\u00A0', ' ');
-				highlight = highlight.replaceAll("\\*", ".*");
-				if (name.toLowerCase().matches(highlight))
-				{
-					renderNpcOverlay(graphics, npc, name, config.getNpcColor());
-				}
-			}
+			renderNpcOverlay(graphics, npc, npcMap.get(npc), config.getNpcColor());
 		}
 
 		if (config.isTagEnabled())
@@ -90,7 +74,7 @@ public class NpcClickboxOverlay extends Overlay
 			{
 				NPC npc = client.getNpcAtIndex(tag);
 
-				NPCComposition composition = getComposition(npc);
+				NPCComposition composition = plugin.getComposition(npc);
 				if (npc == null || composition == null || composition.getName() == null)
 					continue;
 
@@ -111,18 +95,9 @@ public class NpcClickboxOverlay extends Overlay
 			npcTags.add(tag);
 	}
 
-	private NPCComposition getComposition(NPC npc)
+	protected void clearTags()
 	{
-		if (npc == null)
-			return null;
-
-		NPCComposition composition = npc.getComposition();
-		if (composition != null && composition.getConfigs() != null && composition.transform() != null)
-		{
-			composition = composition.transform();
-		}
-
-		return composition;
+		npcTags.clear();
 	}
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color)

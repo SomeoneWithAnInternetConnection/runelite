@@ -26,6 +26,9 @@ package net.runelite.client.plugins.npchighlight;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -45,7 +48,11 @@ import net.runelite.client.ui.overlay.Overlay;
 @PluginDescriptor(name = "NPC Highlight")
 public class NpcHighlightPlugin extends Plugin
 {
+	// Option added to NPC menu
 	private static final String TAG = "Tag";
+
+	// Regex for splitting the hidden items in the config.
+	private static final String DELIMITER_REGEX = "\\s*,\\s*";
 
 	@Inject
 	private Client client;
@@ -66,9 +73,8 @@ public class NpcHighlightPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		npcClickboxOverlay = new NpcClickboxOverlay(client, config);
-
-		npcMinimapOverlay = new NpcMinimapOverlay(client, config);
+		npcClickboxOverlay = new NpcClickboxOverlay(client, config, this);
+		npcMinimapOverlay = new NpcMinimapOverlay(config, this);
 	}
 
 	@Subscribe
@@ -79,13 +85,17 @@ public class NpcHighlightPlugin extends Plugin
 	}
 
 	@Subscribe
+	// add a 'Tag' option to all NPCs with a combat level
 	public void onGameTick(GameTick tick)
 	{
 		for (NPC npc : client.getNpcs())
 		{
 			if (npc.getCombatLevel() > 0)
 			{
-				NPCComposition comp = npc.getComposition();
+				NPCComposition comp = getComposition(npc);
+				if (comp == null)
+					continue;
+
 				for (int i = comp.getActions().length - 1; i >= 0; i--)
 				{
 					if ((comp.getActions()[i] == null || comp.getActions()[i].isEmpty()) && config.isTagEnabled())
@@ -107,11 +117,58 @@ public class NpcHighlightPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		npcClickboxOverlay.clearTags();
 	}
 
 	@Override
 	public Collection<Overlay> getOverlays()
 	{
 		return Arrays.asList(npcClickboxOverlay, npcMinimapOverlay);
+	}
+
+	protected Map<NPC, String> getNpcsToHighlight()
+	{
+		Map<NPC, String> npcMap = new HashMap<>();
+
+		String configNpcs = config.getNpcToHighlight().toLowerCase();
+		if(configNpcs.isEmpty())
+			return npcMap;
+		
+		List<String> highlightedNpcs = Arrays.asList(configNpcs.split(DELIMITER_REGEX));
+
+		for (NPC npc : client.getNpcs())
+		{
+			NPCComposition composition = getComposition(npc);
+
+			if (npc == null || composition == null || composition.getName() == null)
+				continue;
+
+			for (String highlight : highlightedNpcs)
+			{
+				String name = composition.getName().replace('\u00A0', ' ');
+				highlight = highlight.replaceAll("\\*", ".*");
+				if (name.toLowerCase().matches(highlight))
+				{
+					npcMap.put(npc, name);
+				}
+			}
+		}
+
+		return npcMap;
+	}
+
+	// sometimes the composition isn't the true composition, so we need to check
+	protected NPCComposition getComposition(NPC npc)
+	{
+		if (npc == null)
+			return null;
+
+		NPCComposition composition = npc.getComposition();
+		if (composition != null && composition.getConfigs() != null && composition.transform() != null)
+		{
+			composition = composition.transform();
+		}
+
+		return composition;
 	}
 }
