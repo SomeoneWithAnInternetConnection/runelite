@@ -410,7 +410,7 @@ public class DevToolsOverlay extends Overlay
 		}
 
 		if (widget.getItemId() != ITEM_EMPTY
-				&& widget.getItemId() != ITEM_FILLED)
+			&& widget.getItemId() != ITEM_FILLED)
 		{
 			Rectangle componentBounds = widget.getBounds();
 
@@ -421,9 +421,9 @@ public class DevToolsOverlay extends Overlay
 		}
 
 		WidgetItem widgetItem = widget.getWidgetItem(itemIndex);
-		if (widgetItem == null 
-				|| widgetItem.getId() == ITEM_EMPTY 
-				|| widgetItem.getId() == ITEM_FILLED)
+		if (widgetItem == null
+			|| widgetItem.getId() == ITEM_EMPTY
+			|| widgetItem.getId() == ITEM_FILLED)
 		{
 			return;
 		}
