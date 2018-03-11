@@ -35,7 +35,9 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.DecorativeObject;
@@ -377,17 +379,6 @@ public class DevToolsOverlay extends Overlay
 				OverlayUtil.renderActorOverlay(graphics, projectile.getInteracting(), infoString, Color.RED);
 			}
 		}
-	}
-
-	public void renderProjectileOrigin(Graphics2D graphics, Projectile projectile, int floor, net.runelite.api.Point origin)
-	{
-		Polygon poly = Perspective.getCanvasTilePoly(client, origin);
-
-		graphics.setColor(Color.RED);
-		graphics.setStroke(new BasicStroke(2));
-		graphics.drawPolygon(poly);
-		graphics.setColor(Color.RED);
-		graphics.fillPolygon(poly);
 	}
 
 	public void renderWidgets(Graphics2D graphics)

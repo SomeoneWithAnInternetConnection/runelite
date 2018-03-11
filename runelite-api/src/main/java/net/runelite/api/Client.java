@@ -40,8 +40,6 @@ public interface Client extends GameEngine
 	List<NPC> getNpcs();
 
 	NPC[] getCachedNPCs();	
-	
-	NPC getNpcAtIndex(int idx);
 
 	int getBoostedSkillLevel(Skill skill);
 
@@ -171,11 +169,8 @@ public interface Client extends GameEngine
 	Widget getViewportWidget();
 
 	ObjectComposition getObjectDefinition(int objectId);
-<<<<<<< HEAD
-=======
 	
 	NPCComposition getNpcDefinition(int npcId);
->>>>>>> ac1de8b... fix EOL
 
 	NPCComposition getNpcDefinition(int npcId);
 
@@ -197,12 +192,8 @@ public interface Client extends GameEngine
 
 	SpritePixels createSpritePixels(int[] pixels, int width, int height);
 
-<<<<<<< HEAD
 	@Nullable
 	LocalPoint getLocalDestinationLocation();
-=======
-	Point getSceneDestinationLocation();
->>>>>>> ac1de8b... fix EOL
 
 	List<Projectile> getProjectiles();
 

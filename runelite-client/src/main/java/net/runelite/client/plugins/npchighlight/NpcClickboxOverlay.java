@@ -70,17 +70,17 @@ public class NpcClickboxOverlay extends Overlay
 
 		if (config.isTagEnabled())
 		{
-			for (int tag : npcTags)
+			for (NPC npc : client.getNpcs())
 			{
-				NPC npc = client.getNpcAtIndex(tag);
+				if (npcTags.contains(npc.getIndex()))
+				{
+					NPCComposition composition = plugin.getComposition(npc);
+					if (npc == null || composition == null || composition.getName() == null)
+						continue;
 
-				NPCComposition composition = plugin.getComposition(npc);
-				if (npc == null || composition == null || composition.getName() == null)
-					continue;
-
-				String name = composition.getName().replace('\u00A0', ' ');
-				renderNpcOverlay(graphics, npc, name, config.getTagColor());
-
+					String name = composition.getName().replace('\u00A0', ' ');
+					renderNpcOverlay(graphics, npc, name, config.getTagColor());
+				}
 			}
 		}
 
@@ -112,8 +112,7 @@ public class NpcClickboxOverlay extends Overlay
 			graphics.fill(objectClickbox);
 		}
 
-		net.runelite.api.Point textLocation = actor.getCanvasTextLocation(graphics, name,
-				actor.getLogicalHeight() + 40);
+		net.runelite.api.Point textLocation = actor.getCanvasTextLocation(graphics, name, actor.getLogicalHeight() + 40);
 
 		if (textLocation != null)
 		{
