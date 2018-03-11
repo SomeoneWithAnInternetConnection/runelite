@@ -131,9 +131,9 @@ public class NpcHighlightPlugin extends Plugin
 		Map<NPC, String> npcMap = new HashMap<>();
 
 		String configNpcs = config.getNpcToHighlight().toLowerCase();
-		if(configNpcs.isEmpty())
+		if (configNpcs.isEmpty())
 			return npcMap;
-		
+
 		List<String> highlightedNpcs = Arrays.asList(configNpcs.split(DELIMITER_REGEX));
 
 		for (NPC npc : client.getNpcs())
