@@ -24,8 +24,8 @@
  */
 package net.runelite.client.callback;
 
-import static net.runelite.api.widgets.WidgetID.WORLD_MAP;
-
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Injector;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,13 +34,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.eventbus.EventBus;
-import com.google.inject.Injector;
-
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.MainBufferProvider;
@@ -60,6 +53,7 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.ProjectileMoved;
 import net.runelite.api.events.SetMessage;
 import net.runelite.api.widgets.Widget;
+import static net.runelite.api.widgets.WidgetID.WORLD_MAP;
 import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.game.DeathChecker;
@@ -69,6 +63,8 @@ import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Hooks
 {
