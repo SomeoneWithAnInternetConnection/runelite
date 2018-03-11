@@ -35,9 +35,7 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.DecorativeObject;
