@@ -179,13 +179,16 @@ public class WidgetID
 	static class Minimap
 	{
 		static final int XP_ORB = 1;
+		static final int HEALTH_ORB = 2;
 		static final int PRAYER_ORB = 12;
 		static final int QUICK_PRAYER_ORB = 14; // Has the "Quick-prayers" name
 		static final int RUN_ORB = 20;
+		static final int SPEC_ORB = 28;
 	}
 
 	static class Viewport
 	{
+		static final int MINIMAP_WIDGET = 17;
 		static final int FIXED_VIEWPORT = 17;
 		static final int RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX = 12;
 		static final int RESIZABLE_VIEWPORT_BOTTOM_LINE = 12;

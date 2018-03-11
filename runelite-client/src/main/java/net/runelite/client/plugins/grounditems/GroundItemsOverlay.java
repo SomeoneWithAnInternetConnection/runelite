@@ -47,6 +47,7 @@ import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.Region;
 import net.runelite.api.Tile;
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
@@ -69,7 +70,7 @@ public class GroundItemsOverlay extends Overlay
 	// The 15 pixel gap between each drawn ground item.
 	private static final int STRING_GAP = 15;
 	// Threshold for highlighting items as blue.
-	private static final int LOW_VALUE = 20_000;
+	static final int LOW_VALUE = 20_000;
 	// Threshold for highlighting items as green.
 	private static final int MEDIUM_VALUE = 100_000;
 	// Threshold for highlighting items as amber.
@@ -79,7 +80,7 @@ public class GroundItemsOverlay extends Overlay
 	// Used when getting High Alchemy value - multiplied by general store price.
 	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 	// Regex for splitting the hidden items in the config.
-	private static final String DELIMITER_REGEX = "\\s*,\\s*";
+	static final String DELIMITER_REGEX = "\\s*,\\s*";
 	// ItemID for coins
 	private static final int COINS = ItemID.COINS_995;
 
@@ -122,13 +123,13 @@ public class GroundItemsOverlay extends Overlay
 		graphics.setFont(FontManager.getRunescapeSmallFont());
 
 		int z = client.getPlane();
-		Point from = player.getRegionLocation();
+		LocalPoint from = player.getLocalLocation();
 
-		int lowerX = max(0, from.getX() - MAX_RANGE);
-		int lowerY = max(0, from.getY() - MAX_RANGE);
+		int lowerX = max(0, from.getRegionX() - MAX_RANGE);
+		int lowerY = max(0, from.getRegionY() - MAX_RANGE);
 
-		int upperX = min(from.getX() + MAX_RANGE, REGION_SIZE - 1);
-		int upperY = min(from.getY() + MAX_RANGE, REGION_SIZE - 1);
+		int upperX = min(from.getRegionX() + MAX_RANGE, REGION_SIZE - 1);
+		int upperY = min(from.getRegionY() + MAX_RANGE, REGION_SIZE - 1);
 
 		for (int x = lowerX; x <= upperX; ++x)
 		{
@@ -241,23 +242,8 @@ public class GroundItemsOverlay extends Overlay
 					if (itemPrice != null && config.showGEPrice())
 					{
 						int cost = itemPrice.getPrice() * quantity;
-						// set the color according to rarity, if possible
-						if (cost >= INSANE_VALUE) // 10,000,000 gp
-						{
-							textColor = config.insaneValueColor();
-						}
-						else if (cost >= HIGH_VALUE) // 1,000,000 gp
-						{
-							textColor = config.highValueColor();
-						}
-						else if (cost >= MEDIUM_VALUE) // 100,000 gp
-						{
-							textColor = config.mediumValueColor();
-						}
-						else if (cost >= LOW_VALUE) // 20,000 gp
-						{
-							textColor = config.lowValueColor();
-						}
+
+						textColor = getCostColor(cost);
 
 						itemStringBuilder.append(" (EX: ")
 							.append(StackFormatter.quantityToStackSize(cost))
@@ -293,4 +279,30 @@ public class GroundItemsOverlay extends Overlay
 
 		return null;
 	}
+
+	Color getCostColor(int cost)
+	{
+		// set the color according to rarity, if possible
+		if (cost >= INSANE_VALUE) // 10,000,000 gp
+		{
+			return config.insaneValueColor();
+		}
+		else if (cost >= HIGH_VALUE) // 1,000,000 gp
+		{
+			return config.highValueColor();
+		}
+		else if (cost >= MEDIUM_VALUE) // 100,000 gp
+		{
+			return config.mediumValueColor();
+		}
+		else if (cost >= LOW_VALUE) // 20,000 gp
+		{
+			return config.lowValueColor();
+		}
+		else
+		{
+			return config.defaultColor();
+		}
+	}
+
 }

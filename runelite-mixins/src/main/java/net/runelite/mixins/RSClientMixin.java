@@ -26,6 +26,7 @@ package net.runelite.mixins;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nullable;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
 import net.runelite.api.GameState;
@@ -33,6 +34,14 @@ import net.runelite.api.GrandExchangeOffer;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.InventoryID;
 import net.runelite.api.MenuAction;
+import static net.runelite.api.MenuAction.PLAYER_EIGTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FIFTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FIRST_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FOURTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SECOND_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SEVENTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SIXTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_THIRD_OPTION;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.Node;
@@ -43,6 +52,7 @@ import net.runelite.api.Projectile;
 import net.runelite.api.Setting;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GrandExchangeOfferChanged;
@@ -63,6 +73,7 @@ import net.runelite.rs.api.RSDeque;
 import net.runelite.rs.api.RSHashTable;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSItemContainer;
+import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSName;
 import net.runelite.rs.api.RSWidget;
 
@@ -366,9 +377,16 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public Point getSceneDestinationLocation()
+	@Nullable
+	public LocalPoint getLocalDestinationLocation()
 	{
-		return new Point(getDestinationX(), getDestinationY());
+		int regionX = getDestinationX();
+		int regionY = getDestinationY();
+		if (regionX != 0 && regionY != 0)
+		{
+			return LocalPoint.fromRegion(regionX, regionY);
+		}
+		return null;
 	}
 
 	@Inject
@@ -471,6 +489,15 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public static void playerOptionsChanged(int idx)
 	{
+		// Reset the menu type
+		MenuAction[] playerActions = {PLAYER_FIRST_OPTION, PLAYER_SECOND_OPTION, PLAYER_THIRD_OPTION, PLAYER_FOURTH_OPTION,
+			PLAYER_FIFTH_OPTION, PLAYER_SIXTH_OPTION, PLAYER_SEVENTH_OPTION, PLAYER_EIGTH_OPTION};
+		if (idx >= 0 && idx < playerActions.length)
+		{
+			MenuAction playerAction = playerActions[idx];
+			client.getPlayerMenuTypes()[idx] = playerAction.getId();
+		}
+
 		PlayerMenuOptionsChanged optionsChanged = new PlayerMenuOptionsChanged();
 		optionsChanged.setIndex(idx);
 		eventBus.post(optionsChanged);
@@ -483,6 +510,24 @@ public abstract class RSClientMixin implements RSClient
 		GameStateChanged gameStateChange = new GameStateChanged();
 		gameStateChange.setGameState(client.getGameState());
 		eventBus.post(gameStateChange);
+	}
+
+
+	@FieldHook("cachedNPCs")
+	@Inject
+	public static void cachedNPCsChanged(int idx)
+	{
+		RSNPC[] cachedNPCs = client.getCachedNPCs();
+		if (idx < 0 || idx >= cachedNPCs.length)
+		{
+			return;
+		}
+
+		RSNPC npc = cachedNPCs[idx];
+		if (npc != null)
+		{
+			npc.setIndex(idx);
+		}
 	}
 
 	@Inject

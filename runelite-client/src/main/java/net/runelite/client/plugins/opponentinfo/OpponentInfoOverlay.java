@@ -37,6 +37,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
+import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.Varbits;
 import net.runelite.client.ui.overlay.Overlay;
@@ -44,6 +45,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.BackgroundComponent;
 import net.runelite.client.ui.overlay.components.TextComponent;
+import net.runelite.client.util.Text;
 
 class OpponentInfoOverlay extends Overlay
 {
@@ -60,6 +62,8 @@ class OpponentInfoOverlay extends Overlay
 	private static final Duration WAIT = Duration.ofSeconds(3);
 
 	private final Client client;
+	private final NPC[] clientNpcs;
+
 	private Integer lastMaxHealth;
 	private DecimalFormat df = new DecimalFormat("0.0");
 	private float lastRatio = 0;
@@ -67,6 +71,7 @@ class OpponentInfoOverlay extends Overlay
 	private String opponentName;
 	private String opponentsOpponentName;
 	private Map<String, Integer> oppInfoHealth = OpponentInfoPlugin.loadNpcHealth();
+	private NPC lastOpponent;
 
 	@Inject
 	OpponentInfoOverlay(Client client)
@@ -74,6 +79,7 @@ class OpponentInfoOverlay extends Overlay
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.HIGH);
 		this.client = client;
+		this.clientNpcs = client.getCachedNPCs();
 	}
 
 	private Actor getOpponent()
@@ -92,18 +98,37 @@ class OpponentInfoOverlay extends Overlay
 	{
 		Actor opponent = getOpponent();
 
+		// If opponent is null, try to use last opponent
+		if (opponent == null)
+		{
+			if (lastOpponent != null && clientNpcs[lastOpponent.getIndex()] != lastOpponent)
+			{
+				// lastOpponent is no longer valid
+				lastOpponent = null;
+			}
+			else
+			{
+				opponent = lastOpponent;
+			}
+		}
+		else
+		{
+			// Update last opponent
+			lastOpponent = opponent instanceof NPC ? (NPC) opponent : null;
+		}
+
 		if (opponent != null && opponent.getHealth() > 0)
 		{
 			lastTime = Instant.now();
 			lastRatio = (float) opponent.getHealthRatio() / (float) opponent.getHealth();
-			opponentName = opponent.getName().replaceAll("<[^>]*>", "");
+			opponentName = Text.removeTags(opponent.getName());
 			lastMaxHealth = oppInfoHealth.get(opponentName + "_" + opponent.getCombatLevel());
 
 			Actor opponentsOpponent = opponent.getInteracting();
 			if (opponentsOpponent != null
 					&& (opponentsOpponent != client.getLocalPlayer() || client.getSetting(Varbits.MULTICOMBAT_AREA) == 1))
 			{
-				opponentsOpponentName = opponentsOpponent.getName().replaceAll("<[^>]*>", "");
+				opponentsOpponentName = Text.removeTags(opponentsOpponent.getName());
 			}
 			else
 			{
