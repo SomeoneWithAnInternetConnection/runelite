@@ -102,7 +102,7 @@ public class NpcClickboxOverlay extends Overlay
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color)
 	{
-		Polygon objectClickbox = ConvexHull.convexHull(actor.getClickbox());
+		Polygon objectClickbox = actor.getConvexHull();
 		if (objectClickbox != null)
 		{
 			graphics.setColor(color);

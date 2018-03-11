@@ -24,11 +24,16 @@
  */
 package net.runelite.mixins;
 
+import static net.runelite.client.callback.Hooks.eventBus;
+
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.runelite.api.Actor;
+import net.runelite.api.Model;
 import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
 import net.runelite.api.Player;
@@ -36,13 +41,14 @@ import net.runelite.api.Point;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
-import net.runelite.api.events.AnimationChanged;
-import static net.runelite.client.callback.Hooks.eventBus;
+import net.runelite.api.model.Jarvis;
+import net.runelite.api.model.Vertex;
 import net.runelite.rs.api.RSActor;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSCombatInfo1;
@@ -192,8 +198,52 @@ public abstract class RSActorMixin implements RSActor
 	
 	@Inject
 	@Override
-	public Area getClickbox()
+	public Polygon getConvexHull()
 	{
-		return Perspective.getClickbox(client, getModel(), getOrientation(), getX(), getY());
+		int localX = getX();
+		int localY = getY();
+		
+		Model model = getModel();
+		int orientation = getOrientation();
+		
+		List<Vertex> vertices = model.getVertices();
+
+		// rotate vertices
+		for (int i = 0; i < vertices.size(); ++i)
+		{
+			Vertex v = vertices.get(i);
+			vertices.set(i, v.rotate(orientation));
+		}
+
+		List<Point> points = new ArrayList<Point>();
+
+		for (Vertex v : vertices)
+		{
+			// Compute canvas location of vertex
+			Point p = Perspective.worldToCanvas(client,
+				localX - v.getX(),
+				localY - v.getZ(),
+				-v.getY());
+			if (p != null)
+			{
+				points.add(p);
+			}
+		}
+
+		// Run Jarvis march algorithm
+		points = Jarvis.convexHull(points);
+		if (points == null)
+		{
+			return null;
+		}
+
+		// Convert to a polygon
+		Polygon p = new Polygon();
+		for (Point point : points)
+		{
+			p.addPoint(point.getX(), point.getY());
+		}
+
+		return p;
 	}
 }

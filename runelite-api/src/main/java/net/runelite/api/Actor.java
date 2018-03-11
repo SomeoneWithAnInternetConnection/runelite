@@ -26,8 +26,8 @@ package net.runelite.api;
 
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 
@@ -70,5 +70,5 @@ public interface Actor extends Renderable
 	 */
 	int getLogicalHeight();
 	
-	Area getClickbox();
+	Polygon getConvexHull();
 }

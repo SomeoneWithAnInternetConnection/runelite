@@ -24,7 +24,7 @@
  */
 package net.runelite.api;
 
-public class Point implements Comparable<Point>
+public class Point
 {
 	private final int x;
 	private final int y;
@@ -96,18 +96,5 @@ public class Point implements Comparable<Point>
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public int compareTo(Point p)
-	{
-		if (this.x == p.x)
-		{
-			return this.y - p.y;
-		}
-		else
-		{
-			return this.x - p.x;
-		}
 	}
 }
