@@ -117,24 +117,6 @@ public abstract class RSClientMixin implements RSClient
 
 		return npcs;
 	}
-	
-	@Inject
-	@Override
-	public NPC getNpcAtIndex(int idx)
-	{
-		int validNpcIndexes = getNpcIndexesCount();
-		int[] npcIndexes = getNpcIndices();
-		NPC[] cachedNpcs = getCachedNPCs();
-		NPC npc = null;
-
-		for (int i = 0; i < validNpcIndexes; ++i)
-		{
-			if(npcIndexes[i] == idx)
-				npc = cachedNpcs[idx];
-		}
-
-		return npc;
-	}
 
 	@Inject
 	@Override

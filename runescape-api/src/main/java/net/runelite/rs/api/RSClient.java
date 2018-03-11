@@ -25,7 +25,6 @@
 package net.runelite.rs.api;
 
 import java.util.Map;
-
 import net.runelite.api.BufferProvider;
 import net.runelite.api.Client;
 import net.runelite.api.World;
@@ -130,6 +129,7 @@ public interface RSClient extends RSGameEngine, Client
 	int[] getNpcIndices();
 
 	@Import("cachedNPCs")
+	@Override
 	RSNPC[] getCachedNPCs();
 
 	@Import("collisionMaps")

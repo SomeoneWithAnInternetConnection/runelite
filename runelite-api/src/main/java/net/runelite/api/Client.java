@@ -39,7 +39,7 @@ public interface Client extends GameEngine
 
 	List<NPC> getNpcs();
 
-	NPC[] getCachedNPCs();	
+	NPC[] getCachedNPCs();
 
 	int getBoostedSkillLevel(Skill skill);
 
@@ -169,8 +169,6 @@ public interface Client extends GameEngine
 	Widget getViewportWidget();
 
 	ObjectComposition getObjectDefinition(int objectId);
-	
-	NPCComposition getNpcDefinition(int npcId);
 
 	NPCComposition getNpcDefinition(int npcId);
 
