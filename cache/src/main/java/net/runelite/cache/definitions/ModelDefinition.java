@@ -344,4 +344,23 @@ public class ModelDefinition
 		faceNormals = null;
 		faceTextureUCoordinates = faceTextureVCoordinates = null;
 	}
+
+	public void method2610(int var1, int var2, int var3) {
+		for(int var4 = 0; var4 < this.vertexCount; ++var4) {
+			this.vertexPositionsX[var4] = this.vertexPositionsX[var4] * var1 / 128;
+			this.vertexPositionsY[var4] = var2 * this.vertexPositionsY[var4] / 128;
+			this.vertexPositionsZ[var4] = var3 * this.vertexPositionsZ[var4] / 128;
+		}
+
+		reset();
+	}
+
+	public void recolor(short var1, short var2) {
+		for(int var3 = 0; var3 < this.faceCount; ++var3) {
+			if(this.faceColors[var3] == var1) {
+				this.faceColors[var3] = var2;
+			}
+		}
+
+	}
 }
