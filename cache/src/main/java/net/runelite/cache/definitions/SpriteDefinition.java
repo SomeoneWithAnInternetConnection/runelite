@@ -39,4 +39,8 @@ public class SpriteDefinition
 	private int[] pixels;
 	private int maxWidth;
 	private int maxHeight;
+
+	public transient byte[] pixelIdx;
+	public transient int[] palette;
+	public transient int originalWidth, originalHeight;
 }

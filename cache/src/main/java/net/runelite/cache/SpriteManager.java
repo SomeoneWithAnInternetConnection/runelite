@@ -24,7 +24,7 @@
  */
 package net.runelite.cache;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -42,7 +42,7 @@ import net.runelite.cache.fs.Store;
 public class SpriteManager
 {
 	private final Store store;
-	private final Multimap<Integer, SpriteDefinition> sprites = HashMultimap.create();
+	private final Multimap<Integer, SpriteDefinition> sprites = LinkedListMultimap.create();
 
 	public SpriteManager(Store store)
 	{

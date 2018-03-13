@@ -73,12 +73,14 @@ public class SpriteLoader
 
 		for (int i = 0; i < spriteCount; ++i)
 		{
-			sprites[i].setWidth(is.readUnsignedShort());
+			sprites[i].setWidth(is.readUnsignedShort()); // [0] is original width
+			sprites[i].originalWidth = sprites[i].getWidth();
 		}
 
 		for (int i = 0; i < spriteCount; ++i)
 		{
 			sprites[i].setHeight(is.readUnsignedShort());
+			sprites[i].originalHeight = sprites[i].getHeight();
 		}
 
 		// same as above + 3 bytes for each palette entry, except for the first one (which is transparent)
@@ -105,6 +107,8 @@ public class SpriteLoader
 			int dimension = spriteWidth * spriteHeight;
 			byte[] pixelPaletteIndicies = new byte[dimension];
 			byte[] pixelAlphas = new byte[dimension];
+			def.pixelIdx = pixelPaletteIndicies;
+			def.palette = palette;
 
 			int flags = is.readUnsignedByte();
 

@@ -2,6 +2,7 @@ package net.runelite.cache.item;
 
 import java.io.IOException;
 import net.runelite.cache.IndexType;
+import net.runelite.cache.SpriteManager;
 import net.runelite.cache.definitions.ItemDefinition;
 import net.runelite.cache.definitions.ModelDefinition;
 import net.runelite.cache.definitions.loaders.ModelLoader;
@@ -13,7 +14,7 @@ import net.runelite.cache.models.VertexNormal;
 
 public class ItemSpriteFactory
 {
-
+	public static SpriteManager spriteManager;
 
 	public static final SpritePixels createSprite(Store store, ItemDefinition itemDefinition, int quantity, int border, int shadowColor, int stackable, boolean noted) throws IOException
 	{

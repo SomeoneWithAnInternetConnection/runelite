@@ -129,15 +129,16 @@ textures[textureDefinition.getId()] = textureDefinition;
 
 	public int[] load(int var1)
 	{
-//      Texture var2 = this.textures[var1];
-//      if(var2 != null) {
-//         if(var2.pixels != null) {
+      TextureDefinition var2 = this.textures[var1];
+      if(var2 != null) {
+         if(var2.pixels != null) {
 //            this.deque.addTail(var2);
 //            var2.loaded = true;
-//            return var2.pixels;
-//         }
-//
-//         boolean var3 = var2.method2680(this.brightness, this.width, this.sprites);
+            return var2.pixels;
+         }
+
+         boolean var3 = var2.method2680(this.brightness, this.width, ItemSpriteFactory.spriteManager);
+         return var2.pixels;
 //         if(var3) {
 //            if(this.size == 0) {
 //               Texture var4 = (Texture)this.deque.popTail();
@@ -150,7 +151,7 @@ textures[textureDefinition.getId()] = textureDefinition;
 //            var2.loaded = true;
 //            return var2.pixels;
 //         }
-//      }
+      }
 
 		return null;
 	}
@@ -177,13 +178,13 @@ textures[textureDefinition.getId()] = textureDefinition;
 
 	public void reset()
 	{
-		for (int var1 = 0; var1 < this.textures.length; ++var1)
-		{
-			if (this.textures[var1] != null)
-			{
-				this.textures[var1].resetPixels();
-			}
-		}
+//		for (int var1 = 0; var1 < this.textures.length; ++var1)
+//		{
+//			if (this.textures[var1] != null)
+//			{
+//				this.textures[var1].resetPixels();
+//			}
+//		}
 
 		//  this.deque = new Deque();
 		this.size = this.maxSize;
@@ -192,15 +193,15 @@ textures[textureDefinition.getId()] = textureDefinition;
 
 	public void checkTextures(int var1)
 	{
-		for (int var2 = 0; var2 < this.textures.length; ++var2)
-		{
-			Texture var3 = this.textures[var2];
-			if (var3 != null && var3.field1783 != 0 && var3.loaded)
-			{
-				var3.method2674(var1);
-				var3.loaded = false;
-			}
-		}
+//		for (int var2 = 0; var2 < this.textures.length; ++var2)
+//		{
+//			Texture var3 = this.textures[var2];
+//			if (var3 != null && var3.field1783 != 0 && var3.loaded)
+//			{
+//				var3.method2674(var1);
+//				var3.loaded = false;
+//			}
+//		}
 
 	}
 }

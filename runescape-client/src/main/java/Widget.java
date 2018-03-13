@@ -1464,7 +1464,7 @@ public class Widget extends Node {
       class332.field3997 = var1.readUnsignedShort();
       class90.field1360 = new int[class332.field3997];
       class153.offsetsY = new int[class332.field3997];
-      class332.field3998 = new int[class332.field3997];
+      class332.field3998 = new int[class332.field3997]; // [0] is original width
       GrandExchangeOffer.field294 = new int[class332.field3997];
       ClassInfo.spritePixels = new byte[class332.field3997][];
       var1.offset = var0.length - 7 - class332.field3997 * 8;

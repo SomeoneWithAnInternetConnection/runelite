@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import net.runelite.cache.ItemManager;
+import net.runelite.cache.SpriteManager;
 import net.runelite.cache.StoreLocation;
+import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.ItemDefinition;
 import net.runelite.cache.fs.Store;
 import org.junit.Test;
@@ -32,7 +34,12 @@ public class ItemSpriteFactoryTest
 			Graphics3D.Rasterizer3D_zoom = 512; // you don't actually need to set this
 			Graphics3D.setBrightness(0.6D); // .6 - .9
 
-			Graphics3D.textureLoader = new TextureProvider();
+			TextureManager textureManager = new TextureManager(store);
+			textureManager.load();
+
+			Graphics3D.textureLoader = new TextureProvider(textureManager);
+			ItemSpriteFactory.spriteManager = new SpriteManager(store);
+			ItemSpriteFactory.spriteManager.load();
 
 			SpritePixels sprite = ItemSpriteFactory.createSprite(store, def, 1, 1, 3153952, 0, false);
 
