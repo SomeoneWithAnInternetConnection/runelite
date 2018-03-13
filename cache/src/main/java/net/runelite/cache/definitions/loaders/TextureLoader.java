@@ -51,25 +51,30 @@ public class TextureLoader
 
 		def.setFileIds(files);
 
-		if (count > 1) {
+		if (count > 1)
+		{
 			def.field1780 = new int[count - 1];
 
-			for(int var3 = 0; var3 < count - 1; ++var3) {
+			for (int var3 = 0; var3 < count - 1; ++var3)
+			{
 				def.field1780[var3] = is.readUnsignedByte();
 			}
 		}
 
-		if(count > 1) {
+		if (count > 1)
+		{
 			def.field1781 = new int[count - 1];
 
-			for(int var3 = 0; var3 < count - 1; ++var3) {
+			for (int var3 = 0; var3 < count - 1; ++var3)
+			{
 				def.field1781[var3] = is.readUnsignedByte();
 			}
 		}
 
 		def.field1786 = new int[count];
 
-		for(int var3 = 0; var3 < count; ++var3) {
+		for (int var3 = 0; var3 < count; ++var3)
+		{
 			def.field1786[var3] = is.readInt();
 		}
 

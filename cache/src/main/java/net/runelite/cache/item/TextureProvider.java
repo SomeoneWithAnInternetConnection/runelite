@@ -1,7 +1,5 @@
 package net.runelite.cache.item;
 
-import java.util.Map;
-import java.util.stream.Collectors;
 import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.TextureDefinition;
 
@@ -31,27 +29,30 @@ public class TextureProvider
 	int width;
 
 	//new TextureProvider(class62.indexTextures, WorldMapRegion.indexSprites, 20, 0.8D, Client.lowMemory?64:128);
-	public TextureProvider(TextureManager textureManager) {
-      this.size = 0;
-      this.brightness = 1.0D;
-      this.width = 128;
+	public TextureProvider(TextureManager textureManager)
+	{
+		this.size = 0;
+		this.brightness = 1.0D;
+		this.width = 128;
 //      this.sprites = var2;
-      this.maxSize = 20;
-      this.size = this.maxSize;
-      this.brightness = 0.8D;
-      this.width = 128;
+		this.maxSize = 20;
+		this.size = this.maxSize;
+		this.brightness = 0.8D;
+		this.width = 128;
 
-      int max = -1;
-      for (TextureDefinition textureDefinition : textureManager.getTextures()) {
-      	if (textureDefinition.getId() > max) {
-      		max = textureDefinition.getId();
-		}
-	  }
-
-	  textures = new TextureDefinition[max + 1];
+		int max = -1;
 		for (TextureDefinition textureDefinition : textureManager.getTextures())
 		{
-textures[textureDefinition.getId()] = textureDefinition;
+			if (textureDefinition.getId() > max)
+			{
+				max = textureDefinition.getId();
+			}
+		}
+
+		textures = new TextureDefinition[max + 1];
+		for (TextureDefinition textureDefinition : textureManager.getTextures())
+		{
+			textures[textureDefinition.getId()] = textureDefinition;
 		}
 //      Map<Integer, TextureDefinition> textures = textureManager.getTextures().stream()
 //		  .collect(Collectors.toMap(t -> t.getId(),  t-> t));
@@ -129,16 +130,18 @@ textures[textureDefinition.getId()] = textureDefinition;
 
 	public int[] load(int var1)
 	{
-      TextureDefinition var2 = this.textures[var1];
-      if(var2 != null) {
-         if(var2.pixels != null) {
+		TextureDefinition var2 = this.textures[var1];
+		if (var2 != null)
+		{
+			if (var2.pixels != null)
+			{
 //            this.deque.addTail(var2);
 //            var2.loaded = true;
-            return var2.pixels;
-         }
+				return var2.pixels;
+			}
 
-         boolean var3 = var2.method2680(this.brightness, this.width, ItemSpriteFactory.spriteManager);
-         return var2.pixels;
+			boolean var3 = var2.method2680(this.brightness, this.width, ItemSpriteFactory.spriteManager);
+			return var2.pixels;
 //         if(var3) {
 //            if(this.size == 0) {
 //               Texture var4 = (Texture)this.deque.popTail();
@@ -151,7 +154,7 @@ textures[textureDefinition.getId()] = textureDefinition;
 //            var2.loaded = true;
 //            return var2.pixels;
 //         }
-      }
+		}
 
 		return null;
 	}
