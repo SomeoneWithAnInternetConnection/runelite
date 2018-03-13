@@ -15,7 +15,7 @@ public class ItemSpriteFactory
 {
 
 
-	public static final SpritePixels createSprite(Store store, ItemDefinition var9, int quantity, int border, int shadowColor, int stackable, boolean noted) throws IOException
+	public static final SpritePixels createSprite(Store store, ItemDefinition itemDefinition, int quantity, int border, int shadowColor, int stackable, boolean noted) throws IOException
 	{
 		if (quantity == -1)
 		{
@@ -35,70 +35,65 @@ public class ItemSpriteFactory
 //			}
 //		}
 
-//		ItemDefinition var9 = null;
-//		ItemComposition var9 = class81.getItemDefinition(itemId);
-		if (quantity > 1 && var9.countObj != null)
+//		ItemDefinition itemDefinition = null;
+//		ItemComposition itemDefinition = class81.getItemDefinition(itemId);
+		if (quantity > 1 && itemDefinition.countObj != null)
 		{
 			int var10 = -1;
 
 			for (int var11 = 0; var11 < 10; ++var11)
 			{
-				if (quantity >= var9.countCo[var11] && var9.countCo[var11] != 0)
+				if (quantity >= itemDefinition.countCo[var11] && itemDefinition.countCo[var11] != 0)
 				{
-					var10 = var9.countObj[var11];
+					var10 = itemDefinition.countObj[var11];
 				}
 			}
 //
 //			if(var10 != -1) {
-//				var9 = class81.getItemDefinition(var10);
+//				itemDefinition = class81.getItemDefinition(var10);
 //			}
 		}
 
-//		ModelDefinition var19 = null;
+//		ModelDefinition itemModel = null;
 		Index models = store.getIndex(IndexType.MODELS);
 //		models.getArchive()
-		Model var19 = getModel(store, var9, 1); //var9.getModel(1);
-		if (var19 == null)
+		Model itemModel = getModel(store, itemDefinition, 1); //itemDefinition.getModel(1);
+		if (itemModel == null)
 		{
 			return null;
 		}
 		else
 		{
 			SpritePixels spritePixels = null;
-//			if(var9.notedTemplate != -1) {
-//				spritePixels = createSprite(var9.notedID, 10, 1, 0, 0, true);
+//			if(itemDefinition.notedTemplate != -1) {
+//				spritePixels = createSprite(itemDefinition.notedID, 10, 1, 0, 0, true);
 //				if(spritePixels == null) {
 //					return null;
 //				}
-//			} else if(var9.boughtTemplateId != -1) {
-//				spritePixels = createSprite(var9.boughtId, quantity, border, shadowColor, 0, false);
+//			} else if(itemDefinition.boughtTemplateId != -1) {
+//				spritePixels = createSprite(itemDefinition.boughtId, quantity, border, shadowColor, 0, false);
 //				if(spritePixels == null) {
 //					return null;
 //				}
-//			} else if(var9.placeholderTemplateId != -1) {
-//				spritePixels = createSprite(var9.placeholderId, quantity, 0, 0, 0, false);
+//			} else if(itemDefinition.placeholderTemplateId != -1) {
+//				spritePixels = createSprite(itemDefinition.placeholderId, quantity, 0, 0, 0, false);
 //				if(spritePixels == null) {
 //					return null;
 //				}
 //			}
 
-			int[] var12 = Rasterizer2D.graphicsPixels;
-			int var13 = Rasterizer2D.graphicsPixelsWidth;
-			int var14 = Rasterizer2D.graphicsPixelsHeight;
-			int[] var15 = new int[4];
-			Rasterizer2D.copyDrawRegion(var15);
 			SpritePixels var8 = new SpritePixels(36, 32);
 			Rasterizer2D.setRasterBuffer(var8.pixels, 36, 32);
 			Rasterizer2D.reset();
 			Graphics3D.Rasterizer3D_method1();
 			Graphics3D.method2780(16, 16);
 			Graphics3D.rasterGouraudLowRes = false;
-			if (var9.placeholderTemplateId != -1)
+			if (itemDefinition.placeholderTemplateId != -1)
 			{
 				spritePixels.drawAt(0, 0);
 			}
 
-			int var16 = var9.zoom2d;
+			int var16 = itemDefinition.zoom2d;
 			if (noted)
 			{
 				var16 = (int) ((double) var16 * 1.5D);
@@ -108,11 +103,11 @@ public class ItemSpriteFactory
 				var16 = (int) ((double) var16 * 1.04D);
 			}
 
-			int var17 = var16 * Graphics3D.SINE[var9.xan2d] >> 16;
-			int var18 = var16 * Graphics3D.COSINE[var9.xan2d] >> 16;
-			var19.calculateBoundsCylinder();
-			var19.method2702(0, var9.yan2d, var9.zan2d, var9.xan2d, var9.xOffset2d, var19.modelHeight / 2 + var17 + var9.yOffset2d, var18 + var9.yOffset2d);
-			if (var9.boughtTemplateId != -1)
+			int var17 = var16 * Graphics3D.SINE[itemDefinition.xan2d] >> 16;
+			int var18 = var16 * Graphics3D.COSINE[itemDefinition.xan2d] >> 16;
+			itemModel.calculateBoundsCylinder();
+			itemModel.method2702(0, itemDefinition.yan2d, itemDefinition.zan2d, itemDefinition.xan2d, itemDefinition.xOffset2d, itemModel.modelHeight / 2 + var17 + itemDefinition.yOffset2d, var18 + itemDefinition.yOffset2d);
+			if (itemDefinition.boughtTemplateId != -1)
 			{
 				spritePixels.drawAt(0, 0);
 			}
@@ -133,12 +128,12 @@ public class ItemSpriteFactory
 			}
 
 			Rasterizer2D.setRasterBuffer(var8.pixels, 36, 32);
-			if (var9.notedTemplate != -1)
+			if (itemDefinition.notedTemplate != -1)
 			{
 				spritePixels.drawAt(0, 0);
 			}
 
-//			if(stackable == 1 || stackable == 2 && var9.stackable == 1) {
+//			if(stackable == 1 || stackable == 2 && itemDefinition.stackable == 1) {
 //				Resampler.field1590.method5500(Client.method1645(quantity), 0, 9, 16776960, 1);
 //			}
 
@@ -146,8 +141,14 @@ public class ItemSpriteFactory
 //				ItemComposition.itemSpriteCache.put(var8, var6);
 //			}
 
-			Rasterizer2D.setRasterBuffer(var12, var13, var14);
-			Rasterizer2D.setDrawRegion(var15);
+			Rasterizer2D.setRasterBuffer(Rasterizer2D.graphicsPixels,
+					Rasterizer2D.graphicsPixelsWidth,
+					Rasterizer2D.graphicsPixelsHeight);
+
+			int[] drawRegion = new int[4];
+			Rasterizer2D.copyDrawRegion(drawRegion);
+			Rasterizer2D.setDrawRegion(drawRegion);
+
 			Graphics3D.Rasterizer3D_method1();
 			Graphics3D.rasterGouraudLowRes = true;
 			return var8;

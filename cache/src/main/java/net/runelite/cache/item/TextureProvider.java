@@ -1,43 +1,32 @@
 package net.runelite.cache.item;
 
-public class TextureProvider  {
-   
+public class TextureProvider
+{
 
-   
-   static int menuX;
-   
-   
 
-   
-   Texture[] textures;
-   
-   
+	static int menuX;
 
-   
+
+	Texture[] textures;
+
+
 //   Deque deque;
-   
-   
 
-   
-   int maxSize;
-   
 
-   
-   int size;
-   
-   
-   double brightness;
-   
+	int maxSize;
 
-   
-   int width;
-   
-   
 
-   
+	int size;
+
+
+	double brightness;
+
+
+	int width;
+
+
 //   IndexDataBase sprites;
 
-   
 
 //   public TextureProvider(IndexDataBase var1, IndexDataBase var2, int var3, double var4, int var6) {
 //      this.deque = new Deque();
@@ -60,7 +49,6 @@ public class TextureProvider  {
 //
 //   }
 
-   
 
 //   public int method2566() {
 //      int var1 = 0;
@@ -89,17 +77,16 @@ public class TextureProvider  {
 //      }
 //   }
 
-   
-   
-   public void brightness(double var1) {
-      this.brightness = var1;
-      this.reset();
-   }
 
-   
+	public void brightness(double var1)
+	{
+		this.brightness = var1;
+		this.reset();
+	}
 
-   
-   public int[] load(int var1) {
+
+	public int[] load(int var1)
+	{
 //      Texture var2 = this.textures[var1];
 //      if(var2 != null) {
 //         if(var2.pixels != null) {
@@ -123,53 +110,54 @@ public class TextureProvider  {
 //         }
 //      }
 
-      return null;
-   }
+		return null;
+	}
 
-   
-   
 
-   
-   public int getAverageTextureRGB(int var1) {
-      return this.textures[var1] != null?this.textures[var1].field1777:0;
-   }
+	public int getAverageTextureRGB(int var1)
+	{
+		return this.textures[var1] != null ? this.textures[var1].field1777 : 0;
+	}
 
-   
 
-   public boolean vmethod3057(int var1) {
-      return this.textures[var1].field1778;
-   }
+	public boolean vmethod3057(int var1)
+	{
+		return this.textures[var1].field1778;
+	}
 
-   
 
-   public boolean vmethod3066(int var1) {
-      return this.width == 64;
-   }
+	public boolean vmethod3066(int var1)
+	{
+		return this.width == 64;
+	}
 
-   
 
-   
-   public void reset() {
-      for(int var1 = 0; var1 < this.textures.length; ++var1) {
-         if(this.textures[var1] != null) {
-            this.textures[var1].resetPixels();
-         }
-      }
+	public void reset()
+	{
+		for (int var1 = 0; var1 < this.textures.length; ++var1)
+		{
+			if (this.textures[var1] != null)
+			{
+				this.textures[var1].resetPixels();
+			}
+		}
 
-    //  this.deque = new Deque();
-      this.size = this.maxSize;
-   }
+		//  this.deque = new Deque();
+		this.size = this.maxSize;
+	}
 
-   
 
-   public void checkTextures(int var1) {
-      for(int var2 = 0; var2 < this.textures.length; ++var2) {
-         Texture var3 = this.textures[var2];
-         if(var3 != null && var3.field1783 != 0 && var3.loaded) {
-            var3.method2674(var1);
-            var3.loaded = false;
-         }
-      }
+	public void checkTextures(int var1)
+	{
+		for (int var2 = 0; var2 < this.textures.length; ++var2)
+		{
+			Texture var3 = this.textures[var2];
+			if (var3 != null && var3.field1783 != 0 && var3.loaded)
+			{
+				var3.method2674(var1);
+				var3.loaded = false;
+			}
+		}
 
-   }
+	}
 }

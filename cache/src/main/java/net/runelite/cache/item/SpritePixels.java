@@ -846,7 +846,8 @@ public final class SpritePixels extends Rasterizer2D
 				var16 += var14;
 				var17 += Rasterizer2D.graphicsPixelsWidth;
 			}
-		} catch (Exception var23)
+		}
+		catch (Exception var23)
 		{
 			;
 		}
@@ -894,7 +895,8 @@ public final class SpritePixels extends Rasterizer2D
 				var15 += var13;
 				var16 += Rasterizer2D.graphicsPixelsWidth;
 			}
-		} catch (Exception var22)
+		}
+		catch (Exception var22)
 		{
 			;
 		}

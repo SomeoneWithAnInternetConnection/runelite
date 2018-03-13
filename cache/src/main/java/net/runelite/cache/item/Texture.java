@@ -2,76 +2,87 @@ package net.runelite.cache.item;
 
 import io.netty.buffer.ByteBuf;
 
-public class Texture  {
-   
-   static int[] field1784;
-   
-   int field1777;
-   
-   boolean field1778;
-   
-   
-   int[] fileIds;
-   
-   int[] field1780;
-   
-   int[] field1781;
-   
-   int[] field1786;
-   
-   int field1783;
-   
-   int field1782;
-   
-   
-   int[] pixels;
-   
-   
-   boolean loaded;
+public class Texture
+{
+
+	static int[] field1784;
+
+	int field1777;
+
+	boolean field1778;
 
 
-   Texture(ByteBuf var1) {
-      this.loaded = false;
-      this.field1777 = var1.readUnsignedShort();
-      this.field1778 = var1.readUnsignedByte() == 1;
-      int var2 = var1.readUnsignedByte();
-      if(var2 >= 1 && var2 <= 4) {
-         this.fileIds = new int[var2];
+	int[] fileIds;
 
-         int var3;
-         for(var3 = 0; var3 < var2; ++var3) {
-            this.fileIds[var3] = var1.readUnsignedShort();
-         }
+	int[] field1780;
 
-         if(var2 > 1) {
-            this.field1780 = new int[var2 - 1];
+	int[] field1781;
 
-            for(var3 = 0; var3 < var2 - 1; ++var3) {
-               this.field1780[var3] = var1.readUnsignedByte();
-            }
-         }
+	int[] field1786;
 
-         if(var2 > 1) {
-            this.field1781 = new int[var2 - 1];
+	int field1783;
 
-            for(var3 = 0; var3 < var2 - 1; ++var3) {
-               this.field1781[var3] = var1.readUnsignedByte();
-            }
-         }
+	int field1782;
 
-         this.field1786 = new int[var2];
 
-         for(var3 = 0; var3 < var2; ++var3) {
-            this.field1786[var3] = var1.readInt();
-         }
+	int[] pixels;
 
-         this.field1783 = var1.readUnsignedByte();
-         this.field1782 = var1.readUnsignedByte();
-         this.pixels = null;
-      } else {
-         throw new RuntimeException();
-      }
-   }
+
+	boolean loaded;
+
+
+	Texture(ByteBuf var1)
+	{
+		this.loaded = false;
+		this.field1777 = var1.readUnsignedShort();
+		this.field1778 = var1.readUnsignedByte() == 1;
+		int var2 = var1.readUnsignedByte();
+		if (var2 >= 1 && var2 <= 4)
+		{
+			this.fileIds = new int[var2];
+
+			int var3;
+			for (var3 = 0; var3 < var2; ++var3)
+			{
+				this.fileIds[var3] = var1.readUnsignedShort();
+			}
+
+			if (var2 > 1)
+			{
+				this.field1780 = new int[var2 - 1];
+
+				for (var3 = 0; var3 < var2 - 1; ++var3)
+				{
+					this.field1780[var3] = var1.readUnsignedByte();
+				}
+			}
+
+			if (var2 > 1)
+			{
+				this.field1781 = new int[var2 - 1];
+
+				for (var3 = 0; var3 < var2 - 1; ++var3)
+				{
+					this.field1781[var3] = var1.readUnsignedByte();
+				}
+			}
+
+			this.field1786 = new int[var2];
+
+			for (var3 = 0; var3 < var2; ++var3)
+			{
+				this.field1786[var3] = var1.readInt();
+			}
+
+			this.field1783 = var1.readUnsignedByte();
+			this.field1782 = var1.readUnsignedByte();
+			this.pixels = null;
+		}
+		else
+		{
+			throw new RuntimeException();
+		}
+	}
 
 
 //   boolean method2680(double var1, int var3, IndexDataBase var4) {
@@ -170,81 +181,98 @@ public class Texture  {
 //      return true;
 //   }
 
-   
-   
-   void resetPixels() {
-      this.pixels = null;
-   }
 
-   
-   void method2674(int var1) {
-      if(this.pixels != null) {
-         short var2;
-         int var3;
-         int var4;
-         int var5;
-         int var6;
-         int var7;
-         int[] var10;
-         if(this.field1783 == 1 || this.field1783 == 3) {
-            if(field1784 == null || field1784.length < this.pixels.length) {
-               field1784 = new int[this.pixels.length];
-            }
+	void resetPixels()
+	{
+		this.pixels = null;
+	}
 
-            if(this.pixels.length == 4096) {
-               var2 = 64;
-            } else {
-               var2 = 128;
-            }
 
-            var3 = this.pixels.length;
-            var4 = var2 * this.field1782 * var1;
-            var5 = var3 - 1;
-            if(this.field1783 == 1) {
-               var4 = -var4;
-            }
+	void method2674(int var1)
+	{
+		if (this.pixels != null)
+		{
+			short var2;
+			int var3;
+			int var4;
+			int var5;
+			int var6;
+			int var7;
+			int[] var10;
+			if (this.field1783 == 1 || this.field1783 == 3)
+			{
+				if (field1784 == null || field1784.length < this.pixels.length)
+				{
+					field1784 = new int[this.pixels.length];
+				}
 
-            for(var6 = 0; var6 < var3; ++var6) {
-               var7 = var6 + var4 & var5;
-               field1784[var6] = this.pixels[var7];
-            }
+				if (this.pixels.length == 4096)
+				{
+					var2 = 64;
+				}
+				else
+				{
+					var2 = 128;
+				}
 
-            var10 = this.pixels;
-            this.pixels = field1784;
-            field1784 = var10;
-         }
+				var3 = this.pixels.length;
+				var4 = var2 * this.field1782 * var1;
+				var5 = var3 - 1;
+				if (this.field1783 == 1)
+				{
+					var4 = -var4;
+				}
 
-         if(this.field1783 == 2 || this.field1783 == 4) {
-            if(field1784 == null || field1784.length < this.pixels.length) {
-               field1784 = new int[this.pixels.length];
-            }
+				for (var6 = 0; var6 < var3; ++var6)
+				{
+					var7 = var6 + var4 & var5;
+					field1784[var6] = this.pixels[var7];
+				}
 
-            if(this.pixels.length == 4096) {
-               var2 = 64;
-            } else {
-               var2 = 128;
-            }
+				var10 = this.pixels;
+				this.pixels = field1784;
+				field1784 = var10;
+			}
 
-            var3 = this.pixels.length;
-            var4 = this.field1782 * var1;
-            var5 = var2 - 1;
-            if(this.field1783 == 2) {
-               var4 = -var4;
-            }
+			if (this.field1783 == 2 || this.field1783 == 4)
+			{
+				if (field1784 == null || field1784.length < this.pixels.length)
+				{
+					field1784 = new int[this.pixels.length];
+				}
 
-            for(var6 = 0; var6 < var3; var6 += var2) {
-               for(var7 = 0; var7 < var2; ++var7) {
-                  int var8 = var6 + var7;
-                  int var9 = var6 + (var7 + var4 & var5);
-                  field1784[var8] = this.pixels[var9];
-               }
-            }
+				if (this.pixels.length == 4096)
+				{
+					var2 = 64;
+				}
+				else
+				{
+					var2 = 128;
+				}
 
-            var10 = this.pixels;
-            this.pixels = field1784;
-            field1784 = var10;
-         }
+				var3 = this.pixels.length;
+				var4 = this.field1782 * var1;
+				var5 = var2 - 1;
+				if (this.field1783 == 2)
+				{
+					var4 = -var4;
+				}
 
-      }
-   }
+				for (var6 = 0; var6 < var3; var6 += var2)
+				{
+					for (var7 = 0; var7 < var2; ++var7)
+					{
+						int var8 = var6 + var7;
+						int var9 = var6 + (var7 + var4 & var5);
+						field1784[var8] = this.pixels[var9];
+					}
+				}
+
+				var10 = this.pixels;
+				this.pixels = field1784;
+				field1784 = var10;
+			}
+
+		}
+	}
 }
