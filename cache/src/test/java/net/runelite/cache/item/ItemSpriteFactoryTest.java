@@ -33,7 +33,7 @@ public class ItemSpriteFactoryTest
 
 			SpritePixels sprite = ItemSpriteFactory.createSprite(store, def, 1, 1, 3153952, 0, false);
 
-			File out = new File("D:\\rs\\07\\temp\\4153.png");
+			File out = new File("/tmp/itemsprites/4153.png");
 			BufferedImage img = sprite.toBufferedImage();
 			ImageIO.write(img, "PNG", out);
 
