@@ -30,6 +30,13 @@ import lombok.Data;
 @Data
 public class TextureDefinition
 {
+	public int field1777;
+	public boolean field1778;
 	private int id;
 	private int[] fileIds;
+	public int[] field1780;
+	public int[] field1781;
+	public int[] 		field1786 ;
+	public int field1782;
+	public int field1783;
 }

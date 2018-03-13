@@ -733,7 +733,7 @@ public class Model extends Renderable
 		}
 		catch (Exception var25)
 		{
-			;
+			var25.printStackTrace();
 		}
 
 	}

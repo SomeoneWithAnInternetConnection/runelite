@@ -1,5 +1,6 @@
 package net.runelite.cache.item;
 
+import com.google.common.graph.GraphBuilder;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,13 +28,15 @@ public class ItemSpriteFactoryTest
 			itemManager.load();
 
 //			ItemDefinition def = itemManager.getItem(6570);
-			ItemDefinition def = itemManager.getItem(4153);
+			ItemDefinition def = itemManager.getItem(6570);
 			Graphics3D.Rasterizer3D_zoom = 512; // you don't actually need to set this
 			Graphics3D.setBrightness(0.6D); // .6 - .9
 
+			Graphics3D.textureLoader = new TextureProvider();
+
 			SpritePixels sprite = ItemSpriteFactory.createSprite(store, def, 1, 1, 3153952, 0, false);
 
-			File out = new File("/tmp/itemsprites/4153.png");
+			File out = new File("C:\\rs\\temp\\4153.png");
 			BufferedImage img = sprite.toBufferedImage();
 			ImageIO.write(img, "PNG", out);
 

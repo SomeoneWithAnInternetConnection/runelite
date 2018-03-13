@@ -1,5 +1,10 @@
 package net.runelite.cache.item;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+import net.runelite.cache.TextureManager;
+import net.runelite.cache.definitions.TextureDefinition;
+
 public class TextureProvider
 {
 
@@ -7,7 +12,8 @@ public class TextureProvider
 	static int menuX;
 
 
-	Texture[] textures;
+	TextureDefinition[] textures;
+//	Texture[] textures;
 
 
 //   Deque deque;
@@ -23,6 +29,42 @@ public class TextureProvider
 
 
 	int width;
+
+	//new TextureProvider(class62.indexTextures, WorldMapRegion.indexSprites, 20, 0.8D, Client.lowMemory?64:128);
+	public TextureProvider(TextureManager textureManager) {
+      this.size = 0;
+      this.brightness = 1.0D;
+      this.width = 128;
+//      this.sprites = var2;
+      this.maxSize = 20;
+      this.size = this.maxSize;
+      this.brightness = 0.8D;
+      this.width = 128;
+
+      int max = -1;
+      for (TextureDefinition textureDefinition : textureManager.getTextures()) {
+      	if (textureDefinition.getId() > max) {
+      		max = textureDefinition.getId();
+		}
+	  }
+
+	  textures = new TextureDefinition[max + 1];
+		for (TextureDefinition textureDefinition : textureManager.getTextures())
+		{
+textures[textureDefinition.getId()] = textureDefinition;
+		}
+//      Map<Integer, TextureDefinition> textures = textureManager.getTextures().stream()
+//		  .collect(Collectors.toMap(t -> t.getId(),  t-> t));
+//
+//      int[] var7 = var1.getChilds(0); // files of archive 0
+//      int var8 = var7.length;
+//      this.textures = new Texture[var1.fileCount(0)];
+//
+//      for(int var9 = 0; var9 < var8; ++var9) {
+//         Buffer var10 = new Buffer(var1.getConfigData(0, var7[var9]));
+//         this.textures[var7[var9]] = new Texture(var10);
+//      }
+	}
 
 
 //   IndexDataBase sprites;
@@ -116,6 +158,7 @@ public class TextureProvider
 
 	public int getAverageTextureRGB(int var1)
 	{
+//		if(true)return 42;
 		return this.textures[var1] != null ? this.textures[var1].field1777 : 0;
 	}
 
