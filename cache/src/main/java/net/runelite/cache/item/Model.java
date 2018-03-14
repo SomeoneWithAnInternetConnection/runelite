@@ -239,150 +239,88 @@ public class Model extends Renderable
 	}
 
 
-	Model method2701(boolean var1, Model var2, byte[] var3)
-	{
-		var2.verticesCount = this.verticesCount;
-		var2.indicesCount = this.indicesCount;
-		var2.field1852 = this.field1852;
-		if (var2.verticesX == null || var2.verticesX.length < this.verticesCount)
-		{
-			var2.verticesX = new int[this.verticesCount + 100];
-			var2.verticesY = new int[this.verticesCount + 100];
-			var2.verticesZ = new int[this.verticesCount + 100];
-		}
-
-		int var4;
-		for (var4 = 0; var4 < this.verticesCount; ++var4)
-		{
-			var2.verticesX[var4] = this.verticesX[var4];
-			var2.verticesY[var4] = this.verticesY[var4];
-			var2.verticesZ[var4] = this.verticesZ[var4];
-		}
-
-		if (var1)
-		{
-			var2.field1882 = this.field1882;
-		}
-		else
-		{
-			var2.field1882 = var3;
-			if (this.field1882 == null)
-			{
-				for (var4 = 0; var4 < this.indicesCount; ++var4)
-				{
-					var2.field1882[var4] = 0;
-				}
-			}
-			else
-			{
-				for (var4 = 0; var4 < this.indicesCount; ++var4)
-				{
-					var2.field1882[var4] = this.field1882[var4];
-				}
-			}
-		}
-
-		var2.indices1 = this.indices1;
-		var2.indices2 = this.indices2;
-		var2.indices3 = this.indices3;
-		var2.field1856 = this.field1856;
-		var2.field1854 = this.field1854;
-		var2.field1823 = this.field1823;
-		var2.field1838 = this.field1838;
-		var2.field1840 = this.field1840;
-		var2.field1841 = this.field1841;
-		var2.field1842 = this.field1842;
-		var2.field1844 = this.field1844;
-		var2.field1865 = this.field1865;
-		var2.field1846 = this.field1846;
-		var2.field1847 = this.field1847;
-		var2.field1848 = this.field1848;
-		var2.isItemModel = this.isItemModel;
-		var2.resetBounds();
-		return var2;
-	}
 
 
-	void method2759(int var1)
-	{
-		if (this.extremeX == -1)
-		{
-			int var2 = 0;
-			int var3 = 0;
-			int var4 = 0;
-			int var5 = 0;
-			int var6 = 0;
-			int var7 = 0;
-			int var8 = Model_cosine[var1];
-			int var9 = Model_sine[var1];
-
-			for (int var10 = 0; var10 < this.verticesCount; ++var10)
-			{
-				int var11 = Graphics3D.method2795(this.verticesX[var10], this.verticesZ[var10], var8, var9);
-				int var12 = this.verticesY[var10];
-				int var13 = Graphics3D.method2815(this.verticesX[var10], this.verticesZ[var10], var8, var9);
-				if (var11 < var2)
-				{
-					var2 = var11;
-				}
-
-				if (var11 > var5)
-				{
-					var5 = var11;
-				}
-
-				if (var12 < var3)
-				{
-					var3 = var12;
-				}
-
-				if (var12 > var6)
-				{
-					var6 = var12;
-				}
-
-				if (var13 < var4)
-				{
-					var4 = var13;
-				}
-
-				if (var13 > var7)
-				{
-					var7 = var13;
-				}
-			}
-
-			this.centerX = (var5 + var2) / 2;
-			this.centerY = (var6 + var3) / 2;
-			this.centerZ = (var7 + var4) / 2;
-			this.extremeX = (var5 - var2 + 1) / 2;
-			this.extremeY = (var6 - var3 + 1) / 2;
-			this.extremeZ = (var7 - var4 + 1) / 2;
-			if (this.extremeX < 32)
-			{
-				this.extremeX = 32;
-			}
-
-			if (this.extremeZ < 32)
-			{
-				this.extremeZ = 32;
-			}
-
-			if (this.isItemModel)
-			{
-				this.extremeX += 8;
-				this.extremeZ += 8;
-			}
-
-		}
-	}
-
-
-	void resetBounds()
-	{
-		this.boundsType = 0;
-		this.extremeX = -1;
-	}
+//	void method2759(int var1)
+//	{
+//		if (this.extremeX == -1)
+//		{
+//			int var2 = 0;
+//			int var3 = 0;
+//			int var4 = 0;
+//			int var5 = 0;
+//			int var6 = 0;
+//			int var7 = 0;
+//			int var8 = Model_cosine[var1];
+//			int var9 = Model_sine[var1];
+//
+//			for (int var10 = 0; var10 < this.verticesCount; ++var10)
+//			{
+//				int var11 = Graphics3D.method2795(this.verticesX[var10], this.verticesZ[var10], var8, var9);
+//				int var12 = this.verticesY[var10];
+//				int var13 = Graphics3D.method2815(this.verticesX[var10], this.verticesZ[var10], var8, var9);
+//				if (var11 < var2)
+//				{
+//					var2 = var11;
+//				}
+//
+//				if (var11 > var5)
+//				{
+//					var5 = var11;
+//				}
+//
+//				if (var12 < var3)
+//				{
+//					var3 = var12;
+//				}
+//
+//				if (var12 > var6)
+//				{
+//					var6 = var12;
+//				}
+//
+//				if (var13 < var4)
+//				{
+//					var4 = var13;
+//				}
+//
+//				if (var13 > var7)
+//				{
+//					var7 = var13;
+//				}
+//			}
+//
+//			this.centerX = (var5 + var2) / 2;
+//			this.centerY = (var6 + var3) / 2;
+//			this.centerZ = (var7 + var4) / 2;
+//			this.extremeX = (var5 - var2 + 1) / 2;
+//			this.extremeY = (var6 - var3 + 1) / 2;
+//			this.extremeZ = (var7 - var4 + 1) / 2;
+//			if (this.extremeX < 32)
+//			{
+//				this.extremeX = 32;
+//			}
+//
+//			if (this.extremeZ < 32)
+//			{
+//				this.extremeZ = 32;
+//			}
+//
+//			if (this.isItemModel)
+//			{
+//				this.extremeX += 8;
+//				this.extremeZ += 8;
+//			}
+//
+//		}
+//	}
+//
+//
+//	void resetBounds()
+//	{
+//		this.boundsType = 0;
+//		this.extremeX = -1;
+//	}
 
 
 //   public void method2746(Frames var1, int var2) {
@@ -454,192 +392,192 @@ public class Model extends Renderable
 //   }
 
 
-	void method2695(int var1, int[] var2, int var3, int var4, int var5)
-	{
-		int var6 = var2.length;
-		int var7;
-		int var8;
-		int var11;
-		int var12;
-		if (var1 == 0)
-		{
-			var7 = 0;
-			field1881 = 0;
-			field1845 = 0;
-			field1883 = 0;
-
-			for (var8 = 0; var8 < var6; ++var8)
-			{
-				int var9 = var2[var8];
-				if (var9 < this.field1847.length)
-				{
-					int[] var10 = this.field1847[var9];
-
-					for (var11 = 0; var11 < var10.length; ++var11)
-					{
-						var12 = var10[var11];
-						field1881 += this.verticesX[var12];
-						field1845 += this.verticesY[var12];
-						field1883 += this.verticesZ[var12];
-						++var7;
-					}
-				}
-			}
-
-			if (var7 > 0)
-			{
-				field1881 = var3 + field1881 / var7;
-				field1845 = var4 + field1845 / var7;
-				field1883 = var5 + field1883 / var7;
-			}
-			else
-			{
-				field1881 = var3;
-				field1845 = var4;
-				field1883 = var5;
-			}
-
-		}
-		else
-		{
-			int[] var18;
-			int var19;
-			if (var1 == 1)
-			{
-				for (var7 = 0; var7 < var6; ++var7)
-				{
-					var8 = var2[var7];
-					if (var8 < this.field1847.length)
-					{
-						var18 = this.field1847[var8];
-
-						for (var19 = 0; var19 < var18.length; ++var19)
-						{
-							var11 = var18[var19];
-							this.verticesX[var11] += var3;
-							this.verticesY[var11] += var4;
-							this.verticesZ[var11] += var5;
-						}
-					}
-				}
-
-			}
-			else if (var1 == 2)
-			{
-				for (var7 = 0; var7 < var6; ++var7)
-				{
-					var8 = var2[var7];
-					if (var8 < this.field1847.length)
-					{
-						var18 = this.field1847[var8];
-
-						for (var19 = 0; var19 < var18.length; ++var19)
-						{
-							var11 = var18[var19];
-							this.verticesX[var11] -= field1881;
-							this.verticesY[var11] -= field1845;
-							this.verticesZ[var11] -= field1883;
-							var12 = (var3 & 255) * 8;
-							int var13 = (var4 & 255) * 8;
-							int var14 = (var5 & 255) * 8;
-							int var15;
-							int var16;
-							int var17;
-							if (var14 != 0)
-							{
-								var15 = Model_sine[var14];
-								var16 = Model_cosine[var14];
-								var17 = var15 * this.verticesY[var11] + var16 * this.verticesX[var11] >> 16;
-								this.verticesY[var11] = var16 * this.verticesY[var11] - var15 * this.verticesX[var11] >> 16;
-								this.verticesX[var11] = var17;
-							}
-
-							if (var12 != 0)
-							{
-								var15 = Model_sine[var12];
-								var16 = Model_cosine[var12];
-								var17 = var16 * this.verticesY[var11] - var15 * this.verticesZ[var11] >> 16;
-								this.verticesZ[var11] = var15 * this.verticesY[var11] + var16 * this.verticesZ[var11] >> 16;
-								this.verticesY[var11] = var17;
-							}
-
-							if (var13 != 0)
-							{
-								var15 = Model_sine[var13];
-								var16 = Model_cosine[var13];
-								var17 = var15 * this.verticesZ[var11] + var16 * this.verticesX[var11] >> 16;
-								this.verticesZ[var11] = var16 * this.verticesZ[var11] - var15 * this.verticesX[var11] >> 16;
-								this.verticesX[var11] = var17;
-							}
-
-							this.verticesX[var11] += field1881;
-							this.verticesY[var11] += field1845;
-							this.verticesZ[var11] += field1883;
-						}
-					}
-				}
-
-			}
-			else if (var1 == 3)
-			{
-				for (var7 = 0; var7 < var6; ++var7)
-				{
-					var8 = var2[var7];
-					if (var8 < this.field1847.length)
-					{
-						var18 = this.field1847[var8];
-
-						for (var19 = 0; var19 < var18.length; ++var19)
-						{
-							var11 = var18[var19];
-							this.verticesX[var11] -= field1881;
-							this.verticesY[var11] -= field1845;
-							this.verticesZ[var11] -= field1883;
-							this.verticesX[var11] = var3 * this.verticesX[var11] / 128;
-							this.verticesY[var11] = var4 * this.verticesY[var11] / 128;
-							this.verticesZ[var11] = var5 * this.verticesZ[var11] / 128;
-							this.verticesX[var11] += field1881;
-							this.verticesY[var11] += field1845;
-							this.verticesZ[var11] += field1883;
-						}
-					}
-				}
-
-			}
-			else if (var1 == 5)
-			{
-				if (this.field1848 != null && this.field1882 != null)
-				{
-					for (var7 = 0; var7 < var6; ++var7)
-					{
-						var8 = var2[var7];
-						if (var8 < this.field1848.length)
-						{
-							var18 = this.field1848[var8];
-
-							for (var19 = 0; var19 < var18.length; ++var19)
-							{
-								var11 = var18[var19];
-								var12 = (this.field1882[var11] & 255) + var3 * 8;
-								if (var12 < 0)
-								{
-									var12 = 0;
-								}
-								else if (var12 > 255)
-								{
-									var12 = 255;
-								}
-
-								this.field1882[var11] = (byte) var12;
-							}
-						}
-					}
-				}
-
-			}
-		}
-	}
-
+//	void method2695(int var1, int[] var2, int var3, int var4, int var5)
+//	{
+//		int var6 = var2.length;
+//		int var7;
+//		int var8;
+//		int var11;
+//		int var12;
+//		if (var1 == 0)
+//		{
+//			var7 = 0;
+//			field1881 = 0;
+//			field1845 = 0;
+//			field1883 = 0;
+//
+//			for (var8 = 0; var8 < var6; ++var8)
+//			{
+//				int var9 = var2[var8];
+//				if (var9 < this.field1847.length)
+//				{
+//					int[] var10 = this.field1847[var9];
+//
+//					for (var11 = 0; var11 < var10.length; ++var11)
+//					{
+//						var12 = var10[var11];
+//						field1881 += this.verticesX[var12];
+//						field1845 += this.verticesY[var12];
+//						field1883 += this.verticesZ[var12];
+//						++var7;
+//					}
+//				}
+//			}
+//
+//			if (var7 > 0)
+//			{
+//				field1881 = var3 + field1881 / var7;
+//				field1845 = var4 + field1845 / var7;
+//				field1883 = var5 + field1883 / var7;
+//			}
+//			else
+//			{
+//				field1881 = var3;
+//				field1845 = var4;
+//				field1883 = var5;
+//			}
+//
+//		}
+//		else
+//		{
+//			int[] var18;
+//			int var19;
+//			if (var1 == 1)
+//			{
+//				for (var7 = 0; var7 < var6; ++var7)
+//				{
+//					var8 = var2[var7];
+//					if (var8 < this.field1847.length)
+//					{
+//						var18 = this.field1847[var8];
+//
+//						for (var19 = 0; var19 < var18.length; ++var19)
+//						{
+//							var11 = var18[var19];
+//							this.verticesX[var11] += var3;
+//							this.verticesY[var11] += var4;
+//							this.verticesZ[var11] += var5;
+//						}
+//					}
+//				}
+//
+//			}
+//			else if (var1 == 2)
+//			{
+//				for (var7 = 0; var7 < var6; ++var7)
+//				{
+//					var8 = var2[var7];
+//					if (var8 < this.field1847.length)
+//					{
+//						var18 = this.field1847[var8];
+//
+//						for (var19 = 0; var19 < var18.length; ++var19)
+//						{
+//							var11 = var18[var19];
+//							this.verticesX[var11] -= field1881;
+//							this.verticesY[var11] -= field1845;
+//							this.verticesZ[var11] -= field1883;
+//							var12 = (var3 & 255) * 8;
+//							int var13 = (var4 & 255) * 8;
+//							int var14 = (var5 & 255) * 8;
+//							int var15;
+//							int var16;
+//							int var17;
+//							if (var14 != 0)
+//							{
+//								var15 = Model_sine[var14];
+//								var16 = Model_cosine[var14];
+//								var17 = var15 * this.verticesY[var11] + var16 * this.verticesX[var11] >> 16;
+//								this.verticesY[var11] = var16 * this.verticesY[var11] - var15 * this.verticesX[var11] >> 16;
+//								this.verticesX[var11] = var17;
+//							}
+//
+//							if (var12 != 0)
+//							{
+//								var15 = Model_sine[var12];
+//								var16 = Model_cosine[var12];
+//								var17 = var16 * this.verticesY[var11] - var15 * this.verticesZ[var11] >> 16;
+//								this.verticesZ[var11] = var15 * this.verticesY[var11] + var16 * this.verticesZ[var11] >> 16;
+//								this.verticesY[var11] = var17;
+//							}
+//
+//							if (var13 != 0)
+//							{
+//								var15 = Model_sine[var13];
+//								var16 = Model_cosine[var13];
+//								var17 = var15 * this.verticesZ[var11] + var16 * this.verticesX[var11] >> 16;
+//								this.verticesZ[var11] = var16 * this.verticesZ[var11] - var15 * this.verticesX[var11] >> 16;
+//								this.verticesX[var11] = var17;
+//							}
+//
+//							this.verticesX[var11] += field1881;
+//							this.verticesY[var11] += field1845;
+//							this.verticesZ[var11] += field1883;
+//						}
+//					}
+//				}
+//
+//			}
+//			else if (var1 == 3)
+//			{
+//				for (var7 = 0; var7 < var6; ++var7)
+//				{
+//					var8 = var2[var7];
+//					if (var8 < this.field1847.length)
+//					{
+//						var18 = this.field1847[var8];
+//
+//						for (var19 = 0; var19 < var18.length; ++var19)
+//						{
+//							var11 = var18[var19];
+//							this.verticesX[var11] -= field1881;
+//							this.verticesY[var11] -= field1845;
+//							this.verticesZ[var11] -= field1883;
+//							this.verticesX[var11] = var3 * this.verticesX[var11] / 128;
+//							this.verticesY[var11] = var4 * this.verticesY[var11] / 128;
+//							this.verticesZ[var11] = var5 * this.verticesZ[var11] / 128;
+//							this.verticesX[var11] += field1881;
+//							this.verticesY[var11] += field1845;
+//							this.verticesZ[var11] += field1883;
+//						}
+//					}
+//				}
+//
+//			}
+//			else if (var1 == 5)
+//			{
+//				if (this.field1848 != null && this.field1882 != null)
+//				{
+//					for (var7 = 0; var7 < var6; ++var7)
+//					{
+//						var8 = var2[var7];
+//						if (var8 < this.field1848.length)
+//						{
+//							var18 = this.field1848[var8];
+//
+//							for (var19 = 0; var19 < var18.length; ++var19)
+//							{
+//								var11 = var18[var19];
+//								var12 = (this.field1882[var11] & 255) + var3 * 8;
+//								if (var12 < 0)
+//								{
+//									var12 = 0;
+//								}
+//								else if (var12 > 255)
+//								{
+//									var12 = 255;
+//								}
+//
+//								this.field1882[var11] = (byte) var12;
+//							}
+//						}
+//					}
+//				}
+//
+//			}
+//		}
+//	}
+//
 
 	public final void rotateAndProject(int rotation_1, int yRotation, int zRotation, int xRotation, int xOffset, int yOffset, int zOffset)
 	{
@@ -735,7 +673,7 @@ public class Model extends Renderable
 	}
 
 
-	final void method0(boolean var1, boolean var2, boolean var3, int var4)
+	private void method0(boolean var1, boolean var2, boolean var3, int var4)
 	{
 		if (this.diameter < 1600)
 		{
@@ -1070,7 +1008,7 @@ public class Model extends Renderable
 	}
 
 
-	final void method2706(int var1)
+	private void method2706(int var1)
 	{
 		if (field1885[var1])
 		{
@@ -1132,7 +1070,7 @@ public class Model extends Renderable
 	}
 
 
-	final void method2707(int var1)
+	private void method2707(int var1)
 	{
 		int var2 = Graphics3D.centerX;
 		int var3 = Graphics3D.centerY;

@@ -2978,1108 +2978,1108 @@ public class Graphics3D extends Rasterizer2D
 	}
 
 
-	static final void rasterTexture(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18)
-	{
-		int[] var19 = textureLoader.load(var18);
-		int var20;
-		if (var19 == null)
-		{
-			var20 = textureLoader.getAverageTextureRGB(var18);
-			rasterGouraud(var0, var1, var2, var3, var4, var5, method2794(var20, var6), method2794(var20, var7), method2794(var20, var8));
-		}
-		else
-		{
-			lowMem = textureLoader.vmethod3066(var18);
-			field1909 = textureLoader.vmethod3057(var18);
-			var20 = var4 - var3;
-			int var21 = var1 - var0;
-			int var22 = var5 - var3;
-			int var23 = var2 - var0;
-			int var24 = var7 - var6;
-			int var25 = var8 - var6;
-			int var26 = 0;
-			if (var0 != var1)
-			{
-				var26 = (var4 - var3 << 14) / (var1 - var0);
-			}
-
-			int var27 = 0;
-			if (var2 != var1)
-			{
-				var27 = (var5 - var4 << 14) / (var2 - var1);
-			}
-
-			int var28 = 0;
-			if (var0 != var2)
-			{
-				var28 = (var3 - var5 << 14) / (var0 - var2);
-			}
-
-			int var29 = var20 * var23 - var22 * var21;
-			if (var29 != 0)
-			{
-				int var30 = (var24 * var23 - var25 * var21 << 9) / var29;
-				int var31 = (var25 * var20 - var24 * var22 << 9) / var29;
-				var10 = var9 - var10;
-				var13 = var12 - var13;
-				var16 = var15 - var16;
-				var11 -= var9;
-				var14 -= var12;
-				var17 -= var15;
-				int var32 = var11 * var12 - var9 * var14 << 14;
-				int var33 = (int) (((long) (var15 * var14 - var17 * var12) << 14) / (long) Rasterizer3D_zoom);
-				int var34 = (int) (((long) (var17 * var9 - var11 * var15) << 14) / (long) Rasterizer3D_zoom);
-				int var35 = var10 * var12 - var13 * var9 << 14;
-				int var36 = (int) (((long) (var13 * var15 - var16 * var12) << 14) / (long) Rasterizer3D_zoom);
-				int var37 = (int) (((long) (var16 * var9 - var10 * var15) << 14) / (long) Rasterizer3D_zoom);
-				int var38 = var13 * var11 - var10 * var14 << 14;
-				int var39 = (int) (((long) (var16 * var14 - var13 * var17) << 14) / (long) Rasterizer3D_zoom);
-				int var40 = (int) (((long) (var17 * var10 - var11 * var16) << 14) / (long) Rasterizer3D_zoom);
-				int var41;
-				if (var0 <= var1 && var0 <= var2)
-				{
-					if (var0 < Rasterizer3D_clipHeight)
-					{
-						if (var1 > Rasterizer3D_clipHeight)
-						{
-							var1 = Rasterizer3D_clipHeight;
-						}
-
-						if (var2 > Rasterizer3D_clipHeight)
-						{
-							var2 = Rasterizer3D_clipHeight;
-						}
-
-						var6 = var30 + ((var6 << 9) - var3 * var30);
-						if (var1 < var2)
-						{
-							var5 = var3 <<= 14;
-							if (var0 < 0)
-							{
-								var5 -= var0 * var28;
-								var3 -= var0 * var26;
-								var6 -= var0 * var31;
-								var0 = 0;
-							}
-
-							var4 <<= 14;
-							if (var1 < 0)
-							{
-								var4 -= var27 * var1;
-								var1 = 0;
-							}
-
-							var41 = var0 - centerY;
-							var32 += var34 * var41;
-							var35 += var37 * var41;
-							var38 += var40 * var41;
-							if ((var0 == var1 || var28 >= var26) && (var0 != var1 || var28 <= var27))
-							{
-								var2 -= var1;
-								var1 -= var0;
-								var0 = rasterClipY[var0];
-
-								while (true)
-								{
-									--var1;
-									if (var1 < 0)
-									{
-										while (true)
-										{
-											--var2;
-											if (var2 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-											var5 += var28;
-											var4 += var27;
-											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-									var5 += var28;
-									var3 += var26;
-									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-							else
-							{
-								var2 -= var1;
-								var1 -= var0;
-								var0 = rasterClipY[var0];
-
-								while (true)
-								{
-									--var1;
-									if (var1 < 0)
-									{
-										while (true)
-										{
-											--var2;
-											if (var2 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-											var5 += var28;
-											var4 += var27;
-											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-									var5 += var28;
-									var3 += var26;
-									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-						}
-						else
-						{
-							var4 = var3 <<= 14;
-							if (var0 < 0)
-							{
-								var4 -= var0 * var28;
-								var3 -= var0 * var26;
-								var6 -= var0 * var31;
-								var0 = 0;
-							}
-
-							var5 <<= 14;
-							if (var2 < 0)
-							{
-								var5 -= var27 * var2;
-								var2 = 0;
-							}
-
-							var41 = var0 - centerY;
-							var32 += var34 * var41;
-							var35 += var37 * var41;
-							var38 += var40 * var41;
-							if (var0 != var2 && var28 < var26 || var0 == var2 && var27 > var26)
-							{
-								var1 -= var2;
-								var2 -= var0;
-								var0 = rasterClipY[var0];
-
-								while (true)
-								{
-									--var2;
-									if (var2 < 0)
-									{
-										while (true)
-										{
-											--var1;
-											if (var1 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-											var5 += var27;
-											var3 += var26;
-											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-									var4 += var28;
-									var3 += var26;
-									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-							else
-							{
-								var1 -= var2;
-								var2 -= var0;
-								var0 = rasterClipY[var0];
-
-								while (true)
-								{
-									--var2;
-									if (var2 < 0)
-									{
-										while (true)
-										{
-											--var1;
-											if (var1 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-											var5 += var27;
-											var3 += var26;
-											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
-									var4 += var28;
-									var3 += var26;
-									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-						}
-					}
-				}
-				else if (var1 <= var2)
-				{
-					if (var1 < Rasterizer3D_clipHeight)
-					{
-						if (var2 > Rasterizer3D_clipHeight)
-						{
-							var2 = Rasterizer3D_clipHeight;
-						}
-
-						if (var0 > Rasterizer3D_clipHeight)
-						{
-							var0 = Rasterizer3D_clipHeight;
-						}
-
-						var7 = var30 + ((var7 << 9) - var30 * var4);
-						if (var2 < var0)
-						{
-							var3 = var4 <<= 14;
-							if (var1 < 0)
-							{
-								var3 -= var26 * var1;
-								var4 -= var27 * var1;
-								var7 -= var31 * var1;
-								var1 = 0;
-							}
-
-							var5 <<= 14;
-							if (var2 < 0)
-							{
-								var5 -= var28 * var2;
-								var2 = 0;
-							}
-
-							var41 = var1 - centerY;
-							var32 += var34 * var41;
-							var35 += var37 * var41;
-							var38 += var40 * var41;
-							if ((var2 == var1 || var26 >= var27) && (var2 != var1 || var26 <= var28))
-							{
-								var0 -= var2;
-								var2 -= var1;
-								var1 = rasterClipY[var1];
-
-								while (true)
-								{
-									--var2;
-									if (var2 < 0)
-									{
-										while (true)
-										{
-											--var0;
-											if (var0 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-											var3 += var26;
-											var5 += var28;
-											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-									var3 += var26;
-									var4 += var27;
-									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-							else
-							{
-								var0 -= var2;
-								var2 -= var1;
-								var1 = rasterClipY[var1];
-
-								while (true)
-								{
-									--var2;
-									if (var2 < 0)
-									{
-										while (true)
-										{
-											--var0;
-											if (var0 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-											var3 += var26;
-											var5 += var28;
-											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-									var3 += var26;
-									var4 += var27;
-									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-						}
-						else
-						{
-							var5 = var4 <<= 14;
-							if (var1 < 0)
-							{
-								var5 -= var26 * var1;
-								var4 -= var27 * var1;
-								var7 -= var31 * var1;
-								var1 = 0;
-							}
-
-							var3 <<= 14;
-							if (var0 < 0)
-							{
-								var3 -= var0 * var28;
-								var0 = 0;
-							}
-
-							var41 = var1 - centerY;
-							var32 += var34 * var41;
-							var35 += var37 * var41;
-							var38 += var40 * var41;
-							if (var26 < var27)
-							{
-								var2 -= var0;
-								var0 -= var1;
-								var1 = rasterClipY[var1];
-
-								while (true)
-								{
-									--var0;
-									if (var0 < 0)
-									{
-										while (true)
-										{
-											--var2;
-											if (var2 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-											var3 += var28;
-											var4 += var27;
-											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-									var5 += var26;
-									var4 += var27;
-									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-							else
-							{
-								var2 -= var0;
-								var0 -= var1;
-								var1 = rasterClipY[var1];
-
-								while (true)
-								{
-									--var0;
-									if (var0 < 0)
-									{
-										while (true)
-										{
-											--var2;
-											if (var2 < 0)
-											{
-												return;
-											}
-
-											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-											var3 += var28;
-											var4 += var27;
-											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
-											var32 += var34;
-											var35 += var37;
-											var38 += var40;
-										}
-									}
-
-									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
-									var5 += var26;
-									var4 += var27;
-									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
-									var32 += var34;
-									var35 += var37;
-									var38 += var40;
-								}
-							}
-						}
-					}
-				}
-				else if (var2 < Rasterizer3D_clipHeight)
-				{
-					if (var0 > Rasterizer3D_clipHeight)
-					{
-						var0 = Rasterizer3D_clipHeight;
-					}
-
-					if (var1 > Rasterizer3D_clipHeight)
-					{
-						var1 = Rasterizer3D_clipHeight;
-					}
-
-					var8 = (var8 << 9) - var5 * var30 + var30;
-					if (var0 < var1)
-					{
-						var4 = var5 <<= 14;
-						if (var2 < 0)
-						{
-							var4 -= var27 * var2;
-							var5 -= var28 * var2;
-							var8 -= var31 * var2;
-							var2 = 0;
-						}
-
-						var3 <<= 14;
-						if (var0 < 0)
-						{
-							var3 -= var0 * var26;
-							var0 = 0;
-						}
-
-						var41 = var2 - centerY;
-						var32 += var34 * var41;
-						var35 += var37 * var41;
-						var38 += var40 * var41;
-						if (var27 < var28)
-						{
-							var1 -= var0;
-							var0 -= var2;
-							var2 = rasterClipY[var2];
-
-							while (true)
-							{
-								--var0;
-								if (var0 < 0)
-								{
-									while (true)
-									{
-										--var1;
-										if (var1 < 0)
-										{
-											return;
-										}
-
-										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-										var4 += var27;
-										var3 += var26;
-										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
-										var32 += var34;
-										var35 += var37;
-										var38 += var40;
-									}
-								}
-
-								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-								var4 += var27;
-								var5 += var28;
-								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
-								var32 += var34;
-								var35 += var37;
-								var38 += var40;
-							}
-						}
-						else
-						{
-							var1 -= var0;
-							var0 -= var2;
-							var2 = rasterClipY[var2];
-
-							while (true)
-							{
-								--var0;
-								if (var0 < 0)
-								{
-									while (true)
-									{
-										--var1;
-										if (var1 < 0)
-										{
-											return;
-										}
-
-										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-										var4 += var27;
-										var3 += var26;
-										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
-										var32 += var34;
-										var35 += var37;
-										var38 += var40;
-									}
-								}
-
-								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-								var4 += var27;
-								var5 += var28;
-								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
-								var32 += var34;
-								var35 += var37;
-								var38 += var40;
-							}
-						}
-					}
-					else
-					{
-						var3 = var5 <<= 14;
-						if (var2 < 0)
-						{
-							var3 -= var27 * var2;
-							var5 -= var28 * var2;
-							var8 -= var31 * var2;
-							var2 = 0;
-						}
-
-						var4 <<= 14;
-						if (var1 < 0)
-						{
-							var4 -= var26 * var1;
-							var1 = 0;
-						}
-
-						var41 = var2 - centerY;
-						var32 += var34 * var41;
-						var35 += var37 * var41;
-						var38 += var40 * var41;
-						if (var27 < var28)
-						{
-							var0 -= var1;
-							var1 -= var2;
-							var2 = rasterClipY[var2];
-
-							while (true)
-							{
-								--var1;
-								if (var1 < 0)
-								{
-									while (true)
-									{
-										--var0;
-										if (var0 < 0)
-										{
-											return;
-										}
-
-										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-										var4 += var26;
-										var5 += var28;
-										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
-										var32 += var34;
-										var35 += var37;
-										var38 += var40;
-									}
-								}
-
-								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-								var3 += var27;
-								var5 += var28;
-								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
-								var32 += var34;
-								var35 += var37;
-								var38 += var40;
-							}
-						}
-						else
-						{
-							var0 -= var1;
-							var1 -= var2;
-							var2 = rasterClipY[var2];
-
-							while (true)
-							{
-								--var1;
-								if (var1 < 0)
-								{
-									while (true)
-									{
-										--var0;
-										if (var0 < 0)
-										{
-											return;
-										}
-
-										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-										var4 += var26;
-										var5 += var28;
-										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
-										var32 += var34;
-										var35 += var37;
-										var38 += var40;
-									}
-								}
-
-								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
-								var3 += var27;
-								var5 += var28;
-								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
-								var32 += var34;
-								var35 += var37;
-								var38 += var40;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-
-	static final void method2793(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14)
-	{
-		if (rasterClipEnable)
-		{
-			if (var6 > rasterClipX)
-			{
-				var6 = rasterClipX;
-			}
-
-			if (var5 < 0)
-			{
-				var5 = 0;
-			}
-		}
-
-		if (var5 < var6)
-		{
-			var4 += var5;
-			var7 += var5 * var8;
-			int var17 = var6 - var5;
-			int var15;
-			int var16;
-			int var18;
-			int var19;
-			int var20;
-			int var21;
-			int var22;
-			int var23;
-			if (lowMem)
-			{
-				var23 = var5 - centerX;
-				var9 += var23 * var12;
-				var10 += var13 * var23;
-				var11 += var23 * var14;
-				var22 = var11 >> 12;
-				if (var22 != 0)
-				{
-					var18 = var9 / var22;
-					var19 = var10 / var22;
-				}
-				else
-				{
-					var18 = 0;
-					var19 = 0;
-				}
-
-				var9 += var17 * var12;
-				var10 += var13 * var17;
-				var11 += var17 * var14;
-				var22 = var11 >> 12;
-				if (var22 != 0)
-				{
-					var20 = var9 / var22;
-					var21 = var10 / var22;
-				}
-				else
-				{
-					var20 = 0;
-					var21 = 0;
-				}
-
-				var2 = (var18 << 20) + var19;
-				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 20);
-				var17 >>= 3;
-				var8 <<= 3;
-				var15 = var7 >> 8;
-				if (field1909)
-				{
-					if (var17 > 0)
-					{
-						do
-						{
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var7 += var8;
-							var15 = var7 >> 8;
-							--var17;
-						} while (var17 > 0);
-					}
-
-					var17 = var6 - var5 & 7;
-					if (var17 > 0)
-					{
-						do
-						{
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							--var17;
-						} while (var17 > 0);
-					}
-				}
-				else
-				{
-					if (var17 > 0)
-					{
-						do
-						{
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							var7 += var8;
-							var15 = var7 >> 8;
-							--var17;
-						} while (var17 > 0);
-					}
-
-					var17 = var6 - var5 & 7;
-					if (var17 > 0)
-					{
-						do
-						{
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							--var17;
-						} while (var17 > 0);
-					}
-				}
-			}
-			else
-			{
-				var23 = var5 - centerX;
-				var9 += var23 * var12;
-				var10 += var13 * var23;
-				var11 += var23 * var14;
-				var22 = var11 >> 14;
-				if (var22 != 0)
-				{
-					var18 = var9 / var22;
-					var19 = var10 / var22;
-				}
-				else
-				{
-					var18 = 0;
-					var19 = 0;
-				}
-
-				var9 += var17 * var12;
-				var10 += var13 * var17;
-				var11 += var17 * var14;
-				var22 = var11 >> 14;
-				if (var22 != 0)
-				{
-					var20 = var9 / var22;
-					var21 = var10 / var22;
-				}
-				else
-				{
-					var20 = 0;
-					var21 = 0;
-				}
-
-				var2 = (var18 << 18) + var19;
-				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 18);
-				var17 >>= 3;
-				var8 <<= 3;
-				var15 = var7 >> 8;
-				if (field1909)
-				{
-					if (var17 > 0)
-					{
-						do
-						{
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							var7 += var8;
-							var15 = var7 >> 8;
-							--var17;
-						} while (var17 > 0);
-					}
-
-					var17 = var6 - var5 & 7;
-					if (var17 > 0)
-					{
-						do
-						{
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							var2 += var16;
-							--var17;
-						} while (var17 > 0);
-					}
-				}
-				else
-				{
-					if (var17 > 0)
-					{
-						do
-						{
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							var7 += var8;
-							var15 = var7 >> 8;
-							--var17;
-						} while (var17 > 0);
-					}
-
-					var17 = var6 - var5 & 7;
-					if (var17 > 0)
-					{
-						do
-						{
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
-							{
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
-							}
-
-							++var4;
-							var2 += var16;
-							--var17;
-						} while (var17 > 0);
-					}
-				}
-			}
-
-		}
-	}
+//	static final void rasterTexture(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18)
+//	{
+//		int[] var19 = textureLoader.load(var18);
+//		int var20;
+//		if (var19 == null)
+//		{
+//			var20 = textureLoader.getAverageTextureRGB(var18);
+//			rasterGouraud(var0, var1, var2, var3, var4, var5, method2794(var20, var6), method2794(var20, var7), method2794(var20, var8));
+//		}
+//		else
+//		{
+//			lowMem = textureLoader.vmethod3066(var18);
+//			field1909 = textureLoader.vmethod3057(var18);
+//			var20 = var4 - var3;
+//			int var21 = var1 - var0;
+//			int var22 = var5 - var3;
+//			int var23 = var2 - var0;
+//			int var24 = var7 - var6;
+//			int var25 = var8 - var6;
+//			int var26 = 0;
+//			if (var0 != var1)
+//			{
+//				var26 = (var4 - var3 << 14) / (var1 - var0);
+//			}
+//
+//			int var27 = 0;
+//			if (var2 != var1)
+//			{
+//				var27 = (var5 - var4 << 14) / (var2 - var1);
+//			}
+//
+//			int var28 = 0;
+//			if (var0 != var2)
+//			{
+//				var28 = (var3 - var5 << 14) / (var0 - var2);
+//			}
+//
+//			int var29 = var20 * var23 - var22 * var21;
+//			if (var29 != 0)
+//			{
+//				int var30 = (var24 * var23 - var25 * var21 << 9) / var29;
+//				int var31 = (var25 * var20 - var24 * var22 << 9) / var29;
+//				var10 = var9 - var10;
+//				var13 = var12 - var13;
+//				var16 = var15 - var16;
+//				var11 -= var9;
+//				var14 -= var12;
+//				var17 -= var15;
+//				int var32 = var11 * var12 - var9 * var14 << 14;
+//				int var33 = (int) (((long) (var15 * var14 - var17 * var12) << 14) / (long) Rasterizer3D_zoom);
+//				int var34 = (int) (((long) (var17 * var9 - var11 * var15) << 14) / (long) Rasterizer3D_zoom);
+//				int var35 = var10 * var12 - var13 * var9 << 14;
+//				int var36 = (int) (((long) (var13 * var15 - var16 * var12) << 14) / (long) Rasterizer3D_zoom);
+//				int var37 = (int) (((long) (var16 * var9 - var10 * var15) << 14) / (long) Rasterizer3D_zoom);
+//				int var38 = var13 * var11 - var10 * var14 << 14;
+//				int var39 = (int) (((long) (var16 * var14 - var13 * var17) << 14) / (long) Rasterizer3D_zoom);
+//				int var40 = (int) (((long) (var17 * var10 - var11 * var16) << 14) / (long) Rasterizer3D_zoom);
+//				int var41;
+//				if (var0 <= var1 && var0 <= var2)
+//				{
+//					if (var0 < Rasterizer3D_clipHeight)
+//					{
+//						if (var1 > Rasterizer3D_clipHeight)
+//						{
+//							var1 = Rasterizer3D_clipHeight;
+//						}
+//
+//						if (var2 > Rasterizer3D_clipHeight)
+//						{
+//							var2 = Rasterizer3D_clipHeight;
+//						}
+//
+//						var6 = var30 + ((var6 << 9) - var3 * var30);
+//						if (var1 < var2)
+//						{
+//							var5 = var3 <<= 14;
+//							if (var0 < 0)
+//							{
+//								var5 -= var0 * var28;
+//								var3 -= var0 * var26;
+//								var6 -= var0 * var31;
+//								var0 = 0;
+//							}
+//
+//							var4 <<= 14;
+//							if (var1 < 0)
+//							{
+//								var4 -= var27 * var1;
+//								var1 = 0;
+//							}
+//
+//							var41 = var0 - centerY;
+//							var32 += var34 * var41;
+//							var35 += var37 * var41;
+//							var38 += var40 * var41;
+//							if ((var0 == var1 || var28 >= var26) && (var0 != var1 || var28 <= var27))
+//							{
+//								var2 -= var1;
+//								var1 -= var0;
+//								var0 = rasterClipY[var0];
+//
+//								while (true)
+//								{
+//									--var1;
+//									if (var1 < 0)
+//									{
+//										while (true)
+//										{
+//											--var2;
+//											if (var2 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											var5 += var28;
+//											var4 += var27;
+//											var6 += var31;
+//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									var5 += var28;
+//									var3 += var26;
+//									var6 += var31;
+//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//							else
+//							{
+//								var2 -= var1;
+//								var1 -= var0;
+//								var0 = rasterClipY[var0];
+//
+//								while (true)
+//								{
+//									--var1;
+//									if (var1 < 0)
+//									{
+//										while (true)
+//										{
+//											--var2;
+//											if (var2 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											var5 += var28;
+//											var4 += var27;
+//											var6 += var31;
+//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									var5 += var28;
+//									var3 += var26;
+//									var6 += var31;
+//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//						}
+//						else
+//						{
+//							var4 = var3 <<= 14;
+//							if (var0 < 0)
+//							{
+//								var4 -= var0 * var28;
+//								var3 -= var0 * var26;
+//								var6 -= var0 * var31;
+//								var0 = 0;
+//							}
+//
+//							var5 <<= 14;
+//							if (var2 < 0)
+//							{
+//								var5 -= var27 * var2;
+//								var2 = 0;
+//							}
+//
+//							var41 = var0 - centerY;
+//							var32 += var34 * var41;
+//							var35 += var37 * var41;
+//							var38 += var40 * var41;
+//							if (var0 != var2 && var28 < var26 || var0 == var2 && var27 > var26)
+//							{
+//								var1 -= var2;
+//								var2 -= var0;
+//								var0 = rasterClipY[var0];
+//
+//								while (true)
+//								{
+//									--var2;
+//									if (var2 < 0)
+//									{
+//										while (true)
+//										{
+//											--var1;
+//											if (var1 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											var5 += var27;
+//											var3 += var26;
+//											var6 += var31;
+//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									var4 += var28;
+//									var3 += var26;
+//									var6 += var31;
+//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//							else
+//							{
+//								var1 -= var2;
+//								var2 -= var0;
+//								var0 = rasterClipY[var0];
+//
+//								while (true)
+//								{
+//									--var2;
+//									if (var2 < 0)
+//									{
+//										while (true)
+//										{
+//											--var1;
+//											if (var1 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											var5 += var27;
+//											var3 += var26;
+//											var6 += var31;
+//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									var4 += var28;
+//									var3 += var26;
+//									var6 += var31;
+//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//						}
+//					}
+//				}
+//				else if (var1 <= var2)
+//				{
+//					if (var1 < Rasterizer3D_clipHeight)
+//					{
+//						if (var2 > Rasterizer3D_clipHeight)
+//						{
+//							var2 = Rasterizer3D_clipHeight;
+//						}
+//
+//						if (var0 > Rasterizer3D_clipHeight)
+//						{
+//							var0 = Rasterizer3D_clipHeight;
+//						}
+//
+//						var7 = var30 + ((var7 << 9) - var30 * var4);
+//						if (var2 < var0)
+//						{
+//							var3 = var4 <<= 14;
+//							if (var1 < 0)
+//							{
+//								var3 -= var26 * var1;
+//								var4 -= var27 * var1;
+//								var7 -= var31 * var1;
+//								var1 = 0;
+//							}
+//
+//							var5 <<= 14;
+//							if (var2 < 0)
+//							{
+//								var5 -= var28 * var2;
+//								var2 = 0;
+//							}
+//
+//							var41 = var1 - centerY;
+//							var32 += var34 * var41;
+//							var35 += var37 * var41;
+//							var38 += var40 * var41;
+//							if ((var2 == var1 || var26 >= var27) && (var2 != var1 || var26 <= var28))
+//							{
+//								var0 -= var2;
+//								var2 -= var1;
+//								var1 = rasterClipY[var1];
+//
+//								while (true)
+//								{
+//									--var2;
+//									if (var2 < 0)
+//									{
+//										while (true)
+//										{
+//											--var0;
+//											if (var0 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											var3 += var26;
+//											var5 += var28;
+//											var7 += var31;
+//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									var3 += var26;
+//									var4 += var27;
+//									var7 += var31;
+//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//							else
+//							{
+//								var0 -= var2;
+//								var2 -= var1;
+//								var1 = rasterClipY[var1];
+//
+//								while (true)
+//								{
+//									--var2;
+//									if (var2 < 0)
+//									{
+//										while (true)
+//										{
+//											--var0;
+//											if (var0 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											var3 += var26;
+//											var5 += var28;
+//											var7 += var31;
+//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									var3 += var26;
+//									var4 += var27;
+//									var7 += var31;
+//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//						}
+//						else
+//						{
+//							var5 = var4 <<= 14;
+//							if (var1 < 0)
+//							{
+//								var5 -= var26 * var1;
+//								var4 -= var27 * var1;
+//								var7 -= var31 * var1;
+//								var1 = 0;
+//							}
+//
+//							var3 <<= 14;
+//							if (var0 < 0)
+//							{
+//								var3 -= var0 * var28;
+//								var0 = 0;
+//							}
+//
+//							var41 = var1 - centerY;
+//							var32 += var34 * var41;
+//							var35 += var37 * var41;
+//							var38 += var40 * var41;
+//							if (var26 < var27)
+//							{
+//								var2 -= var0;
+//								var0 -= var1;
+//								var1 = rasterClipY[var1];
+//
+//								while (true)
+//								{
+//									--var0;
+//									if (var0 < 0)
+//									{
+//										while (true)
+//										{
+//											--var2;
+//											if (var2 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											var3 += var28;
+//											var4 += var27;
+//											var7 += var31;
+//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									var5 += var26;
+//									var4 += var27;
+//									var7 += var31;
+//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//							else
+//							{
+//								var2 -= var0;
+//								var0 -= var1;
+//								var1 = rasterClipY[var1];
+//
+//								while (true)
+//								{
+//									--var0;
+//									if (var0 < 0)
+//									{
+//										while (true)
+//										{
+//											--var2;
+//											if (var2 < 0)
+//											{
+//												return;
+//											}
+//
+//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											var3 += var28;
+//											var4 += var27;
+//											var7 += var31;
+//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var32 += var34;
+//											var35 += var37;
+//											var38 += var40;
+//										}
+//									}
+//
+//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									var5 += var26;
+//									var4 += var27;
+//									var7 += var31;
+//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var32 += var34;
+//									var35 += var37;
+//									var38 += var40;
+//								}
+//							}
+//						}
+//					}
+//				}
+//				else if (var2 < Rasterizer3D_clipHeight)
+//				{
+//					if (var0 > Rasterizer3D_clipHeight)
+//					{
+//						var0 = Rasterizer3D_clipHeight;
+//					}
+//
+//					if (var1 > Rasterizer3D_clipHeight)
+//					{
+//						var1 = Rasterizer3D_clipHeight;
+//					}
+//
+//					var8 = (var8 << 9) - var5 * var30 + var30;
+//					if (var0 < var1)
+//					{
+//						var4 = var5 <<= 14;
+//						if (var2 < 0)
+//						{
+//							var4 -= var27 * var2;
+//							var5 -= var28 * var2;
+//							var8 -= var31 * var2;
+//							var2 = 0;
+//						}
+//
+//						var3 <<= 14;
+//						if (var0 < 0)
+//						{
+//							var3 -= var0 * var26;
+//							var0 = 0;
+//						}
+//
+//						var41 = var2 - centerY;
+//						var32 += var34 * var41;
+//						var35 += var37 * var41;
+//						var38 += var40 * var41;
+//						if (var27 < var28)
+//						{
+//							var1 -= var0;
+//							var0 -= var2;
+//							var2 = rasterClipY[var2];
+//
+//							while (true)
+//							{
+//								--var0;
+//								if (var0 < 0)
+//								{
+//									while (true)
+//									{
+//										--var1;
+//										if (var1 < 0)
+//										{
+//											return;
+//										}
+//
+//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										var4 += var27;
+//										var3 += var26;
+//										var8 += var31;
+//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var32 += var34;
+//										var35 += var37;
+//										var38 += var40;
+//									}
+//								}
+//
+//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								var4 += var27;
+//								var5 += var28;
+//								var8 += var31;
+//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var32 += var34;
+//								var35 += var37;
+//								var38 += var40;
+//							}
+//						}
+//						else
+//						{
+//							var1 -= var0;
+//							var0 -= var2;
+//							var2 = rasterClipY[var2];
+//
+//							while (true)
+//							{
+//								--var0;
+//								if (var0 < 0)
+//								{
+//									while (true)
+//									{
+//										--var1;
+//										if (var1 < 0)
+//										{
+//											return;
+//										}
+//
+//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										var4 += var27;
+//										var3 += var26;
+//										var8 += var31;
+//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var32 += var34;
+//										var35 += var37;
+//										var38 += var40;
+//									}
+//								}
+//
+//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								var4 += var27;
+//								var5 += var28;
+//								var8 += var31;
+//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var32 += var34;
+//								var35 += var37;
+//								var38 += var40;
+//							}
+//						}
+//					}
+//					else
+//					{
+//						var3 = var5 <<= 14;
+//						if (var2 < 0)
+//						{
+//							var3 -= var27 * var2;
+//							var5 -= var28 * var2;
+//							var8 -= var31 * var2;
+//							var2 = 0;
+//						}
+//
+//						var4 <<= 14;
+//						if (var1 < 0)
+//						{
+//							var4 -= var26 * var1;
+//							var1 = 0;
+//						}
+//
+//						var41 = var2 - centerY;
+//						var32 += var34 * var41;
+//						var35 += var37 * var41;
+//						var38 += var40 * var41;
+//						if (var27 < var28)
+//						{
+//							var0 -= var1;
+//							var1 -= var2;
+//							var2 = rasterClipY[var2];
+//
+//							while (true)
+//							{
+//								--var1;
+//								if (var1 < 0)
+//								{
+//									while (true)
+//									{
+//										--var0;
+//										if (var0 < 0)
+//										{
+//											return;
+//										}
+//
+//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										var4 += var26;
+//										var5 += var28;
+//										var8 += var31;
+//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var32 += var34;
+//										var35 += var37;
+//										var38 += var40;
+//									}
+//								}
+//
+//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								var3 += var27;
+//								var5 += var28;
+//								var8 += var31;
+//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var32 += var34;
+//								var35 += var37;
+//								var38 += var40;
+//							}
+//						}
+//						else
+//						{
+//							var0 -= var1;
+//							var1 -= var2;
+//							var2 = rasterClipY[var2];
+//
+//							while (true)
+//							{
+//								--var1;
+//								if (var1 < 0)
+//								{
+//									while (true)
+//									{
+//										--var0;
+//										if (var0 < 0)
+//										{
+//											return;
+//										}
+//
+//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										var4 += var26;
+//										var5 += var28;
+//										var8 += var31;
+//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var32 += var34;
+//										var35 += var37;
+//										var38 += var40;
+//									}
+//								}
+//
+//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								var3 += var27;
+//								var5 += var28;
+//								var8 += var31;
+//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var32 += var34;
+//								var35 += var37;
+//								var38 += var40;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+
+
+//	static final void method2793(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14)
+//	{
+//		if (rasterClipEnable)
+//		{
+//			if (var6 > rasterClipX)
+//			{
+//				var6 = rasterClipX;
+//			}
+//
+//			if (var5 < 0)
+//			{
+//				var5 = 0;
+//			}
+//		}
+//
+//		if (var5 < var6)
+//		{
+//			var4 += var5;
+//			var7 += var5 * var8;
+//			int var17 = var6 - var5;
+//			int var15;
+//			int var16;
+//			int var18;
+//			int var19;
+//			int var20;
+//			int var21;
+//			int var22;
+//			int var23;
+//			if (lowMem)
+//			{
+//				var23 = var5 - centerX;
+//				var9 += var23 * var12;
+//				var10 += var13 * var23;
+//				var11 += var23 * var14;
+//				var22 = var11 >> 12;
+//				if (var22 != 0)
+//				{
+//					var18 = var9 / var22;
+//					var19 = var10 / var22;
+//				}
+//				else
+//				{
+//					var18 = 0;
+//					var19 = 0;
+//				}
+//
+//				var9 += var17 * var12;
+//				var10 += var13 * var17;
+//				var11 += var17 * var14;
+//				var22 = var11 >> 12;
+//				if (var22 != 0)
+//				{
+//					var20 = var9 / var22;
+//					var21 = var10 / var22;
+//				}
+//				else
+//				{
+//					var20 = 0;
+//					var21 = 0;
+//				}
+//
+//				var2 = (var18 << 20) + var19;
+//				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 20);
+//				var17 >>= 3;
+//				var8 <<= 3;
+//				var15 = var7 >> 8;
+//				if (field1909)
+//				{
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var7 += var8;
+//							var15 = var7 >> 8;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//
+//					var17 = var6 - var5 & 7;
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							var3 = var1[(var2 >>> 26) + (var2 & 4032)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//				}
+//				else
+//				{
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							var7 += var8;
+//							var15 = var7 >> 8;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//
+//					var17 = var6 - var5 & 7;
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//				}
+//			}
+//			else
+//			{
+//				var23 = var5 - centerX;
+//				var9 += var23 * var12;
+//				var10 += var13 * var23;
+//				var11 += var23 * var14;
+//				var22 = var11 >> 14;
+//				if (var22 != 0)
+//				{
+//					var18 = var9 / var22;
+//					var19 = var10 / var22;
+//				}
+//				else
+//				{
+//					var18 = 0;
+//					var19 = 0;
+//				}
+//
+//				var9 += var17 * var12;
+//				var10 += var13 * var17;
+//				var11 += var17 * var14;
+//				var22 = var11 >> 14;
+//				if (var22 != 0)
+//				{
+//					var20 = var9 / var22;
+//					var21 = var10 / var22;
+//				}
+//				else
+//				{
+//					var20 = 0;
+//					var21 = 0;
+//				}
+//
+//				var2 = (var18 << 18) + var19;
+//				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 18);
+//				var17 >>= 3;
+//				var8 <<= 3;
+//				var15 = var7 >> 8;
+//				if (field1909)
+//				{
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							var7 += var8;
+//							var15 = var7 >> 8;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//
+//					var17 = var6 - var5 & 7;
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							var3 = var1[(var2 & 16256) + (var2 >>> 25)];
+//							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							var2 += var16;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//				}
+//				else
+//				{
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							var7 += var8;
+//							var15 = var7 >> 8;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//
+//					var17 = var6 - var5 & 7;
+//					if (var17 > 0)
+//					{
+//						do
+//						{
+//							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0)
+//							{
+//								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
+//							}
+//
+//							++var4;
+//							var2 += var16;
+//							--var17;
+//						} while (var17 > 0);
+//					}
+//				}
+//			}
+//
+//		}
+//	}
 
 
 	static final int method2794(int var0, int var1)
@@ -4110,26 +4110,26 @@ public class Graphics3D extends Rasterizer2D
 	}
 
 
-	static final int method2797(int var0, int var1, int var2, int var3)
-	{
-		return var0 * var2 - var3 * var1 >> 16;
-	}
-
-
-	static final int method2798(int var0, int var1, int var2, int var3)
-	{
-		return var3 * var0 + var2 * var1 >> 16;
-	}
-
-
-	static final int method2799(int var0, int var1, int var2, int var3)
-	{
-		return var0 * var2 + var3 * var1 >> 16;
-	}
-
-
-	static final int method2784(int var0, int var1, int var2, int var3)
-	{
-		return var2 * var1 - var3 * var0 >> 16;
-	}
+//	static final int method2797(int var0, int var1, int var2, int var3)
+//	{
+//		return var0 * var2 - var3 * var1 >> 16;
+//	}
+//
+//
+//	static final int method2798(int var0, int var1, int var2, int var3)
+//	{
+//		return var3 * var0 + var2 * var1 >> 16;
+//	}
+//
+//
+//	static final int method2799(int var0, int var1, int var2, int var3)
+//	{
+//		return var0 * var2 + var3 * var1 >> 16;
+//	}
+//
+//
+//	static final int method2784(int var0, int var1, int var2, int var3)
+//	{
+//		return var2 * var1 - var3 * var0 >> 16;
+//	}
 }

@@ -139,30 +139,30 @@ public class Rasterizer2D
 	}
 
 
-	public static void method5707(int var0, int var1, int var2, int var3)
-	{
-		if (var0 >= draw_region_x && var0 < drawingAreaRight)
-		{
-			if (var1 < drawingAreaTop)
-			{
-				var2 -= drawingAreaTop - var1;
-				var1 = drawingAreaTop;
-			}
-
-			if (var2 + var1 > drawingAreaBottom)
-			{
-				var2 = drawingAreaBottom - var1;
-			}
-
-			int var4 = var0 + graphicsPixelsWidth * var1;
-
-			for (int var5 = 0; var5 < var2; ++var5)
-			{
-				graphicsPixels[var4 + var5 * graphicsPixelsWidth] = var3;
-			}
-
-		}
-	}
+//	public static void method5707(int var0, int var1, int var2, int var3)
+//	{
+//		if (var0 >= draw_region_x && var0 < drawingAreaRight)
+//		{
+//			if (var1 < drawingAreaTop)
+//			{
+//				var2 -= drawingAreaTop - var1;
+//				var1 = drawingAreaTop;
+//			}
+//
+//			if (var2 + var1 > drawingAreaBottom)
+//			{
+//				var2 = drawingAreaBottom - var1;
+//			}
+//
+//			int var4 = var0 + graphicsPixelsWidth * var1;
+//
+//			for (int var5 = 0; var5 < var2; ++var5)
+//			{
+//				graphicsPixels[var4 + var5 * graphicsPixelsWidth] = var3;
+//			}
+//
+//		}
+//	}
 
 
 }
