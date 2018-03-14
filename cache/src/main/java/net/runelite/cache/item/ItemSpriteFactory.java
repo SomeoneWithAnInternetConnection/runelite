@@ -90,7 +90,7 @@ public class ItemSpriteFactory
 			graphics.reset();
 			graphics.setRasterClipping();
 			graphics.setOffset(16, 16);
-			Graphics3D.rasterGouraudLowRes = false;
+			graphics.rasterGouraudLowRes = false;
 			if (item.placeholderTemplateId != -1)
 			{
 				auxSpritePixels.drawAt(0, 0);
@@ -160,7 +160,7 @@ public class ItemSpriteFactory
 			graphics.setDrawRegion(drawRegion);
 
 			graphics.setRasterClipping();
-			Graphics3D.rasterGouraudLowRes = true;
+			graphics.rasterGouraudLowRes = true;
 			return spritePixels;
 		}
 	}

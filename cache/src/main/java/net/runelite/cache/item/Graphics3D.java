@@ -17,30 +17,30 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	static boolean rasterClipEnable;
+	boolean rasterClipEnable;
 
-	static boolean field1909;
-
-
-	static boolean lowMem;
+	boolean field1909;
 
 
-	public static boolean rasterGouraudLowRes;
+	boolean lowMem;
 
 
-	static int rasterAlpha;
+	public boolean rasterGouraudLowRes=true;
 
 
-	public static int Rasterizer3D_zoom;
+	int rasterAlpha;
 
 
-	static int centerX;
+	public int Rasterizer3D_zoom = 512;
 
 
-	static int centerY;
+	int centerX;
 
 
-	static int rasterClipX;
+	int centerY;
+
+
+	int rasterClipX;
 
 
 	static int Rasterizer3D_clipHeight;
@@ -78,12 +78,12 @@ class Graphics3D extends Rasterizer2D
 
 	static
 	{
-		rasterClipEnable = false;
-		field1909 = false;
-		lowMem = false;
-		rasterGouraudLowRes = true;
-		rasterAlpha = 0;
-		Rasterizer3D_zoom = 512;
+//		rasterClipEnable = false;
+//		field1909 = false;
+//		lowMem = false;
+		//rasterGouraudLowRes = true;
+//		rasterAlpha = 0;
+	//	Rasterizer3D_zoom = 512;
 		rasterClipY = new int[1024];
 		colorPalette = new int[65536];
 		field1932 = new int[512];
@@ -147,7 +147,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	public static final void Rasterizer3D_method3()
+	public final void Rasterizer3D_method3()
 	{
 		centerX = rasterClipX / 2;
 		centerY = Rasterizer3D_clipHeight / 2;
@@ -307,7 +307,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	public static void setRasterClippingEnabled(int var0, int var1, int var2)
+	public void setRasterClippingEnabled(int var0, int var1, int var2)
 	{
 		rasterClipEnable = var0 < 0 || var0 > rasterClipX || var1 < 0 || var1 > rasterClipX || var2 < 0 || var2 > rasterClipX;
 	}
@@ -930,7 +930,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	static final void method2778(int[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7)
+	final void method2778(int[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7)
 	{
 		if (rasterClipEnable)
 		{
@@ -1616,7 +1616,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	static final void method2842(int[] var0, int var1, int var2, int var3, int var4, int var5)
+	final void method2842(int[] var0, int var1, int var2, int var3, int var4, int var5)
 	{
 		if (rasterClipEnable)
 		{
@@ -2462,7 +2462,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	static final void method2791(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14)
+	final void method2791(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14)
 	{
 		if (rasterClipEnable)
 		{

@@ -651,8 +651,8 @@ class Model extends Renderable
 			int tmp = y * cosX - z * sinX >> 16;
 			z = y * sinX + z * cosX >> 16;
 			modelViewportZs[i] = z - zRelatedVariable;
-			modelViewportYs[i] = x * Graphics3D.Rasterizer3D_zoom / z + Graphics3D.centerX;
-			modelViewportXs[i] = tmp * Graphics3D.Rasterizer3D_zoom / z + Graphics3D.centerY;
+			modelViewportYs[i] = x * graphics.Rasterizer3D_zoom / z + graphics.centerX;
+			modelViewportXs[i] = tmp * graphics.Rasterizer3D_zoom / z + graphics.centerY;
 			if (this.field1852 > 0)
 			{
 				yViewportBuffer[i] = x;
@@ -798,7 +798,7 @@ class Model extends Renderable
 						if ((var10 - var11) * (modelViewportXs[var9] - modelViewportXs[var27]) - (var12 - var11) * (modelViewportXs[var7] - modelViewportXs[var27]) > 0)
 						{
 							field1885[var26] = false;
-							if (var10 >= 0 && var11 >= 0 && var12 >= 0 && var10 <= Graphics3D.rasterClipX && var11 <= Graphics3D.rasterClipX && var12 <= Graphics3D.rasterClipX)
+							if (var10 >= 0 && var11 >= 0 && var12 >= 0 && var10 <= graphics.rasterClipX && var11 <= graphics.rasterClipX && var12 <= graphics.rasterClipX)
 							{
 								field1887[var26] = false;
 							}
@@ -1019,14 +1019,14 @@ class Model extends Renderable
 			int var2 = this.indices1[var1];
 			int var3 = this.indices2[var1];
 			int var4 = this.indices3[var1];
-			Graphics3D.rasterClipEnable = field1887[var1];
+			graphics.rasterClipEnable = field1887[var1];
 			if (this.field1882 == null)
 			{
-				Graphics3D.rasterAlpha = 0;
+				graphics.rasterAlpha = 0;
 			}
 			else
 			{
-				Graphics3D.rasterAlpha = this.field1882[var1] & 255;
+				graphics.rasterAlpha = this.field1882[var1] & 255;
 			}
 
 			if (this.field1841 != null && this.field1841[var1] != -1)
@@ -1072,8 +1072,8 @@ class Model extends Renderable
 
 	private void method2707(Graphics3D graphics, int var1)
 	{
-		int var2 = Graphics3D.centerX;
-		int var3 = Graphics3D.centerY;
+		int var2 = graphics.centerX;
+		int var3 = graphics.centerY;
 		int var4 = 0;
 		int var5 = this.indices1[var1];
 		int var6 = this.indices2[var1];
@@ -1083,11 +1083,11 @@ class Model extends Renderable
 		int var10 = field1869[var7];
 		if (this.field1882 == null)
 		{
-			Graphics3D.rasterAlpha = 0;
+			graphics.rasterAlpha = 0;
 		}
 		else
 		{
-			Graphics3D.rasterAlpha = this.field1882[var1] & 255;
+			graphics.rasterAlpha = this.field1882[var1] & 255;
 		}
 
 		int var11;
@@ -1108,16 +1108,16 @@ class Model extends Renderable
 			if (var10 >= 50)
 			{
 				var14 = field1890[var10 - var8] * (50 - var8);
-				field1831[var4] = var2 + Graphics3D.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var7] - var11) * var14 >> 16)) / 50;
-				field1837[var4] = var3 + Graphics3D.Rasterizer3D_zoom * (var12 + ((field1839[var7] - var12) * var14 >> 16)) / 50;
+				field1831[var4] = var2 + graphics.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var7] - var11) * var14 >> 16)) / 50;
+				field1837[var4] = var3 + graphics.Rasterizer3D_zoom * (var12 + ((field1839[var7] - var12) * var14 >> 16)) / 50;
 				xViewportBuffer[var4++] = var13 + ((this.field1823[var1] - var13) * var14 >> 16);
 			}
 
 			if (var9 >= 50)
 			{
 				var14 = field1890[var9 - var8] * (50 - var8);
-				field1831[var4] = var2 + Graphics3D.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var6] - var11) * var14 >> 16)) / 50;
-				field1837[var4] = var3 + Graphics3D.Rasterizer3D_zoom * (var12 + ((field1839[var6] - var12) * var14 >> 16)) / 50;
+				field1831[var4] = var2 + graphics.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var6] - var11) * var14 >> 16)) / 50;
+				field1837[var4] = var3 + graphics.Rasterizer3D_zoom * (var12 + ((field1839[var6] - var12) * var14 >> 16)) / 50;
 				xViewportBuffer[var4++] = var13 + ((this.field1854[var1] - var13) * var14 >> 16);
 			}
 		}
@@ -1136,16 +1136,16 @@ class Model extends Renderable
 			if (var8 >= 50)
 			{
 				var14 = field1890[var8 - var9] * (50 - var9);
-				field1831[var4] = var2 + Graphics3D.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var5] - var11) * var14 >> 16)) / 50;
-				field1837[var4] = var3 + Graphics3D.Rasterizer3D_zoom * (var12 + ((field1839[var5] - var12) * var14 >> 16)) / 50;
+				field1831[var4] = var2 + graphics.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var5] - var11) * var14 >> 16)) / 50;
+				field1837[var4] = var3 + graphics.Rasterizer3D_zoom * (var12 + ((field1839[var5] - var12) * var14 >> 16)) / 50;
 				xViewportBuffer[var4++] = var13 + ((this.field1856[var1] - var13) * var14 >> 16);
 			}
 
 			if (var10 >= 50)
 			{
 				var14 = field1890[var10 - var9] * (50 - var9);
-				field1831[var4] = var2 + Graphics3D.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var7] - var11) * var14 >> 16)) / 50;
-				field1837[var4] = var3 + Graphics3D.Rasterizer3D_zoom * (var12 + ((field1839[var7] - var12) * var14 >> 16)) / 50;
+				field1831[var4] = var2 + graphics.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var7] - var11) * var14 >> 16)) / 50;
+				field1837[var4] = var3 + graphics.Rasterizer3D_zoom * (var12 + ((field1839[var7] - var12) * var14 >> 16)) / 50;
 				xViewportBuffer[var4++] = var13 + ((this.field1823[var1] - var13) * var14 >> 16);
 			}
 		}
@@ -1164,16 +1164,16 @@ class Model extends Renderable
 			if (var9 >= 50)
 			{
 				var14 = field1890[var9 - var10] * (50 - var10);
-				field1831[var4] = var2 + Graphics3D.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var6] - var11) * var14 >> 16)) / 50;
-				field1837[var4] = var3 + Graphics3D.Rasterizer3D_zoom * (var12 + ((field1839[var6] - var12) * var14 >> 16)) / 50;
+				field1831[var4] = var2 + graphics.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var6] - var11) * var14 >> 16)) / 50;
+				field1837[var4] = var3 + graphics.Rasterizer3D_zoom * (var12 + ((field1839[var6] - var12) * var14 >> 16)) / 50;
 				xViewportBuffer[var4++] = var13 + ((this.field1854[var1] - var13) * var14 >> 16);
 			}
 
 			if (var8 >= 50)
 			{
 				var14 = field1890[var8 - var10] * (50 - var10);
-				field1831[var4] = var2 + Graphics3D.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var5] - var11) * var14 >> 16)) / 50;
-				field1837[var4] = var3 + Graphics3D.Rasterizer3D_zoom * (var12 + ((field1839[var5] - var12) * var14 >> 16)) / 50;
+				field1831[var4] = var2 + graphics.Rasterizer3D_zoom * (var11 + ((yViewportBuffer[var5] - var11) * var14 >> 16)) / 50;
+				field1837[var4] = var3 + graphics.Rasterizer3D_zoom * (var12 + ((field1839[var5] - var12) * var14 >> 16)) / 50;
 				xViewportBuffer[var4++] = var13 + ((this.field1856[var1] - var13) * var14 >> 16);
 			}
 		}
@@ -1184,16 +1184,16 @@ class Model extends Renderable
 		var14 = field1837[0];
 		int var15 = field1837[1];
 		int var16 = field1837[2];
-		Graphics3D.rasterClipEnable = false;
+		graphics.rasterClipEnable = false;
 		int var17;
 		int var18;
 		int var19;
 		int var20;
 		if (var4 == 3)
 		{
-			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > Graphics3D.rasterClipX || var12 > Graphics3D.rasterClipX || var13 > Graphics3D.rasterClipX)
+			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > graphics.rasterClipX || var12 > graphics.rasterClipX || var13 > graphics.rasterClipX)
 			{
-				Graphics3D.rasterClipEnable = true;
+				graphics.rasterClipEnable = true;
 			}
 
 			if (this.field1841 != null && this.field1841[var1] != -1)
@@ -1233,9 +1233,9 @@ class Model extends Renderable
 
 		if (var4 == 4)
 		{
-			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > Graphics3D.rasterClipX || var12 > Graphics3D.rasterClipX || var13 > Graphics3D.rasterClipX || field1831[3] < 0 || field1831[3] > Graphics3D.rasterClipX)
+			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > graphics.rasterClipX || var12 > graphics.rasterClipX || var13 > graphics.rasterClipX || field1831[3] < 0 || field1831[3] > graphics.rasterClipX)
 			{
-				Graphics3D.rasterClipEnable = true;
+				graphics.rasterClipEnable = true;
 			}
 
 			if (this.field1841 != null && this.field1841[var1] != -1)
