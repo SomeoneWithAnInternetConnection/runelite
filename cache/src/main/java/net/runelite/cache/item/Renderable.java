@@ -1,6 +1,6 @@
 package net.runelite.cache.item;
 
-public abstract class Renderable
+abstract class Renderable
 {
 
 

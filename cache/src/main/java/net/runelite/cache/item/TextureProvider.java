@@ -3,7 +3,7 @@ package net.runelite.cache.item;
 import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.TextureDefinition;
 
-public class TextureProvider
+class TextureProvider
 {
 
 

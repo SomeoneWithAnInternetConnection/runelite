@@ -3,7 +3,7 @@ package net.runelite.cache.item;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Model extends Renderable
+class Model extends Renderable
 {
 
 

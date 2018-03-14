@@ -2,7 +2,7 @@ package net.runelite.cache.item;
 
 import java.awt.image.BufferedImage;
 
-public final class SpritePixels extends Rasterizer2D
+class SpritePixels extends Rasterizer2D
 {
 
 

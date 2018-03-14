@@ -1,6 +1,6 @@
 package net.runelite.cache.item;
 
-public class Rasterizer2D
+class Rasterizer2D
 {
 
 

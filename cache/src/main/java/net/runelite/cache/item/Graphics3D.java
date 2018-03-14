@@ -1,6 +1,6 @@
 package net.runelite.cache.item;
 
-public class Graphics3D extends Rasterizer2D
+class Graphics3D extends Rasterizer2D
 {
 	private static final double UNIT = Math.PI / 1024d; // How much of the circle each unit of SINE/COSINE is
 
