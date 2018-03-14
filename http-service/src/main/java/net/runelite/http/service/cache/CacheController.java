@@ -38,16 +38,19 @@ import net.runelite.cache.definitions.loaders.NpcLoader;
 import net.runelite.cache.definitions.loaders.ObjectLoader;
 import net.runelite.cache.fs.ArchiveFiles;
 import net.runelite.cache.fs.FSFile;
+import net.runelite.cache.fs.Store;
 import net.runelite.http.api.cache.Cache;
 import net.runelite.http.api.cache.CacheArchive;
 import net.runelite.http.api.cache.CacheIndex;
-import net.runelite.http.service.util.exception.NotFoundException;
 import net.runelite.http.service.cache.beans.ArchiveEntry;
 import net.runelite.http.service.cache.beans.CacheEntry;
 import net.runelite.http.service.cache.beans.IndexEntry;
+import net.runelite.http.service.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -202,6 +205,19 @@ public class CacheController
 
 		ItemDefinition itemdef = new ItemLoader().load(itemId, file.getContents());
 		return itemdef;
+	}
+
+	@RequestMapping(produces = "image/png")
+	public ResponseEntity<byte[]> getItemImage(
+		@RequestParam int itemId,
+		@RequestParam(defaultValue = "1") int border,
+		@RequestParam(defaultValue = "3153952") int shadowColor,
+	) throws IOException
+	{
+		CacheStorage cacheStorage = new CacheStorage(cacheService);
+		Store store = new Store(cacheStorage);
+		store.load();
+//		return null
 	}
 
 	@RequestMapping("object/{objectId}")

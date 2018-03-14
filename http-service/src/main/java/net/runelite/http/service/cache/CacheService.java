@@ -47,6 +47,7 @@ import net.runelite.cache.IndexType;
 import net.runelite.cache.fs.ArchiveFiles;
 import net.runelite.cache.fs.Container;
 import net.runelite.cache.fs.FSFile;
+import net.runelite.cache.index.FileData;
 import net.runelite.http.service.cache.beans.ArchiveEntry;
 import net.runelite.http.service.cache.beans.CacheEntry;
 import net.runelite.http.service.cache.beans.FileEntry;
@@ -122,9 +123,10 @@ public class CacheService
 	{
 		CacheDAO cacheDao = new CacheDAO();
 
-		try (Connection con = sql2o.open();
-			ResultSetIterable<FileEntry> files = cacheDao.findFilesForArchive(con, archiveEntry))
+		try (Connection con = sql2o.open())
 		{
+			List<FileEntry> files = cacheDao.findFilesForArchive(con, archiveEntry);
+
 			byte[] archiveData = getArchive(archiveEntry);
 
 			if (archiveData == null)
@@ -149,6 +151,27 @@ public class CacheService
 			}
 			archiveFiles.loadContents(decompressedData);
 			return archiveFiles;
+		}
+	}
+
+	public FileData[] getArchiveFileData(ArchiveEntry archiveEntry) throws IOException
+	{
+		CacheDAO cacheDao = new CacheDAO();
+
+		try (Connection con = sql2o.open())
+		{
+			List<FileEntry> files = cacheDao.findFilesForArchive(con, archiveEntry);
+			FileData[] fileDatas = new FileData[files.size()];
+			int i = 0;
+
+			for (FileEntry file : files)
+			{
+				FileData fileData = fileDatas[i] = new FileData();
+				fileData.setId(file.getFileId());
+				fileData.setId(file.getNameHash());
+			}
+
+			return fileDatas;
 		}
 	}
 

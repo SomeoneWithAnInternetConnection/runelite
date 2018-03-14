@@ -1,6 +1,5 @@
 package net.runelite.cache.item;
 
-import com.google.common.graph.GraphBuilder;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

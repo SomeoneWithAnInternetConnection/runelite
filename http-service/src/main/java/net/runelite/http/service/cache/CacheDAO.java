@@ -103,14 +103,14 @@ class CacheDAO
 			.executeAndFetchFirst(ArchiveEntry.class);
 	}
 
-	public ResultSetIterable<FileEntry> findFilesForArchive(Connection con, ArchiveEntry archiveEntry)
+	public List<FileEntry> findFilesForArchive(Connection con, ArchiveEntry archiveEntry)
 	{
 		Query findFilesForArchive = con.createQuery("select id, fileId, nameHash from file "
 			+ "where archive = :archive");
 
 		return findFilesForArchive
 			.addParameter("archive", archiveEntry.getId())
-			.executeAndFetchLazy(FileEntry.class);
+			.executeAndFetch(FileEntry.class);
 	}
 
 	public CacheEntry findCache(Connection con, int cacheId)
