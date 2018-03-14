@@ -5,27 +5,10 @@ import net.runelite.cache.definitions.TextureDefinition;
 
 class TextureProvider
 {
-
-
-	static int menuX;
-
-
 	TextureDefinition[] textures;
-//	Texture[] textures;
-
-
-//   Deque deque;
-
-
 	int maxSize;
-
-
 	int size;
-
-
 	double brightness;
-
-
 	int width;
 
 	//new TextureProvider(class62.indexTextures, WorldMapRegion.indexSprites, 20, 0.8D, Client.lowMemory?64:128);
@@ -194,17 +177,17 @@ class TextureProvider
 	}
 
 
-	public void checkTextures(int var1)
-	{
-//		for (int var2 = 0; var2 < this.textures.length; ++var2)
-//		{
-//			Texture var3 = this.textures[var2];
-//			if (var3 != null && var3.field1783 != 0 && var3.loaded)
-//			{
-//				var3.method2674(var1);
-//				var3.loaded = false;
-//			}
-//		}
-
-	}
+//	public void checkTextures(int var1)
+//	{
+////		for (int var2 = 0; var2 < this.textures.length; ++var2)
+////		{
+////			Texture var3 = this.textures[var2];
+////			if (var3 != null && var3.field1783 != 0 && var3.loaded)
+////			{
+////				var3.method2674(var1);
+////				var3.loaded = false;
+////			}
+////		}
+//
+//	}
 }

@@ -101,40 +101,40 @@ class SpritePixels extends Rasterizer2D
 	{
 		x += this.offsetX;
 		y += this.offsetY;
-		int pixelIndex = x + y * Rasterizer2D.graphicsPixelsWidth;
+		int pixelIndex = x + y * graphicsPixelsWidth;
 		int var4 = 0;
 		int height = this.height;
 		int width = this.width;
-		int var7 = Rasterizer2D.graphicsPixelsWidth - width;
+		int var7 = graphicsPixelsWidth - width;
 		int var8 = 0;
-		if (y < Rasterizer2D.drawingAreaTop)
+		if (y < drawingAreaTop)
 		{
-			int deltaY = Rasterizer2D.drawingAreaTop - y;
+			int deltaY = drawingAreaTop - y;
 			height -= deltaY;
-			y = Rasterizer2D.drawingAreaTop;
+			y = drawingAreaTop;
 			var4 += deltaY * width;
-			pixelIndex += deltaY * Rasterizer2D.graphicsPixelsWidth;
+			pixelIndex += deltaY * graphicsPixelsWidth;
 		}
 
-		if (height + y > Rasterizer2D.drawingAreaBottom)
+		if (height + y > drawingAreaBottom)
 		{
-			height -= height + y - Rasterizer2D.drawingAreaBottom;
+			height -= height + y - drawingAreaBottom;
 		}
 
-		if (x < Rasterizer2D.draw_region_x)
+		if (x < draw_region_x)
 		{
-			int deltaX = Rasterizer2D.draw_region_x - x;
+			int deltaX = draw_region_x - x;
 			width -= deltaX;
-			x = Rasterizer2D.draw_region_x;
+			x = draw_region_x;
 			var4 += deltaX;
 			pixelIndex += deltaX;
 			var8 += deltaX;
 			var7 += deltaX;
 		}
 
-		if (width + x > Rasterizer2D.drawingAreaRight)
+		if (width + x > drawingAreaRight)
 		{
-			int deltaX = width + x - Rasterizer2D.drawingAreaRight;
+			int deltaX = width + x - drawingAreaRight;
 			width -= deltaX;
 			var8 += deltaX;
 			var7 += deltaX;
@@ -142,7 +142,7 @@ class SpritePixels extends Rasterizer2D
 
 		if (width > 0 && height > 0)
 		{
-			method5843(Rasterizer2D.graphicsPixels, this.pixels, 0, var4, pixelIndex, width, height, var7, var8);
+			method5843(graphicsPixels, this.pixels, 0, var4, pixelIndex, width, height, var7, var8);
 		}
 	}
 

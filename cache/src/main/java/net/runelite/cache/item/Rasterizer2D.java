@@ -4,36 +4,36 @@ class Rasterizer2D
 {
 
 
-	public static int[] graphicsPixels;
+	public int[] graphicsPixels;
 
 
-	public static int graphicsPixelsWidth;
+	public int graphicsPixelsWidth;
 
 
-	public static int graphicsPixelsHeight;
+	public int graphicsPixelsHeight;
 
 
-	public static int drawingAreaTop;
+	public int drawingAreaTop;
 
 
-	public static int drawingAreaBottom;
+	public int drawingAreaBottom;
 
 
-	public static int draw_region_x;
+	public int draw_region_x;
 
 
-	protected static int drawingAreaRight;
+	protected int drawingAreaRight;
 
-	static
-	{
-		drawingAreaTop = 0;
-		drawingAreaBottom = 0;
-		draw_region_x = 0;
-		drawingAreaRight = 0;
-	}
+//	static
+//	{
+//		drawingAreaTop = 0;
+//		drawingAreaBottom = 0;
+//		draw_region_x = 0;
+//		drawingAreaRight = 0;
+//	}
 
 
-	public static void setRasterBuffer(int[] var0, int var1, int var2)
+	public void setRasterBuffer(int[] var0, int var1, int var2)
 	{
 		graphicsPixels = var0;
 		graphicsPixelsWidth = var1;
@@ -42,7 +42,7 @@ class Rasterizer2D
 	}
 
 
-	public static void setDrawRegion(int var0, int var1, int var2, int var3)
+	public void setDrawRegion(int var0, int var1, int var2, int var3)
 	{
 		if (var0 < 0)
 		{
@@ -71,7 +71,7 @@ class Rasterizer2D
 	}
 
 
-	public static void copyDrawRegion(int[] var0)
+	public void copyDrawRegion(int[] var0)
 	{
 		var0[0] = draw_region_x;
 		var0[1] = drawingAreaTop;
@@ -80,7 +80,7 @@ class Rasterizer2D
 	}
 
 
-	public static void setDrawRegion(int[] var0)
+	public void setDrawRegion(int[] var0)
 	{
 		draw_region_x = var0[0];
 		drawingAreaTop = var0[1];
@@ -89,7 +89,7 @@ class Rasterizer2D
 	}
 
 
-	public static void reset()
+	public void reset()
 	{
 		int var0 = 0;
 
@@ -113,7 +113,7 @@ class Rasterizer2D
 	}
 
 
-	public static void method5718(int var0, int var1, int var2, int var3)
+	public void method5718(int var0, int var1, int var2, int var3)
 	{
 		if (var1 >= drawingAreaTop && var1 < drawingAreaBottom)
 		{

@@ -85,10 +85,11 @@ public class ItemSpriteFactory
 //			}
 
 			SpritePixels spritePixels = new SpritePixels(36, 32);
-			Rasterizer2D.setRasterBuffer(spritePixels.pixels, 36, 32);
-			Rasterizer2D.reset();
-			Graphics3D.setRasterClipping();
-			Graphics3D.setOffset(16, 16);
+			Graphics3D graphics = new Graphics3D();
+			graphics.setRasterBuffer(spritePixels.pixels, 36, 32);
+			graphics.reset();
+			graphics.setRasterClipping();
+			graphics.setOffset(16, 16);
 			Graphics3D.rasterGouraudLowRes = false;
 			if (item.placeholderTemplateId != -1)
 			{
@@ -109,7 +110,7 @@ public class ItemSpriteFactory
 			int var18 = zoom2d * Graphics3D.COSINE[item.xan2d] >> 16;
 
 			itemModel.calculateBoundsCylinder();
-			itemModel.rotateAndProject(0,
+			itemModel.rotateAndProject(graphics, 0,
 					item.yan2d,
 					item.zan2d,
 					item.xan2d,
@@ -136,7 +137,7 @@ public class ItemSpriteFactory
 				spritePixels.drawShadow(shadowColor);
 			}
 
-			Rasterizer2D.setRasterBuffer(spritePixels.pixels, 36, 32);
+			graphics.setRasterBuffer(spritePixels.pixels, 36, 32);
 			if (item.notedTemplate != -1)
 			{
 				auxSpritePixels.drawAt(0, 0);
@@ -150,15 +151,15 @@ public class ItemSpriteFactory
 //				ItemComposition.itemSpriteCache.put(spritePixels, var6);
 //			}
 
-			Rasterizer2D.setRasterBuffer(Rasterizer2D.graphicsPixels,
-					Rasterizer2D.graphicsPixelsWidth,
-					Rasterizer2D.graphicsPixelsHeight);
+			graphics.setRasterBuffer(graphics.graphicsPixels,
+				graphics.graphicsPixelsWidth,
+				graphics.graphicsPixelsHeight);
 
 			int[] drawRegion = new int[4];
-			Rasterizer2D.copyDrawRegion(drawRegion);
-			Rasterizer2D.setDrawRegion(drawRegion);
+			graphics.copyDrawRegion(drawRegion);
+			graphics.setDrawRegion(drawRegion);
 
-			Graphics3D.setRasterClipping();
+			graphics.setRasterClipping();
 			Graphics3D.rasterGouraudLowRes = true;
 			return spritePixels;
 		}

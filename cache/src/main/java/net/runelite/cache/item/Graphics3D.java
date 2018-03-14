@@ -110,13 +110,13 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	public static final void setRasterClipping()
+	public final void setRasterClipping()
 	{
-		setRasterClipping(Rasterizer2D.draw_region_x, Rasterizer2D.drawingAreaTop, Rasterizer2D.drawingAreaRight, Rasterizer2D.drawingAreaBottom);
+		setRasterClipping(draw_region_x, drawingAreaTop, drawingAreaRight, drawingAreaBottom);
 	}
 
 
-	static final void setRasterClipping(int var0, int var1, int var2, int var3)
+	final void setRasterClipping(int var0, int var1, int var2, int var3)
 	{
 		rasterClipX = var2 - var0;
 		Rasterizer3D_clipHeight = var3 - var1;
@@ -136,12 +136,12 @@ class Graphics3D extends Rasterizer2D
 			rasterClipY = new int[var4];
 		}
 
-		var4 = var0 + Rasterizer2D.graphicsPixelsWidth * var1;
+		var4 = var0 + graphicsPixelsWidth * var1;
 
 		for (var5 = 0; var5 < Rasterizer3D_clipHeight; ++var5)
 		{
 			rasterClipY[var5] = var4;
-			var4 += Rasterizer2D.graphicsPixelsWidth;
+			var4 += graphicsPixelsWidth;
 		}
 
 	}
@@ -158,11 +158,11 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	public static final void setOffset(int x, int y)
+	public final void setOffset(int x, int y)
 	{
 		int var2 = rasterClipY[0];
-		int var3 = var2 / Rasterizer2D.graphicsPixelsWidth;
-		int var4 = var2 - var3 * Rasterizer2D.graphicsPixelsWidth;
+		int var3 = var2 / graphicsPixelsWidth;
+		int var4 = var2 - var3 * graphicsPixelsWidth;
 		centerX = x - var4;
 		centerY = y - var3;
 		Rasterizer3D_clipNegativeMidX = -centerX;
@@ -313,7 +313,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	static final void rasterGouraud(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8)
+	final void rasterGouraud(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8)
 	{
 		int var9 = var4 - var3;
 		int var10 = var1 - var0;
@@ -408,19 +408,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var5 >> 14, var4 >> 14, var6, var19);
+										method2778(graphicsPixels, var0, 0, 0, var5 >> 14, var4 >> 14, var6, var19);
 										var5 += var17;
 										var4 += var15;
 										var6 += var20;
-										var0 += Rasterizer2D.graphicsPixelsWidth;
+										var0 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19);
+								method2778(graphicsPixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19);
 								var5 += var17;
 								var3 += var16;
 								var6 += var20;
-								var0 += Rasterizer2D.graphicsPixelsWidth;
+								var0 += graphicsPixelsWidth;
 							}
 						}
 						else
@@ -442,19 +442,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var4 >> 14, var5 >> 14, var6, var19);
+										method2778(graphicsPixels, var0, 0, 0, var4 >> 14, var5 >> 14, var6, var19);
 										var5 += var17;
 										var4 += var15;
 										var6 += var20;
-										var0 += Rasterizer2D.graphicsPixelsWidth;
+										var0 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19);
+								method2778(graphicsPixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19);
 								var5 += var17;
 								var3 += var16;
 								var6 += var20;
-								var0 += Rasterizer2D.graphicsPixelsWidth;
+								var0 += graphicsPixelsWidth;
 							}
 						}
 					}
@@ -495,19 +495,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19);
+										method2778(graphicsPixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19);
 										var5 += var15;
 										var3 += var16;
 										var6 += var20;
-										var0 += Rasterizer2D.graphicsPixelsWidth;
+										var0 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var4 >> 14, var3 >> 14, var6, var19);
+								method2778(graphicsPixels, var0, 0, 0, var4 >> 14, var3 >> 14, var6, var19);
 								var4 += var17;
 								var3 += var16;
 								var6 += var20;
-								var0 += Rasterizer2D.graphicsPixelsWidth;
+								var0 += graphicsPixelsWidth;
 							}
 						}
 						else
@@ -529,19 +529,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19);
+										method2778(graphicsPixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19);
 										var5 += var15;
 										var3 += var16;
 										var6 += var20;
-										var0 += Rasterizer2D.graphicsPixelsWidth;
+										var0 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var0, 0, 0, var3 >> 14, var4 >> 14, var6, var19);
+								method2778(graphicsPixels, var0, 0, 0, var3 >> 14, var4 >> 14, var6, var19);
 								var4 += var17;
 								var3 += var16;
 								var6 += var20;
-								var0 += Rasterizer2D.graphicsPixelsWidth;
+								var0 += graphicsPixelsWidth;
 							}
 						}
 					}
@@ -599,19 +599,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var3 >> 14, var5 >> 14, var7, var19);
+										method2778(graphicsPixels, var1, 0, 0, var3 >> 14, var5 >> 14, var7, var19);
 										var3 += var16;
 										var5 += var17;
 										var7 += var20;
-										var1 += Rasterizer2D.graphicsPixelsWidth;
+										var1 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19);
+								method2778(graphicsPixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19);
 								var3 += var16;
 								var4 += var15;
 								var7 += var20;
-								var1 += Rasterizer2D.graphicsPixelsWidth;
+								var1 += graphicsPixelsWidth;
 							}
 						}
 						else
@@ -633,19 +633,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var5 >> 14, var3 >> 14, var7, var19);
+										method2778(graphicsPixels, var1, 0, 0, var5 >> 14, var3 >> 14, var7, var19);
 										var3 += var16;
 										var5 += var17;
 										var7 += var20;
-										var1 += Rasterizer2D.graphicsPixelsWidth;
+										var1 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19);
+								method2778(graphicsPixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19);
 								var3 += var16;
 								var4 += var15;
 								var7 += var20;
-								var1 += Rasterizer2D.graphicsPixelsWidth;
+								var1 += graphicsPixelsWidth;
 							}
 						}
 					}
@@ -686,19 +686,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19);
+										method2778(graphicsPixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19);
 										var3 += var17;
 										var4 += var15;
 										var7 += var20;
-										var1 += Rasterizer2D.graphicsPixelsWidth;
+										var1 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var5 >> 14, var4 >> 14, var7, var19);
+								method2778(graphicsPixels, var1, 0, 0, var5 >> 14, var4 >> 14, var7, var19);
 								var5 += var16;
 								var4 += var15;
 								var7 += var20;
-								var1 += Rasterizer2D.graphicsPixelsWidth;
+								var1 += graphicsPixelsWidth;
 							}
 						}
 						else
@@ -720,19 +720,19 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19);
+										method2778(graphicsPixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19);
 										var3 += var17;
 										var4 += var15;
 										var7 += var20;
-										var1 += Rasterizer2D.graphicsPixelsWidth;
+										var1 += graphicsPixelsWidth;
 									}
 								}
 
-								method2778(Rasterizer2D.graphicsPixels, var1, 0, 0, var4 >> 14, var5 >> 14, var7, var19);
+								method2778(graphicsPixels, var1, 0, 0, var4 >> 14, var5 >> 14, var7, var19);
 								var5 += var16;
 								var4 += var15;
 								var7 += var20;
-								var1 += Rasterizer2D.graphicsPixelsWidth;
+								var1 += graphicsPixelsWidth;
 							}
 						}
 					}
@@ -788,19 +788,19 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var4 >> 14, var3 >> 14, var8, var19);
+									method2778(graphicsPixels, var2, 0, 0, var4 >> 14, var3 >> 14, var8, var19);
 									var4 += var15;
 									var3 += var16;
 									var8 += var20;
-									var2 += Rasterizer2D.graphicsPixelsWidth;
+									var2 += graphicsPixelsWidth;
 								}
 							}
 
-							method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19);
+							method2778(graphicsPixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19);
 							var4 += var15;
 							var5 += var17;
 							var8 += var20;
-							var2 += Rasterizer2D.graphicsPixelsWidth;
+							var2 += graphicsPixelsWidth;
 						}
 					}
 					else
@@ -822,19 +822,19 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var3 >> 14, var4 >> 14, var8, var19);
+									method2778(graphicsPixels, var2, 0, 0, var3 >> 14, var4 >> 14, var8, var19);
 									var4 += var15;
 									var3 += var16;
 									var8 += var20;
-									var2 += Rasterizer2D.graphicsPixelsWidth;
+									var2 += graphicsPixelsWidth;
 								}
 							}
 
-							method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19);
+							method2778(graphicsPixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19);
 							var4 += var15;
 							var5 += var17;
 							var8 += var20;
-							var2 += Rasterizer2D.graphicsPixelsWidth;
+							var2 += graphicsPixelsWidth;
 						}
 					}
 				}
@@ -875,19 +875,19 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19);
+									method2778(graphicsPixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19);
 									var4 += var16;
 									var5 += var17;
 									var8 += var20;
-									var2 += Rasterizer2D.graphicsPixelsWidth;
+									var2 += graphicsPixelsWidth;
 								}
 							}
 
-							method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var3 >> 14, var5 >> 14, var8, var19);
+							method2778(graphicsPixels, var2, 0, 0, var3 >> 14, var5 >> 14, var8, var19);
 							var3 += var15;
 							var5 += var17;
 							var8 += var20;
-							var2 += Rasterizer2D.graphicsPixelsWidth;
+							var2 += graphicsPixelsWidth;
 						}
 					}
 					else
@@ -909,19 +909,19 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19);
+									method2778(graphicsPixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19);
 									var4 += var16;
 									var5 += var17;
 									var8 += var20;
-									var2 += Rasterizer2D.graphicsPixelsWidth;
+									var2 += graphicsPixelsWidth;
 								}
 							}
 
-							method2778(Rasterizer2D.graphicsPixels, var2, 0, 0, var5 >> 14, var3 >> 14, var8, var19);
+							method2778(graphicsPixels, var2, 0, 0, var5 >> 14, var3 >> 14, var8, var19);
 							var3 += var15;
 							var5 += var17;
 							var8 += var20;
-							var2 += Rasterizer2D.graphicsPixelsWidth;
+							var2 += graphicsPixelsWidth;
 						}
 					}
 				}
@@ -1056,7 +1056,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	public static final void rasterFlat(int var0, int var1, int var2, int var3, int var4, int var5, int var6)
+	public final void rasterFlat(int var0, int var1, int var2, int var3, int var4, int var5, int var6)
 	{
 		int var7 = 0;
 		if (var0 != var1)
@@ -1126,17 +1126,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var4 >> 14, var5 >> 14);
+									method2842(graphicsPixels, var0, var6, 0, var4 >> 14, var5 >> 14);
 									var5 += var9;
 									var4 += var8;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var3 >> 14, var5 >> 14);
+							method2842(graphicsPixels, var0, var6, 0, var3 >> 14, var5 >> 14);
 							var5 += var9;
 							var3 += var7;
-							var0 += Rasterizer2D.graphicsPixelsWidth;
+							var0 += graphicsPixelsWidth;
 						}
 					}
 					else
@@ -1158,17 +1158,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var5 >> 14, var4 >> 14);
+									method2842(graphicsPixels, var0, var6, 0, var5 >> 14, var4 >> 14);
 									var5 += var9;
 									var4 += var8;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var5 >> 14, var3 >> 14);
+							method2842(graphicsPixels, var0, var6, 0, var5 >> 14, var3 >> 14);
 							var5 += var9;
 							var3 += var7;
-							var0 += Rasterizer2D.graphicsPixelsWidth;
+							var0 += graphicsPixelsWidth;
 						}
 					}
 				}
@@ -1208,17 +1208,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var5 >> 14, var3 >> 14);
+									method2842(graphicsPixels, var0, var6, 0, var5 >> 14, var3 >> 14);
 									var5 += var8;
 									var3 += var7;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var4 >> 14, var3 >> 14);
+							method2842(graphicsPixels, var0, var6, 0, var4 >> 14, var3 >> 14);
 							var4 += var9;
 							var3 += var7;
-							var0 += Rasterizer2D.graphicsPixelsWidth;
+							var0 += graphicsPixelsWidth;
 						}
 					}
 					else
@@ -1240,17 +1240,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var3 >> 14, var5 >> 14);
+									method2842(graphicsPixels, var0, var6, 0, var3 >> 14, var5 >> 14);
 									var5 += var8;
 									var3 += var7;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var0, var6, 0, var3 >> 14, var4 >> 14);
+							method2842(graphicsPixels, var0, var6, 0, var3 >> 14, var4 >> 14);
 							var4 += var9;
 							var3 += var7;
-							var0 += Rasterizer2D.graphicsPixelsWidth;
+							var0 += graphicsPixelsWidth;
 						}
 					}
 				}
@@ -1306,17 +1306,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var5 >> 14, var3 >> 14);
+									method2842(graphicsPixels, var1, var6, 0, var5 >> 14, var3 >> 14);
 									var3 += var7;
 									var5 += var9;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var4 >> 14, var3 >> 14);
+							method2842(graphicsPixels, var1, var6, 0, var4 >> 14, var3 >> 14);
 							var3 += var7;
 							var4 += var8;
-							var1 += Rasterizer2D.graphicsPixelsWidth;
+							var1 += graphicsPixelsWidth;
 						}
 					}
 					else
@@ -1338,17 +1338,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var3 >> 14, var5 >> 14);
+									method2842(graphicsPixels, var1, var6, 0, var3 >> 14, var5 >> 14);
 									var3 += var7;
 									var5 += var9;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var3 >> 14, var4 >> 14);
+							method2842(graphicsPixels, var1, var6, 0, var3 >> 14, var4 >> 14);
 							var3 += var7;
 							var4 += var8;
-							var1 += Rasterizer2D.graphicsPixelsWidth;
+							var1 += graphicsPixelsWidth;
 						}
 					}
 				}
@@ -1388,17 +1388,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var3 >> 14, var4 >> 14);
+									method2842(graphicsPixels, var1, var6, 0, var3 >> 14, var4 >> 14);
 									var3 += var9;
 									var4 += var8;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var5 >> 14, var4 >> 14);
+							method2842(graphicsPixels, var1, var6, 0, var5 >> 14, var4 >> 14);
 							var5 += var7;
 							var4 += var8;
-							var1 += Rasterizer2D.graphicsPixelsWidth;
+							var1 += graphicsPixelsWidth;
 						}
 					}
 					else
@@ -1420,17 +1420,17 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var4 >> 14, var3 >> 14);
+									method2842(graphicsPixels, var1, var6, 0, var4 >> 14, var3 >> 14);
 									var3 += var9;
 									var4 += var8;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(Rasterizer2D.graphicsPixels, var1, var6, 0, var4 >> 14, var5 >> 14);
+							method2842(graphicsPixels, var1, var6, 0, var4 >> 14, var5 >> 14);
 							var5 += var7;
 							var4 += var8;
-							var1 += Rasterizer2D.graphicsPixelsWidth;
+							var1 += graphicsPixelsWidth;
 						}
 					}
 				}
@@ -1484,17 +1484,17 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var4 >> 14, var3 >> 14);
+								method2842(graphicsPixels, var2, var6, 0, var4 >> 14, var3 >> 14);
 								var4 += var8;
 								var3 += var7;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var4 >> 14, var5 >> 14);
+						method2842(graphicsPixels, var2, var6, 0, var4 >> 14, var5 >> 14);
 						var4 += var8;
 						var5 += var9;
-						var2 += Rasterizer2D.graphicsPixelsWidth;
+						var2 += graphicsPixelsWidth;
 					}
 				}
 				else
@@ -1516,17 +1516,17 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var3 >> 14, var4 >> 14);
+								method2842(graphicsPixels, var2, var6, 0, var3 >> 14, var4 >> 14);
 								var4 += var8;
 								var3 += var7;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var5 >> 14, var4 >> 14);
+						method2842(graphicsPixels, var2, var6, 0, var5 >> 14, var4 >> 14);
 						var4 += var8;
 						var5 += var9;
-						var2 += Rasterizer2D.graphicsPixelsWidth;
+						var2 += graphicsPixelsWidth;
 					}
 				}
 			}
@@ -1566,17 +1566,17 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var4 >> 14, var5 >> 14);
+								method2842(graphicsPixels, var2, var6, 0, var4 >> 14, var5 >> 14);
 								var4 += var7;
 								var5 += var9;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var3 >> 14, var5 >> 14);
+						method2842(graphicsPixels, var2, var6, 0, var3 >> 14, var5 >> 14);
 						var3 += var8;
 						var5 += var9;
-						var2 += Rasterizer2D.graphicsPixelsWidth;
+						var2 += graphicsPixelsWidth;
 					}
 				}
 				else
@@ -1598,17 +1598,17 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var5 >> 14, var4 >> 14);
+								method2842(graphicsPixels, var2, var6, 0, var5 >> 14, var4 >> 14);
 								var4 += var7;
 								var5 += var9;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(Rasterizer2D.graphicsPixels, var2, var6, 0, var5 >> 14, var3 >> 14);
+						method2842(graphicsPixels, var2, var6, 0, var5 >> 14, var3 >> 14);
 						var3 += var8;
 						var5 += var9;
-						var2 += Rasterizer2D.graphicsPixelsWidth;
+						var2 += graphicsPixelsWidth;
 					}
 				}
 			}
@@ -1733,7 +1733,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	static final void rasterTextureAffine(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18)
+	final void rasterTextureAffine(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18)
 	{
 		int[] var19 = textureLoader.load(var18);
 		int var20;
@@ -1847,22 +1847,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 											var5 += var28;
 											var4 += var27;
 											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
+											var0 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 									var5 += var28;
 									var3 += var26;
 									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -1887,22 +1887,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 											var5 += var28;
 											var4 += var27;
 											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
+											var0 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 									var5 += var28;
 									var3 += var26;
 									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -1950,22 +1950,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 											var5 += var27;
 											var3 += var26;
 											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
+											var0 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 									var4 += var28;
 									var3 += var26;
 									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -1990,22 +1990,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 											var5 += var27;
 											var3 += var26;
 											var6 += var31;
-											var0 += Rasterizer2D.graphicsPixelsWidth;
+											var0 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 									var4 += var28;
 									var3 += var26;
 									var6 += var31;
-									var0 += Rasterizer2D.graphicsPixelsWidth;
+									var0 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -2070,22 +2070,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 											var3 += var26;
 											var5 += var28;
 											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
+											var1 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 									var3 += var26;
 									var4 += var27;
 									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -2110,22 +2110,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 											var3 += var26;
 											var5 += var28;
 											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
+											var1 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 									var3 += var26;
 									var4 += var27;
 									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -2173,22 +2173,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 											var3 += var28;
 											var4 += var27;
 											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
+											var1 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 									var5 += var26;
 									var4 += var27;
 									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -2213,22 +2213,22 @@ class Graphics3D extends Rasterizer2D
 												return;
 											}
 
-											method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+											method2791(graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 											var3 += var28;
 											var4 += var27;
 											var7 += var31;
-											var1 += Rasterizer2D.graphicsPixelsWidth;
+											var1 += graphicsPixelsWidth;
 											var32 += var34;
 											var35 += var37;
 											var38 += var40;
 										}
 									}
 
-									method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+									method2791(graphicsPixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 									var5 += var26;
 									var4 += var27;
 									var7 += var31;
-									var1 += Rasterizer2D.graphicsPixelsWidth;
+									var1 += graphicsPixelsWidth;
 									var32 += var34;
 									var35 += var37;
 									var38 += var40;
@@ -2291,22 +2291,22 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+										method2791(graphicsPixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 										var4 += var27;
 										var3 += var26;
 										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
+										var2 += graphicsPixelsWidth;
 										var32 += var34;
 										var35 += var37;
 										var38 += var40;
 									}
 								}
 
-								method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+								method2791(graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 								var4 += var27;
 								var5 += var28;
 								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 								var32 += var34;
 								var35 += var37;
 								var38 += var40;
@@ -2331,22 +2331,22 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+										method2791(graphicsPixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 										var4 += var27;
 										var3 += var26;
 										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
+										var2 += graphicsPixelsWidth;
 										var32 += var34;
 										var35 += var37;
 										var38 += var40;
 									}
 								}
 
-								method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+								method2791(graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 								var4 += var27;
 								var5 += var28;
 								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 								var32 += var34;
 								var35 += var37;
 								var38 += var40;
@@ -2394,22 +2394,22 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+										method2791(graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 										var4 += var26;
 										var5 += var28;
 										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
+										var2 += graphicsPixelsWidth;
 										var32 += var34;
 										var35 += var37;
 										var38 += var40;
 									}
 								}
 
-								method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+								method2791(graphicsPixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 								var3 += var27;
 								var5 += var28;
 								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 								var32 += var34;
 								var35 += var37;
 								var38 += var40;
@@ -2434,22 +2434,22 @@ class Graphics3D extends Rasterizer2D
 											return;
 										}
 
-										method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+										method2791(graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 										var4 += var26;
 										var5 += var28;
 										var8 += var31;
-										var2 += Rasterizer2D.graphicsPixelsWidth;
+										var2 += graphicsPixelsWidth;
 										var32 += var34;
 										var35 += var37;
 										var38 += var40;
 									}
 								}
 
-								method2791(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+								method2791(graphicsPixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 								var3 += var27;
 								var5 += var28;
 								var8 += var31;
-								var2 += Rasterizer2D.graphicsPixelsWidth;
+								var2 += graphicsPixelsWidth;
 								var32 += var34;
 								var35 += var37;
 								var38 += var40;
@@ -3092,22 +3092,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //											var5 += var28;
 //											var4 += var27;
 //											var6 += var31;
-//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var0 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //									var5 += var28;
 //									var3 += var26;
 //									var6 += var31;
-//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var0 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3132,22 +3132,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //											var5 += var28;
 //											var4 += var27;
 //											var6 += var31;
-//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var0 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //									var5 += var28;
 //									var3 += var26;
 //									var6 += var31;
-//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var0 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3195,22 +3195,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //											var5 += var27;
 //											var3 += var26;
 //											var6 += var31;
-//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var0 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //									var4 += var28;
 //									var3 += var26;
 //									var6 += var31;
-//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var0 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3235,22 +3235,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //											var5 += var27;
 //											var3 += var26;
 //											var6 += var31;
-//											var0 += Rasterizer2D.graphicsPixelsWidth;
+//											var0 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39);
 //									var4 += var28;
 //									var3 += var26;
 //									var6 += var31;
-//									var0 += Rasterizer2D.graphicsPixelsWidth;
+//									var0 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3315,22 +3315,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //											var3 += var26;
 //											var5 += var28;
 //											var7 += var31;
-//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var1 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //									var3 += var26;
 //									var4 += var27;
 //									var7 += var31;
-//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var1 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3355,22 +3355,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //											var3 += var26;
 //											var5 += var28;
 //											var7 += var31;
-//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var1 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //									var3 += var26;
 //									var4 += var27;
 //									var7 += var31;
-//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var1 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3418,22 +3418,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //											var3 += var28;
 //											var4 += var27;
 //											var7 += var31;
-//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var1 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //									var5 += var26;
 //									var4 += var27;
 //									var7 += var31;
-//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var1 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3458,22 +3458,22 @@ class Graphics3D extends Rasterizer2D
 //												return;
 //											}
 //
-//											method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//											method2793(graphicsPixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //											var3 += var28;
 //											var4 += var27;
 //											var7 += var31;
-//											var1 += Rasterizer2D.graphicsPixelsWidth;
+//											var1 += graphicsPixelsWidth;
 //											var32 += var34;
 //											var35 += var37;
 //											var38 += var40;
 //										}
 //									}
 //
-//									method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
+//									method2793(graphicsPixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39);
 //									var5 += var26;
 //									var4 += var27;
 //									var7 += var31;
-//									var1 += Rasterizer2D.graphicsPixelsWidth;
+//									var1 += graphicsPixelsWidth;
 //									var32 += var34;
 //									var35 += var37;
 //									var38 += var40;
@@ -3536,22 +3536,22 @@ class Graphics3D extends Rasterizer2D
 //											return;
 //										}
 //
-//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										method2793(graphicsPixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //										var4 += var27;
 //										var3 += var26;
 //										var8 += var31;
-//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var2 += graphicsPixelsWidth;
 //										var32 += var34;
 //										var35 += var37;
 //										var38 += var40;
 //									}
 //								}
 //
-//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								method2793(graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //								var4 += var27;
 //								var5 += var28;
 //								var8 += var31;
-//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var2 += graphicsPixelsWidth;
 //								var32 += var34;
 //								var35 += var37;
 //								var38 += var40;
@@ -3576,22 +3576,22 @@ class Graphics3D extends Rasterizer2D
 //											return;
 //										}
 //
-//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										method2793(graphicsPixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //										var4 += var27;
 //										var3 += var26;
 //										var8 += var31;
-//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var2 += graphicsPixelsWidth;
 //										var32 += var34;
 //										var35 += var37;
 //										var38 += var40;
 //									}
 //								}
 //
-//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								method2793(graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //								var4 += var27;
 //								var5 += var28;
 //								var8 += var31;
-//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var2 += graphicsPixelsWidth;
 //								var32 += var34;
 //								var35 += var37;
 //								var38 += var40;
@@ -3639,22 +3639,22 @@ class Graphics3D extends Rasterizer2D
 //											return;
 //										}
 //
-//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										method2793(graphicsPixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //										var4 += var26;
 //										var5 += var28;
 //										var8 += var31;
-//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var2 += graphicsPixelsWidth;
 //										var32 += var34;
 //										var35 += var37;
 //										var38 += var40;
 //									}
 //								}
 //
-//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								method2793(graphicsPixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //								var3 += var27;
 //								var5 += var28;
 //								var8 += var31;
-//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var2 += graphicsPixelsWidth;
 //								var32 += var34;
 //								var35 += var37;
 //								var38 += var40;
@@ -3679,22 +3679,22 @@ class Graphics3D extends Rasterizer2D
 //											return;
 //										}
 //
-//										method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//										method2793(graphicsPixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //										var4 += var26;
 //										var5 += var28;
 //										var8 += var31;
-//										var2 += Rasterizer2D.graphicsPixelsWidth;
+//										var2 += graphicsPixelsWidth;
 //										var32 += var34;
 //										var35 += var37;
 //										var38 += var40;
 //									}
 //								}
 //
-//								method2793(Rasterizer2D.graphicsPixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
+//								method2793(graphicsPixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39);
 //								var3 += var27;
 //								var5 += var28;
 //								var8 += var31;
-//								var2 += Rasterizer2D.graphicsPixelsWidth;
+//								var2 += graphicsPixelsWidth;
 //								var32 += var34;
 //								var35 += var37;
 //								var38 += var40;
