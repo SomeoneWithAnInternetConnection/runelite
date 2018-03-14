@@ -22,59 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.fishing;
+package net.runelite.api;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import javax.inject.Inject;
-import net.runelite.api.GraphicID;
-import net.runelite.api.NPC;
-import net.runelite.client.ui.overlay.Overlay;
-import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayUtil;
-
-class FishingSpotMinimapOverlay extends Overlay
+public interface NPCComposition
 {
-	private final FishingPlugin plugin;
+	String getName();
 
-	@Inject
-	public FishingSpotMinimapOverlay(FishingPlugin plugin)
-	{
-		setPosition(OverlayPosition.DYNAMIC);
-		setLayer(OverlayLayer.ABOVE_WIDGETS);
-		this.plugin = plugin;
-	}
+	int[] getModels();
 
-	@Override
-	public Dimension render(Graphics2D graphics, Point parent)
-	{
-		NPC[] fishingSpots = plugin.getFishingSpots();
-		if (fishingSpots == null)
-		{
-			return null;
-		}
+	String[] getActions();
 
-		for (NPC npc : fishingSpots)
-		{
-			FishingSpot spot = FishingSpot.getSpot(npc.getId());
+	boolean isClickable();
 
-			if (spot == null)
-			{
-				continue;
-			}
+	boolean isMinimapVisable();
 
-			Color color = npc.getGraphic() == GraphicID.FLYING_FISH ? Color.RED : Color.CYAN;
+	boolean isVisable();
 
-			net.runelite.api.Point minimapLocation = npc.getMinimapLocation();
-			if (minimapLocation != null)
-			{
-				OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color.darker());
-			}
-		}
+	int getId();
 
-		return null;
-	}
+	int getCombatLevel();
+	
+	int[] getConfigs();
+	
+	NPCComposition transform();
 }
