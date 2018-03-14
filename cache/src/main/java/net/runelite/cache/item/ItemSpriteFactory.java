@@ -3,6 +3,7 @@ package net.runelite.cache.item;
 import java.io.IOException;
 import net.runelite.cache.IndexType;
 import net.runelite.cache.SpriteManager;
+import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.ItemDefinition;
 import net.runelite.cache.definitions.ModelDefinition;
 import net.runelite.cache.definitions.loaders.ModelLoader;
@@ -82,8 +83,16 @@ public class ItemSpriteFactory
 //				}
 //			}
 
+			SpriteManager spriteManager = new SpriteManager(store);
+			spriteManager.load();
+
+			TextureManager textureManager = new TextureManager(store);
+			textureManager.load();
+
+			TextureProvider textureProvider = new TextureProvider(textureManager, spriteManager);
+
 			SpritePixels spritePixels = new SpritePixels(36, 32);
-			Graphics3D graphics = new Graphics3D();
+			Graphics3D graphics = new Graphics3D(textureProvider);
 			graphics.setBrightness(0.6d);
 			graphics.setRasterBuffer(spritePixels.pixels, 36, 32);
 			graphics.reset();

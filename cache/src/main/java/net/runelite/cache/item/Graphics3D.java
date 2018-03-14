@@ -16,6 +16,8 @@ class Graphics3D extends Rasterizer2D
 		}
 	}
 
+	private final TextureProvider textureProvider;
+
 
 	boolean rasterClipEnable;
 
@@ -64,7 +66,7 @@ class Graphics3D extends Rasterizer2D
 	public int[] colorPalette = new int[65536];
 
 
-	public static TextureProvider textureLoader;
+//	public static TextureProvider textureLoader;
 
 	static int[] field1932= new int[512];
 
@@ -112,6 +114,10 @@ class Graphics3D extends Rasterizer2D
 
 	}
 
+	public Graphics3D(TextureProvider textureProvider)
+	{
+		this.textureProvider = textureProvider;
+	}
 
 	public final void setRasterClipping()
 	{
@@ -1738,17 +1744,17 @@ class Graphics3D extends Rasterizer2D
 
 	final void rasterTextureAffine(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18)
 	{
-		int[] var19 = textureLoader.load(var18);
+		int[] var19 = textureProvider.load(var18);
 		int var20;
 		if (var19 == null)
 		{
-			var20 = textureLoader.getAverageTextureRGB(var18);
+			var20 = textureProvider.getAverageTextureRGB(var18);
 			rasterGouraud(var0, var1, var2, var3, var4, var5, method2794(var20, var6), method2794(var20, var7), method2794(var20, var8));
 		}
 		else
 		{
-			lowMem = textureLoader.vmethod3066(var18);
-			field1909 = textureLoader.vmethod3057(var18);
+			lowMem = textureProvider.vmethod3066(var18);
+			field1909 = textureProvider.vmethod3057(var18);
 			var20 = var4 - var3;
 			int var21 = var1 - var0;
 			int var22 = var5 - var3;
