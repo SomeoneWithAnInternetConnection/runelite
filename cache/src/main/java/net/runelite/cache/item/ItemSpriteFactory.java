@@ -1,21 +1,18 @@
 package net.runelite.cache.item;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import net.runelite.cache.IndexType;
-import net.runelite.cache.SpriteManager;
-import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.ItemDefinition;
 import net.runelite.cache.definitions.ModelDefinition;
-import net.runelite.cache.definitions.loaders.ModelLoader;
-import net.runelite.cache.fs.Archive;
-import net.runelite.cache.fs.Index;
-import net.runelite.cache.fs.Store;
+import net.runelite.cache.definitions.providers.ModelProvider;
+import net.runelite.cache.definitions.providers.SpriteProvider;
+import net.runelite.cache.definitions.providers.TextureProvider2;
 import net.runelite.cache.models.FaceNormal;
 import net.runelite.cache.models.VertexNormal;
 
 public class ItemSpriteFactory
 {
-	public static final SpritePixels createSprite(Store store, ItemDefinition item, int quantity, int border, int shadowColor, int stackable, boolean noted) throws IOException
+	public static final BufferedImage createSprite(ModelProvider modelProvider, SpriteProvider spriteProvider, TextureProvider2 textureProvider2, ItemDefinition item, int quantity, int border, int shadowColor, int stackable, boolean noted) throws IOException
 	{
 		if (quantity == -1)
 		{
@@ -55,9 +52,9 @@ public class ItemSpriteFactory
 		}
 
 //		ModelDefinition itemModel = null;
-		Index models = store.getIndex(IndexType.MODELS);
+//		Index models = store.getIndex(IndexType.MODELS);
 //		models.getArchive()
-		Model itemModel = getModel(store, item, 1); //item.getModel(1);
+		Model itemModel = getModel(modelProvider, item, 1); //item.getModel(1);
 		if (itemModel == null)
 		{
 			return null;
@@ -83,13 +80,13 @@ public class ItemSpriteFactory
 //				}
 //			}
 
-			SpriteManager spriteManager = new SpriteManager(store);
-			spriteManager.load();
+//			SpriteManager spriteManager = new SpriteManager(store);
+//			spriteManager.load();
+//
+//			TextureManager textureManager = new TextureManager(store);
+//			textureManager.load();
 
-			TextureManager textureManager = new TextureManager(store);
-			textureManager.load();
-
-			TextureProvider textureProvider = new TextureProvider(textureManager, spriteManager);
+			TextureProvider textureProvider = new TextureProvider(textureProvider2, spriteProvider);
 
 			SpritePixels spritePixels = new SpritePixels(36, 32);
 			Graphics3D graphics = new Graphics3D(textureProvider);
@@ -169,11 +166,11 @@ public class ItemSpriteFactory
 
 			graphics.setRasterClipping();
 			graphics.rasterGouraudLowRes = true;
-			return spritePixels;
+			return spritePixels.toBufferedImage();
 		}
 	}
 
-	private static Model getModel(Store store, ItemDefinition item, int quantity) throws IOException
+	private static Model getModel(ModelProvider modelProvider, ItemDefinition item, int quantity) throws IOException
 	{
 //		if(item.countObj != null && quantity > 1) {
 //			int itemModelID = -1;
@@ -193,13 +190,14 @@ public class ItemSpriteFactory
 //		if(itemModel != null) {
 //			return itemModel;
 //		} else {
-		Index models = store.getIndex(IndexType.MODELS);
-		Archive archive = models.getArchive(item.inventoryModel);
-
-		byte[] data = archive.decompress(store.getStorage().loadArchive(archive));
+//		Index models = store.getIndex(IndexType.MODELS);
+//		Archive archive = models.getArchive(item.inventoryModel);
+//
+//		byte[] data = archive.decompress(store.getStorage().loadArchive(archive));
 
 		Model itemModel;
-		ModelDefinition inventoryModel = new ModelLoader().load(item.inventoryModel, data);
+		ModelDefinition inventoryModel = modelProvider.provide(item.inventoryModel);
+//		ModelDefinition inventoryModel = new ModelLoader().load(item.inventoryModel, data);
 //			ModelData inventoryModel = ModelData.method2594(ItemDefinition_modelIndexCache, item.inventoryModel, 0);
 		if (inventoryModel == null)
 		{

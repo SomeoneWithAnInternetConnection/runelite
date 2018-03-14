@@ -26,7 +26,7 @@
 package net.runelite.cache.definitions;
 
 import lombok.Data;
-import net.runelite.cache.SpriteManager;
+import net.runelite.cache.definitions.providers.SpriteProvider;
 
 @Data
 public class TextureDefinition
@@ -43,7 +43,7 @@ public class TextureDefinition
 
 	public transient int[] pixels;
 
-	public boolean method2680(double var1, int var3, SpriteManager spriteManager)
+	public boolean method2680(double var1, int var3, SpriteProvider spriteProvider)
 	{
 		int var5;
 //		for(var5 = 0; var5 < this.fileIds.length; ++var5) {
@@ -57,7 +57,8 @@ public class TextureDefinition
 
 		for (int var6 = 0; var6 < this.fileIds.length; ++var6)
 		{
-			SpriteDefinition var7 = spriteManager.findSprite(fileIds[var6], 0);
+			SpriteDefinition var7 = spriteProvider.provide(fileIds[var6],0);
+//				spriteManager.findSprite(fileIds[var6], 0);
 //			IndexedSprite var7 = class279.method4934(var4, this.fileIds[var6]);
 //			var7.normalize();
 			byte[] var8 = var7.pixelIdx;

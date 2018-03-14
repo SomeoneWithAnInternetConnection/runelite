@@ -42,10 +42,10 @@ public class ItemSpriteFactoryTest
 //			ItemSpriteFactory.spriteManager = new SpriteManager(store);
 //			ItemSpriteFactory.spriteManager.load();
 
-			SpritePixels sprite = ItemSpriteFactory.createSprite(store, def, 1, 1, 3153952, 0, false);
+			BufferedImage sprite = ItemSpriteFactory.createSprite(null, null, null, def, 1, 1, 3153952, 0, false);
 
 			File out = new File("D:\\rs\\07\\temp\\" + itemID + ".png");
-			BufferedImage img = sprite.toBufferedImage();
+			BufferedImage img = sprite;
 			ImageIO.write(img, "PNG", out);
 
 //			Storage storage = store.getStorage();

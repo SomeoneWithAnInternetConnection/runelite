@@ -24,21 +24,34 @@
  */
 package net.runelite.http.service.cache;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.imageio.ImageIO;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.cache.ConfigType;
 import net.runelite.cache.IndexType;
 import net.runelite.cache.definitions.ItemDefinition;
+import net.runelite.cache.definitions.ModelDefinition;
 import net.runelite.cache.definitions.NpcDefinition;
 import net.runelite.cache.definitions.ObjectDefinition;
+import net.runelite.cache.definitions.SpriteDefinition;
+import net.runelite.cache.definitions.TextureDefinition;
 import net.runelite.cache.definitions.loaders.ItemLoader;
+import net.runelite.cache.definitions.loaders.ModelLoader;
 import net.runelite.cache.definitions.loaders.NpcLoader;
 import net.runelite.cache.definitions.loaders.ObjectLoader;
+import net.runelite.cache.definitions.loaders.SpriteLoader;
+import net.runelite.cache.definitions.loaders.TextureLoader;
+import net.runelite.cache.definitions.providers.ModelProvider;
+import net.runelite.cache.definitions.providers.SpriteProvider;
+import net.runelite.cache.definitions.providers.TextureProvider2;
 import net.runelite.cache.fs.ArchiveFiles;
+import net.runelite.cache.fs.Container;
 import net.runelite.cache.fs.FSFile;
-import net.runelite.cache.fs.Store;
+import net.runelite.cache.item.ItemSpriteFactory;
 import net.runelite.http.api.cache.Cache;
 import net.runelite.http.api.cache.CacheArchive;
 import net.runelite.http.api.cache.CacheIndex;
@@ -87,7 +100,7 @@ public class CacheController
 
 	@RequestMapping("{cacheId}/{indexId}")
 	public List<CacheArchive> listArchives(@PathVariable int cacheId,
-		@PathVariable int indexId)
+										   @PathVariable int indexId)
 	{
 		CacheEntry cache = cacheService.findCache(cacheId);
 		if (cache == null)
@@ -110,8 +123,8 @@ public class CacheController
 
 	@RequestMapping("{cacheId}/{indexId}/{archiveId}")
 	public CacheArchive getCacheArchive(@PathVariable int cacheId,
-		@PathVariable int indexId,
-		@PathVariable int archiveId)
+										@PathVariable int indexId,
+										@PathVariable int archiveId)
 	{
 		CacheEntry cache = cacheService.findCache(cacheId);
 		if (cache == null)
@@ -207,17 +220,87 @@ public class CacheController
 		return itemdef;
 	}
 
-	@RequestMapping(produces = "image/png")
+	@RequestMapping(path = "item/{itemId}/image", produces = "image/png")
 	public ResponseEntity<byte[]> getItemImage(
-		@RequestParam int itemId,
+		@PathVariable int itemId,
 		@RequestParam(defaultValue = "1") int border,
-		@RequestParam(defaultValue = "3153952") int shadowColor,
+		@RequestParam(defaultValue = "3153952") int shadowColor
 	) throws IOException
 	{
-		CacheStorage cacheStorage = new CacheStorage(cacheService);
-		Store store = new Store(cacheStorage);
-		store.load();
-		return null;
+		final CacheEntry cache = cacheService.findMostRecent();
+		ModelProvider modelProvider = new ModelProvider()
+		{
+			@Override
+			public ModelDefinition provide(int modelId) throws IOException
+			{
+				IndexEntry indexEntry = cacheService.findIndexForCache(cache, IndexType.MODELS.getNumber());
+				ArchiveEntry archiveEntry = cacheService.findArchiveForIndex(indexEntry, modelId);
+				byte[] archiveData = Container.decompress(cacheService.getArchive(archiveEntry), null).data;
+				return new ModelLoader().load(modelId, archiveData);
+			}
+		};
+		SpriteProvider spriteProvider = new SpriteProvider()
+		{
+			@Override
+			public SpriteDefinition provide(int spriteId, int frameId)
+			{
+				try
+				{
+					IndexEntry indexEntry = cacheService.findIndexForCache(cache, IndexType.SPRITES.getNumber());
+					ArchiveEntry archiveEntry = cacheService.findArchiveForIndex(indexEntry, spriteId);
+					byte[] archiveData = Container.decompress(cacheService.getArchive(archiveEntry), null).data;
+					SpriteDefinition[] defs = new SpriteLoader().load(spriteId, archiveData);
+					return defs[frameId];
+				}
+				catch (Exception ex)
+				{
+					ex.printStackTrace();
+					return null;
+				}
+			}
+		};
+
+		TextureProvider2 textureProvider2 = new TextureProvider2()
+		{
+			@Override
+			public TextureDefinition[] provide()
+			{
+				try
+				{
+					IndexEntry indexEntry = cacheService.findIndexForCache(cache, IndexType.TEXTURES.getNumber());
+					ArchiveEntry archiveEntry = cacheService.findArchiveForIndex(indexEntry, 0);
+					ArchiveFiles archiveFiles = cacheService.getArchiveFiles(archiveEntry);
+					TextureLoader loader = new TextureLoader();
+					TextureDefinition[] defs = new TextureDefinition[archiveFiles.getFiles().size()];
+					int i = 0;
+					for (FSFile file : archiveFiles.getFiles())
+					{
+						TextureDefinition def = loader.load(file.getFileId(), file.getContents());
+						defs[i++] = def;
+					}
+					return defs;
+				}
+				catch (Exception ex)
+				{
+					ex.printStackTrace();
+					return null;
+				}
+//				for (ArchiveEntry archiveEntry : cacheService.findArchivesForIndex(indexEntry)) {
+//
+//				}
+			}
+		};
+
+//		CacheStorage cacheStorage = new CacheStorage(cacheService);
+//		Store store = new Store(cacheStorage);
+//		store.load();
+
+		ItemDefinition item = getItem(itemId);
+
+		BufferedImage itemImage = ItemSpriteFactory.createSprite(modelProvider, spriteProvider, textureProvider2, item, 1, border, shadowColor, 0, false);
+		ByteArrayOutputStream bao = new ByteArrayOutputStream();
+				ImageIO.write(itemImage, "png", bao);
+				return ResponseEntity.ok(bao.toByteArray());
 	}
 
 	@RequestMapping("object/{objectId}")

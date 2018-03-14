@@ -42,6 +42,7 @@ public class CacheStorage implements Storage
 	public void load(Store store) throws IOException
 	{
 		for (Index index : store.getIndexes()) {
+			System.out.println("loading " + index);
 			IndexEntry indexEntry = cacheService.findIndexForCache(cacheEntry, index.getId());
 			for (ArchiveEntry archiveEntry : cacheService.findArchivesForIndex(indexEntry)) {
 				Archive archive = index.addArchive(archiveEntry.getArchiveId());

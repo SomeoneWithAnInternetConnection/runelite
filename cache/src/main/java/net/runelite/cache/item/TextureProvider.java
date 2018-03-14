@@ -1,21 +1,21 @@
 package net.runelite.cache.item;
 
-import net.runelite.cache.SpriteManager;
-import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.TextureDefinition;
+import net.runelite.cache.definitions.providers.SpriteProvider;
+import net.runelite.cache.definitions.providers.TextureProvider2;
 
 class TextureProvider
 {
-	private final SpriteManager spriteManager;
+	private final SpriteProvider spriteProvider;
 	TextureDefinition[] textures;
 	int maxSize;
 	int size;
 	double brightness;
 	int width;
 
-	public TextureProvider(TextureManager textureManager, SpriteManager spriteManager)
+	public TextureProvider(TextureProvider2 textureProvider, SpriteProvider spriteProvider)
 	{
-		this.spriteManager = spriteManager;
+		this.spriteProvider = spriteProvider;
 		this.size = 0;
 		this.brightness = 1.0D;
 		this.width = 128;
@@ -26,7 +26,7 @@ class TextureProvider
 		this.width = 128;
 
 		int max = -1;
-		for (TextureDefinition textureDefinition : textureManager.getTextures())
+		for (TextureDefinition textureDefinition : textureProvider.provide())
 		{
 			if (textureDefinition.getId() > max)
 			{
@@ -35,7 +35,7 @@ class TextureProvider
 		}
 
 		textures = new TextureDefinition[max + 1];
-		for (TextureDefinition textureDefinition : textureManager.getTextures())
+		for (TextureDefinition textureDefinition : textureProvider.provide())
 		{
 			textures[textureDefinition.getId()] = textureDefinition;
 		}
@@ -125,7 +125,7 @@ class TextureProvider
 				return var2.pixels;
 			}
 
-			boolean var3 = var2.method2680(this.brightness, this.width, spriteManager);
+			boolean var3 = var2.method2680(this.brightness, this.width, spriteProvider);
 			return var2.pixels;
 //         if(var3) {
 //            if(this.size == 0) {
