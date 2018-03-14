@@ -61,7 +61,7 @@ class Graphics3D extends Rasterizer2D
 	int[] rasterClipY= new int[1024];
 
 
-	static public int[] colorPalette = new int[65536];
+	public int[] colorPalette = new int[65536];
 
 
 	public static TextureProvider textureLoader;
@@ -182,11 +182,11 @@ class Graphics3D extends Rasterizer2D
 
 	public final void setBrightness(double var0)
 	{
-		method2844(var0, 0, 512);
+		buildColorPalette(var0, 0, 512);
 	}
 
 
-	static final void method2844(double var0, int var2, int var3)
+	final void buildColorPalette(double var0, int var2, int var3)
 	{
 		int var4 = var2 * 128;
 

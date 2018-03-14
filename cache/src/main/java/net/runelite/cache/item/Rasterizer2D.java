@@ -71,22 +71,22 @@ class Rasterizer2D
 	}
 
 
-	public void copyDrawRegion(int[] var0)
-	{
-		var0[0] = draw_region_x;
-		var0[1] = drawingAreaTop;
-		var0[2] = drawingAreaRight;
-		var0[3] = drawingAreaBottom;
-	}
-
-
-	public void setDrawRegion(int[] var0)
-	{
-		draw_region_x = var0[0];
-		drawingAreaTop = var0[1];
-		drawingAreaRight = var0[2];
-		drawingAreaBottom = var0[3];
-	}
+//	public void copyDrawRegion(int[] var0)
+//	{
+//		var0[0] = draw_region_x;
+//		var0[1] = drawingAreaTop;
+//		var0[2] = drawingAreaRight;
+//		var0[3] = drawingAreaBottom;
+//	}
+//
+//
+//	public void setDrawRegion(int[] var0)
+//	{
+//		draw_region_x = var0[0];
+//		drawingAreaTop = var0[1];
+//		drawingAreaRight = var0[2];
+//		drawingAreaBottom = var0[3];
+//	}
 
 
 	public void reset()

@@ -156,9 +156,9 @@ public class ItemSpriteFactory
 				graphics.graphicsPixelsWidth,
 				graphics.graphicsPixelsHeight);
 
-			int[] drawRegion = new int[4];
-			graphics.copyDrawRegion(drawRegion);
-			graphics.setDrawRegion(drawRegion);
+//			int[] drawRegion = new int[4];
+//			graphics.copyDrawRegion(drawRegion);
+//			graphics.setDrawRegion(drawRegion);
 
 			graphics.setRasterClipping();
 			graphics.rasterGouraudLowRes = true;

@@ -68,7 +68,7 @@ class Model extends Renderable
 
 	static int[] Model_cosine;
 
-	static int[] field1889;
+//	static int[] field1889;
 
 	static int[] field1890;
 
@@ -185,7 +185,7 @@ class Model extends Renderable
 		xViewportBuffer = new int[10];
 		Model_sine = Graphics3D.SINE;
 		Model_cosine = Graphics3D.COSINE;
-		field1889 = Graphics3D.colorPalette;
+//		field1889 = Graphics3D.colorPalette;
 		field1890 = Graphics3D.field1933;
 	}
 
@@ -1059,6 +1059,7 @@ class Model extends Renderable
 			}
 			else if (this.field1823[var1] == -1)
 			{
+				int[] field1889 = graphics.colorPalette;
 				graphics.rasterFlat(modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], field1889[this.field1856[var1]]);
 			}
 			else
@@ -1223,6 +1224,7 @@ class Model extends Renderable
 			}
 			else if (this.field1823[var1] == -1)
 			{
+				int[] field1889 = graphics.colorPalette;
 				graphics.rasterFlat(var14, var15, var16, var11, var12, var13, field1889[this.field1856[var1]]);
 			}
 			else
@@ -1268,6 +1270,7 @@ class Model extends Renderable
 			}
 			else if (this.field1823[var1] == -1)
 			{
+				int[] field1889 = graphics.colorPalette;
 				var17 = field1889[this.field1856[var1]];
 				graphics.rasterFlat(var14, var15, var16, var11, var12, var13, var17);
 				graphics.rasterFlat(var14, var16, field1837[3], var11, var13, field1831[3], var17);
