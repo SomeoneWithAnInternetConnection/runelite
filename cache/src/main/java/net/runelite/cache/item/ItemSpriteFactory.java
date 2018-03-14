@@ -128,7 +128,7 @@ public class ItemSpriteFactory
 
 			if (border >= 2)
 			{
-				spritePixels.drawBorder(16777215);
+				spritePixels.drawBorder(0xffffff);
 			}
 
 			if (shadowColor != 0)
@@ -225,15 +225,15 @@ public class ItemSpriteFactory
 		//}
 	}
 
-	public static Model light(ModelDefinition def, int var1, int var2, int var3, int var4, int var5)
+	public static Model light(ModelDefinition def, int ambient, int contrast, int x, int y, int z)
 	{
 		def.computeNormals();
-		int var6 = (int) Math.sqrt((double) (var5 * var5 + var3 * var3 + var4 * var4));
-		int var7 = var6 * var2 >> 8;
-		Model var8 = new Model();
-		var8.field1856 = new int[def.faceCount];
-		var8.field1854 = new int[def.faceCount];
-		var8.field1823 = new int[def.faceCount];
+		int somethingMagnitude = (int) Math.sqrt((double) (z * z + x * x + y * y));
+		int var7 = somethingMagnitude * contrast >> 8;
+		Model litModel = new Model();
+		litModel.field1856 = new int[def.faceCount];
+		litModel.field1854 = new int[def.faceCount];
+		litModel.field1823 = new int[def.faceCount];
 		if (def.textureTriangleCount > 0 && def.textureCoordinates != null)
 		{
 			int[] var9 = new int[def.textureTriangleCount];
@@ -247,224 +247,218 @@ public class ItemSpriteFactory
 				}
 			}
 
-			var8.field1852 = 0;
+			litModel.field1852 = 0;
 
 			for (var10 = 0; var10 < def.textureTriangleCount; ++var10)
 			{
 				if (var9[var10] > 0 && def.textureRenderTypes[var10] == 0)
 				{
-					++var8.field1852;
+					++litModel.field1852;
 				}
 			}
 
-			var8.field1844 = new int[var8.field1852];
-			var8.field1865 = new int[var8.field1852];
-			var8.field1846 = new int[var8.field1852];
+			litModel.field1844 = new int[litModel.field1852];
+			litModel.field1865 = new int[litModel.field1852];
+			litModel.field1846 = new int[litModel.field1852];
 			var10 = 0;
 
-			int var11;
-			for (var11 = 0; var11 < def.textureTriangleCount; ++var11)
+
+			for (int i = 0; i < def.textureTriangleCount; ++i)
 			{
-				if (var9[var11] > 0 && def.textureRenderTypes[var11] == 0)
+				if (var9[i] > 0 && def.textureRenderTypes[i] == 0)
 				{
-					var8.field1844[var10] = def.textureTriangleVertexIndices1[var11] & '\uffff';
-					var8.field1865[var10] = def.textureTriangleVertexIndices2[var11] & '\uffff';
-					var8.field1846[var10] = def.textureTriangleVertexIndices3[var11] & '\uffff';
-					var9[var11] = var10++;
+					litModel.field1844[var10] = def.textureTriangleVertexIndices1[i] & '\uffff';
+					litModel.field1865[var10] = def.textureTriangleVertexIndices2[i] & '\uffff';
+					litModel.field1846[var10] = def.textureTriangleVertexIndices3[i] & '\uffff';
+					var9[i] = var10++;
 				}
 				else
 				{
-					var9[var11] = -1;
+					var9[i] = -1;
 				}
 			}
 
-			var8.field1840 = new byte[def.faceCount];
+			litModel.field1840 = new byte[def.faceCount];
 
-			for (var11 = 0; var11 < def.faceCount; ++var11)
+			for (int i = 0; i < def.faceCount; ++i)
 			{
-				if (def.textureCoordinates[var11] != -1)
+				if (def.textureCoordinates[i] != -1)
 				{
-					var8.field1840[var11] = (byte) var9[def.textureCoordinates[var11] & 255];
+					litModel.field1840[i] = (byte) var9[def.textureCoordinates[i] & 255];
 				}
 				else
 				{
-					var8.field1840[var11] = -1;
+					litModel.field1840[i] = -1;
 				}
 			}
 		}
 
-		for (int var16 = 0; var16 < def.faceCount; ++var16)
+		for (int faceIdx = 0; faceIdx < def.faceCount; ++faceIdx)
 		{
-			byte var17;
+			byte faceType;
 			if (def.faceRenderTypes == null)
 			{
-				var17 = 0;
+				faceType = 0;
 			}
 			else
 			{
-				var17 = def.faceRenderTypes[var16];
+				faceType = def.faceRenderTypes[faceIdx];
 			}
 
-			byte var18;
+			byte faceAlpha;
 			if (def.faceAlphas == null)
 			{
-				var18 = 0;
+				faceAlpha = 0;
 			}
 			else
 			{
-				var18 = def.faceAlphas[var16];
+				faceAlpha = def.faceAlphas[faceIdx];
 			}
 
-			short var12;
+			short faceTexture;
 			if (def.faceTextures == null)
 			{
-				var12 = -1;
+				faceTexture = -1;
 			}
 			else
 			{
-				var12 = def.faceTextures[var16];
+				faceTexture = def.faceTextures[faceIdx];
 			}
 
-			if (var18 == -2)
+			if (faceAlpha == -2)
 			{
-				var17 = 3;
+				faceType = 3;
 			}
 
-			if (var18 == -1)
+			if (faceAlpha == -1)
 			{
-				var17 = 2;
+				faceType = 2;
 			}
 
-			VertexNormal var13;
-			int var14;
-			FaceNormal var19;
-			if (var12 == -1)
+			VertexNormal vertexNormal;
+			int tmp;
+			FaceNormal faceNormal;
+			if (faceTexture == -1)
 			{
-				if (var17 != 0)
+				if (faceType != 0)
 				{
-					if (var17 == 1)
+					if (faceType == 1)
 					{
-						var19 = def.faceNormals[var16];
-						var14 = (var4 * var19.y + var5 * var19.z + var3 * var19.x) / (var7 / 2 + var7) + var1;
-						var8.field1856[var16] = method2608(def.faceColors[var16] & '\uffff', var14);
-						var8.field1823[var16] = -1;
+						faceNormal = def.faceNormals[faceIdx];
+						tmp = (y * faceNormal.y + z * faceNormal.z + x * faceNormal.x) / (var7 / 2 + var7) + ambient;
+						litModel.field1856[faceIdx] = method2608(def.faceColors[faceIdx] & '\uffff', tmp);
+						litModel.field1823[faceIdx] = -1;
 					}
-					else if (var17 == 3)
+					else if (faceType == 3)
 					{
-						var8.field1856[var16] = 128;
-						var8.field1823[var16] = -1;
+						litModel.field1856[faceIdx] = 128;
+						litModel.field1823[faceIdx] = -1;
 					}
 					else
 					{
-						var8.field1823[var16] = -2;
+						litModel.field1823[faceIdx] = -2;
 					}
 				}
 				else
 				{
-					int var15 = def.faceColors[var16] & '\uffff';
-//					if(def.field1741 != null && def.field1741[def.faceVertexIndices1[var16]] != null) {
-//						var13 = def.field1741[def.faceVertexIndices1[var16]];
+					int var15 = def.faceColors[faceIdx] & '\uffff';
+//					if(def.field1741 != null && def.field1741[def.faceVertexIndices1[faceIdx]] != null) {
+//						vertexNormal = def.field1741[def.faceVertexIndices1[faceIdx]];
 //					} else {
-					var13 = def.vertexNormals[def.faceVertexIndices1[var16]];
+					vertexNormal = def.vertexNormals[def.faceVertexIndices1[faceIdx]];
 					//}
 
-					var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
-					var8.field1856[var16] = method2608(var15, var14);
-//					if(def.field1741 != null && def.field1741[def.faceVertexIndices2[var16]] != null) {
-//						var13 = def.field1741[def.faceVertexIndices2[var16]];
+					tmp = (y * vertexNormal.y + z * vertexNormal.z + x * vertexNormal.x) / (var7 * vertexNormal.magnitude) + ambient;
+					litModel.field1856[faceIdx] = method2608(var15, tmp);
+//					if(def.field1741 != null && def.field1741[def.faceVertexIndices2[faceIdx]] != null) {
+//						vertexNormal = def.field1741[def.faceVertexIndices2[faceIdx]];
 //					} else {
-					var13 = def.vertexNormals[def.faceVertexIndices2[var16]];
+					vertexNormal = def.vertexNormals[def.faceVertexIndices2[faceIdx]];
 					//	}
 
-					var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
-					var8.field1854[var16] = method2608(var15, var14);
-//					if(def.field1741 != null && def.field1741[def.faceVertexIndices3[var16]] != null) {
-//						var13 = def.field1741[def.faceVertexIndices3[var16]];
+					tmp = (y * vertexNormal.y + z * vertexNormal.z + x * vertexNormal.x) / (var7 * vertexNormal.magnitude) + ambient;
+					litModel.field1854[faceIdx] = method2608(var15, tmp);
+//					if(def.field1741 != null && def.field1741[def.faceVertexIndices3[faceIdx]] != null) {
+//						vertexNormal = def.field1741[def.faceVertexIndices3[faceIdx]];
 //					} else {
-					var13 = def.vertexNormals[def.faceVertexIndices3[var16]];
+					vertexNormal = def.vertexNormals[def.faceVertexIndices3[faceIdx]];
 					//}
 
-					var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
-					var8.field1823[var16] = method2608(var15, var14);
+					tmp = (y * vertexNormal.y + z * vertexNormal.z + x * vertexNormal.x) / (var7 * vertexNormal.magnitude) + ambient;
+					litModel.field1823[faceIdx] = method2608(var15, tmp);
 				}
 			}
-			else if (var17 != 0)
+			else if (faceType != 0)
 			{
-				if (var17 == 1)
+				if (faceType == 1)
 				{
-					var19 = def.faceNormals[var16];
-					var14 = (var4 * var19.y + var5 * var19.z + var3 * var19.x) / (var7 / 2 + var7) + var1;
-					var8.field1856[var16] = method2617(var14);
-					var8.field1823[var16] = -1;
+					faceNormal = def.faceNormals[faceIdx];
+					tmp = (y * faceNormal.y + z * faceNormal.z + x * faceNormal.x) / (var7 / 2 + var7) + ambient;
+					litModel.field1856[faceIdx] = bound2to126(tmp);
+					litModel.field1823[faceIdx] = -1;
 				}
 				else
 				{
-					var8.field1823[var16] = -2;
+					litModel.field1823[faceIdx] = -2;
 				}
 			}
 			else
 			{
-//				if(def.field1741 != null && def.field1741[def.faceVertexIndices1[var16]] != null) {
-//					var13 = def.field1741[def.faceVertexIndices1[var16]];
+//				if(def.field1741 != null && def.field1741[def.faceVertexIndices1[faceIdx]] != null) {
+//					vertexNormal = def.field1741[def.faceVertexIndices1[faceIdx]];
 //				} else {
-				var13 = def.vertexNormals[def.faceVertexIndices1[var16]];
+				vertexNormal = def.vertexNormals[def.faceVertexIndices1[faceIdx]];
 				//}
 
-				var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
-				var8.field1856[var16] = method2617(var14);
-//				if(def.field1741 != null && def.field1741[def.faceVertexIndices2[var16]] != null) {
-//					var13 = def.field1741[def.faceVertexIndices2[var16]];
+				tmp = (y * vertexNormal.y + z * vertexNormal.z + x * vertexNormal.x) / (var7 * vertexNormal.magnitude) + ambient;
+				litModel.field1856[faceIdx] = bound2to126(tmp);
+//				if(def.field1741 != null && def.field1741[def.faceVertexIndices2[faceIdx]] != null) {
+//					vertexNormal = def.field1741[def.faceVertexIndices2[faceIdx]];
 //				} else {
-				var13 = def.vertexNormals[def.faceVertexIndices2[var16]];
+				vertexNormal = def.vertexNormals[def.faceVertexIndices2[faceIdx]];
 				//}
 
-				var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
-				var8.field1854[var16] = method2617(var14);
-//				if(def.field1741 != null && def.field1741[def.faceVertexIndices3[var16]] != null) {
-//					var13 = def.field1741[def.faceVertexIndices3[var16]];
+				tmp = (y * vertexNormal.y + z * vertexNormal.z + x * vertexNormal.x) / (var7 * vertexNormal.magnitude) + ambient;
+				litModel.field1854[faceIdx] = bound2to126(tmp);
+//				if(def.field1741 != null && def.field1741[def.faceVertexIndices3[faceIdx]] != null) {
+//					vertexNormal = def.field1741[def.faceVertexIndices3[faceIdx]];
 //				} else {
-				var13 = def.vertexNormals[def.faceVertexIndices3[var16]];
+				vertexNormal = def.vertexNormals[def.faceVertexIndices3[faceIdx]];
 				//	}
 
-				var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
-				var8.field1823[var16] = method2617(var14);
+				tmp = (y * vertexNormal.y + z * vertexNormal.z + x * vertexNormal.x) / (var7 * vertexNormal.magnitude) + ambient;
+				litModel.field1823[faceIdx] = bound2to126(tmp);
 			}
 		}
 
 //		def.computeAnimationTables();
-		var8.verticesCount = def.vertexCount;
-		var8.verticesX = def.vertexPositionsX;
-		var8.verticesY = def.vertexPositionsY;
-		var8.verticesZ = def.vertexPositionsZ;
-		var8.indicesCount = def.faceCount;
-		var8.indices1 = def.faceVertexIndices1;
-		var8.indices2 = def.faceVertexIndices2;
-		var8.indices3 = def.faceVertexIndices3;
-		var8.field1838 = def.faceRenderPriorities;
-		var8.field1882 = def.faceAlphas;
-		var8.field1842 = def.priority;
-//		var8.field1847 = def.field1725;
-//		var8.field1848 = def.field1726;
-		var8.field1841 = def.faceTextures;
-		return var8;
+		litModel.verticesCount = def.vertexCount;
+		litModel.verticesX = def.vertexPositionsX;
+		litModel.verticesY = def.vertexPositionsY;
+		litModel.verticesZ = def.vertexPositionsZ;
+		litModel.indicesCount = def.faceCount;
+		litModel.indices1 = def.faceVertexIndices1;
+		litModel.indices2 = def.faceVertexIndices2;
+		litModel.indices3 = def.faceVertexIndices3;
+		litModel.field1838 = def.faceRenderPriorities;
+		litModel.field1882 = def.faceAlphas;
+		litModel.field1842 = def.priority;
+//		litModel.field1847 = def.field1725;
+//		litModel.field1848 = def.field1726;
+		litModel.field1841 = def.faceTextures;
+		return litModel;
 	}
 
 	static final int method2608(int var0, int var1)
 	{
-		var1 = (var0 & 127) * var1 >> 7;
-		if (var1 < 2)
-		{
-			var1 = 2;
-		}
-		else if (var1 > 126)
-		{
-			var1 = 126;
-		}
+
+		var1 = ((var0 & 127) * var1) >> 7;
+		var1 = bound2to126(var1);
 
 		return (var0 & 65408) + var1;
 	}
 
-	static final int method2617(int var0)
+	static final int bound2to126(int var0)
 	{
 		if (var0 < 2)
 		{

@@ -112,7 +112,7 @@ public class Graphics3D extends Rasterizer2D
 
 	public static final void setRasterClipping()
 	{
-		setRasterClipping(Rasterizer2D.draw_region_x, Rasterizer2D.drawingAreaTop, Rasterizer2D.drawingAreaBottom, Rasterizer2D.drawingAreaRight);
+		setRasterClipping(Rasterizer2D.draw_region_x, Rasterizer2D.drawingAreaTop, Rasterizer2D.drawingAreaRight, Rasterizer2D.drawingAreaBottom);
 	}
 
 

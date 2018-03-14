@@ -97,122 +97,116 @@ public final class SpritePixels extends Rasterizer2D
 	}
 
 
-	public void drawAt(int var1, int var2)
+	public void drawAt(int x, int y)
 	{
-		var1 += this.offsetX;
-		var2 += this.offsetY;
-		int var3 = var1 + var2 * Rasterizer2D.graphicsPixelsWidth;
+		x += this.offsetX;
+		y += this.offsetY;
+		int pixelIndex = x + y * Rasterizer2D.graphicsPixelsWidth;
 		int var4 = 0;
-		int var5 = this.height;
-		int var6 = this.width;
-		int var7 = Rasterizer2D.graphicsPixelsWidth - var6;
+		int height = this.height;
+		int width = this.width;
+		int var7 = Rasterizer2D.graphicsPixelsWidth - width;
 		int var8 = 0;
-		int var9;
-		if (var2 < Rasterizer2D.drawingAreaTop)
+		if (y < Rasterizer2D.drawingAreaTop)
 		{
-			var9 = Rasterizer2D.drawingAreaTop - var2;
-			var5 -= var9;
-			var2 = Rasterizer2D.drawingAreaTop;
-			var4 += var9 * var6;
-			var3 += var9 * Rasterizer2D.graphicsPixelsWidth;
+			int deltaY = Rasterizer2D.drawingAreaTop - y;
+			height -= deltaY;
+			y = Rasterizer2D.drawingAreaTop;
+			var4 += deltaY * width;
+			pixelIndex += deltaY * Rasterizer2D.graphicsPixelsWidth;
 		}
 
-		if (var5 + var2 > Rasterizer2D.drawingAreaRight)
+		if (height + y > Rasterizer2D.drawingAreaBottom)
 		{
-			var5 -= var5 + var2 - Rasterizer2D.drawingAreaRight;
+			height -= height + y - Rasterizer2D.drawingAreaBottom;
 		}
 
-		if (var1 < Rasterizer2D.draw_region_x)
+		if (x < Rasterizer2D.draw_region_x)
 		{
-			var9 = Rasterizer2D.draw_region_x - var1;
-			var6 -= var9;
-			var1 = Rasterizer2D.draw_region_x;
-			var4 += var9;
-			var3 += var9;
-			var8 += var9;
-			var7 += var9;
+			int deltaX = Rasterizer2D.draw_region_x - x;
+			width -= deltaX;
+			x = Rasterizer2D.draw_region_x;
+			var4 += deltaX;
+			pixelIndex += deltaX;
+			var8 += deltaX;
+			var7 += deltaX;
 		}
 
-		if (var6 + var1 > Rasterizer2D.drawingAreaBottom)
+		if (width + x > Rasterizer2D.drawingAreaRight)
 		{
-			var9 = var6 + var1 - Rasterizer2D.drawingAreaBottom;
-			var6 -= var9;
-			var8 += var9;
-			var7 += var9;
+			int deltaX = width + x - Rasterizer2D.drawingAreaRight;
+			width -= deltaX;
+			var8 += deltaX;
+			var7 += deltaX;
 		}
 
-		if (var6 > 0 && var5 > 0)
+		if (width > 0 && height > 0)
 		{
-			method5843(Rasterizer2D.graphicsPixels, this.pixels, 0, var4, var3, var6, var5, var7, var8);
+			method5843(Rasterizer2D.graphicsPixels, this.pixels, 0, var4, pixelIndex, width, height, var7, var8);
 		}
 	}
 
 
-	static void method5843(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8)
+	static void method5843(int[] rasterizerPixels, int[] spritePixels, int var2, int var3, int pixelIndex, int width, int height, int var7, int var8)
 	{
-		int var9 = -(var5 >> 2);
-		var5 = -(var5 & 3);
+		int var9 = -(width >> 2);
+		width = -(width & 3);
 
-		for (int var10 = -var6; var10 < 0; ++var10)
+		for (int var10 = -height; var10 < 0; ++var10)
 		{
-			int var11;
-			for (var11 = var9; var11 < 0; ++var11)
+			for (int i = var9; i < 0; ++i)
 			{
-				var2 = var1[var3++];
+				var2 = spritePixels[var3++];
 				if (var2 != 0)
 				{
-					var0[var4++] = var2;
+					rasterizerPixels[pixelIndex++] = var2;
 				}
 				else
 				{
-					++var4;
+					++pixelIndex;
 				}
 
-				var2 = var1[var3++];
+				var2 = spritePixels[var3++];
 				if (var2 != 0)
 				{
-					var0[var4++] = var2;
+					rasterizerPixels[pixelIndex++] = var2;
 				}
 				else
 				{
-					++var4;
+					++pixelIndex;
 				}
 
-				var2 = var1[var3++];
+				var2 = spritePixels[var3++];
 				if (var2 != 0)
 				{
-					var0[var4++] = var2;
+					rasterizerPixels[pixelIndex++] = var2;
 				}
 				else
 				{
-					++var4;
+					++pixelIndex;
 				}
 
-				var2 = var1[var3++];
+				var2 = spritePixels[var3++];
 				if (var2 != 0)
 				{
-					var0[var4++] = var2;
+					rasterizerPixels[pixelIndex++] = var2;
 				}
 				else
 				{
-					++var4;
+					++pixelIndex;
 				}
 			}
 
-			for (var11 = var5; var11 < 0; ++var11)
+			for (int i = width; i < 0; ++i)
 			{
-				var2 = var1[var3++];
+				var2 = spritePixels[var3++];
 				if (var2 != 0)
-				{
-					var0[var4++] = var2;
-				}
+					rasterizerPixels[pixelIndex++] = var2;
 				else
-				{
-					++var4;
-				}
+					++pixelIndex;
 			}
 
-			var4 += var7;
+			pixelIndex += var7;
 			var3 += var8;
 		}
 

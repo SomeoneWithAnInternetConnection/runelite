@@ -30,7 +30,7 @@ public class ItemSpriteFactoryTest
 			itemManager.load();
 
 //			ItemDefinition def = itemManager.getItem(6570);
-			int itemID = 6570;
+			int itemID = 7668;
 			ItemDefinition def = itemManager.getItem(itemID);
 			Graphics3D.Rasterizer3D_zoom = 512; // you don't actually need to set this
 			Graphics3D.setBrightness(0.6D); // .6 - .9

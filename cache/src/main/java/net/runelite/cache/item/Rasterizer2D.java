@@ -16,20 +16,20 @@ public class Rasterizer2D
 	public static int drawingAreaTop;
 
 
-	public static int drawingAreaRight;
+	public static int drawingAreaBottom;
 
 
 	public static int draw_region_x;
 
 
-	protected static int drawingAreaBottom;
+	protected static int drawingAreaRight;
 
 	static
 	{
 		drawingAreaTop = 0;
-		drawingAreaRight = 0;
-		draw_region_x = 0;
 		drawingAreaBottom = 0;
+		draw_region_x = 0;
+		drawingAreaRight = 0;
 	}
 
 
@@ -66,8 +66,8 @@ public class Rasterizer2D
 
 		draw_region_x = var0;
 		drawingAreaTop = var1;
-		drawingAreaBottom = var2;
-		drawingAreaRight = var3;
+		drawingAreaRight = var2;
+		drawingAreaBottom = var3;
 	}
 
 
@@ -75,8 +75,8 @@ public class Rasterizer2D
 	{
 		var0[0] = draw_region_x;
 		var0[1] = drawingAreaTop;
-		var0[2] = drawingAreaBottom;
-		var0[3] = drawingAreaRight;
+		var0[2] = drawingAreaRight;
+		var0[3] = drawingAreaBottom;
 	}
 
 
@@ -84,8 +84,8 @@ public class Rasterizer2D
 	{
 		draw_region_x = var0[0];
 		drawingAreaTop = var0[1];
-		drawingAreaBottom = var0[2];
-		drawingAreaRight = var0[3];
+		drawingAreaRight = var0[2];
+		drawingAreaBottom = var0[3];
 	}
 
 
@@ -115,7 +115,7 @@ public class Rasterizer2D
 
 	public static void method5718(int var0, int var1, int var2, int var3)
 	{
-		if (var1 >= drawingAreaTop && var1 < drawingAreaRight)
+		if (var1 >= drawingAreaTop && var1 < drawingAreaBottom)
 		{
 			if (var0 < draw_region_x)
 			{
@@ -123,9 +123,9 @@ public class Rasterizer2D
 				var0 = draw_region_x;
 			}
 
-			if (var0 + var2 > drawingAreaBottom)
+			if (var0 + var2 > drawingAreaRight)
 			{
-				var2 = drawingAreaBottom - var0;
+				var2 = drawingAreaRight - var0;
 			}
 
 			int var4 = var0 + graphicsPixelsWidth * var1;
@@ -141,7 +141,7 @@ public class Rasterizer2D
 
 	public static void method5707(int var0, int var1, int var2, int var3)
 	{
-		if (var0 >= draw_region_x && var0 < drawingAreaBottom)
+		if (var0 >= draw_region_x && var0 < drawingAreaRight)
 		{
 			if (var1 < drawingAreaTop)
 			{
@@ -149,9 +149,9 @@ public class Rasterizer2D
 				var1 = drawingAreaTop;
 			}
 
-			if (var2 + var1 > drawingAreaRight)
+			if (var2 + var1 > drawingAreaBottom)
 			{
-				var2 = drawingAreaRight - var1;
+				var2 = drawingAreaBottom - var1;
 			}
 
 			int var4 = var0 + graphicsPixelsWidth * var1;
