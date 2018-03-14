@@ -86,6 +86,7 @@ public class ItemSpriteFactory
 
 			SpritePixels spritePixels = new SpritePixels(36, 32);
 			Graphics3D graphics = new Graphics3D();
+			graphics.setBrightness(0.6d);
 			graphics.setRasterBuffer(spritePixels.pixels, 36, 32);
 			graphics.reset();
 			graphics.setRasterClipping();

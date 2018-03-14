@@ -43,32 +43,32 @@ class Graphics3D extends Rasterizer2D
 	int rasterClipX;
 
 
-	static int Rasterizer3D_clipHeight;
+	int Rasterizer3D_clipHeight;
 
 
-	static int Rasterizer3D_clipNegativeMidX;
+	int Rasterizer3D_clipNegativeMidX;
 
 
-	static int Rasterizer3D_clipMidX2;
+	int Rasterizer3D_clipMidX2;
 
 
-	static int Rasterizer3D_clipNegativeMidY;
+	int Rasterizer3D_clipNegativeMidY;
 
 
-	static int Rasterizer3D_clipMidY2;
+	int Rasterizer3D_clipMidY2;
 
 
-	static int[] rasterClipY;
+	int[] rasterClipY= new int[1024];
 
 
-	public static int[] colorPalette;
+	static public int[] colorPalette = new int[65536];
 
 
 	public static TextureProvider textureLoader;
 
-	static int[] field1932;
+	static int[] field1932= new int[512];
 
-	static int[] field1933;
+	static int[] field1933 = new int[2048];
 
 
 //	public static int[] SINE;
@@ -83,13 +83,16 @@ class Graphics3D extends Rasterizer2D
 //		lowMem = false;
 		//rasterGouraudLowRes = true;
 //		rasterAlpha = 0;
-	//	Rasterizer3D_zoom = 512;
-		rasterClipY = new int[1024];
-		colorPalette = new int[65536];
-		field1932 = new int[512];
-		field1933 = new int[2048];
+		//	Rasterizer3D_zoom = 512;
+//		rasterClipY = new int[1024];
+//		colorPalette = new int[65536];
+//		field1932 = new int[512];
+//		field1933 = new int[2048];
 //		SINE = new int[2048];
 //		COSINE = new int[2048];
+//	}
+//
+//	public Graphics3D() {
 
 		int var0;
 		for (var0 = 1; var0 < 512; ++var0)
@@ -177,7 +180,7 @@ class Graphics3D extends Rasterizer2D
 //	}
 
 
-	public static final void setBrightness(double var0)
+	public final void setBrightness(double var0)
 	{
 		method2844(var0, 0, 512);
 	}
