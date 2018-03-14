@@ -345,7 +345,7 @@ public class ModelDefinition
 		faceTextureUCoordinates = faceTextureVCoordinates = null;
 	}
 
-	public void method2610(int var1, int var2, int var3)
+	public void resize(int var1, int var2, int var3)
 	{
 		for (int var4 = 0; var4 < this.vertexCount; ++var4)
 		{

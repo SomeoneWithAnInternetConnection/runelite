@@ -1,5 +1,8 @@
 package net.runelite.cache.item;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Model extends Renderable
 {
 
@@ -23,7 +26,7 @@ public class Model extends Renderable
 
 	static int[] modelViewportXs;
 
-	static int[] field1866;
+	static int[] modelViewportZs;
 
 
 	static int[] yViewportBuffer;
@@ -121,7 +124,7 @@ public class Model extends Renderable
 
 	int[][] field1848;
 
-	public boolean field1849;
+	public boolean isItemModel;
 
 
 	int boundsType;
@@ -166,7 +169,7 @@ public class Model extends Renderable
 		field1885 = new boolean[4700];
 		modelViewportYs = new int[4700];
 		modelViewportXs = new int[4700];
-		field1866 = new int[4700];
+		modelViewportZs = new int[4700];
 		yViewportBuffer = new int[4700];
 		field1839 = new int[4700];
 		field1869 = new int[4700];
@@ -192,7 +195,7 @@ public class Model extends Renderable
 		this.indicesCount = 0;
 		this.field1842 = 0;
 		this.field1852 = 0;
-		this.field1849 = false;
+		this.isItemModel = false;
 		this.extremeX = -1;
 		this.extremeY = -1;
 		this.extremeZ = -1;
@@ -294,7 +297,7 @@ public class Model extends Renderable
 		var2.field1846 = this.field1846;
 		var2.field1847 = this.field1847;
 		var2.field1848 = this.field1848;
-		var2.field1849 = this.field1849;
+		var2.isItemModel = this.isItemModel;
 		var2.resetBounds();
 		return var2;
 	}
@@ -365,38 +368,12 @@ public class Model extends Renderable
 				this.extremeZ = 32;
 			}
 
-			if (this.field1849)
+			if (this.isItemModel)
 			{
 				this.extremeX += 8;
 				this.extremeZ += 8;
 			}
 
-		}
-	}
-
-
-	void method2691()
-	{
-		if (this.boundsType != 2)
-		{
-			this.boundsType = 2;
-			this.XYZMag = 0;
-
-			for (int var1 = 0; var1 < this.verticesCount; ++var1)
-			{
-				int var2 = this.verticesX[var1];
-				int var3 = this.verticesY[var1];
-				int var4 = this.verticesZ[var1];
-				int var5 = var2 * var2 + var4 * var4 + var3 * var3;
-				if (var5 > this.XYZMag)
-				{
-					this.XYZMag = var5;
-				}
-			}
-
-			this.XYZMag = (int) (Math.sqrt((double) this.XYZMag) + 0.99D);
-			this.radius = this.XYZMag;
-			this.diameter = this.XYZMag + this.XYZMag;
 		}
 	}
 
@@ -664,66 +641,85 @@ public class Model extends Renderable
 	}
 
 
-	public final void method2702(int var1, int var2, int var3, int var4, int var5, int var6, int var7)
+	public final void rotateAndProject(int rotation_1, int yRotation, int zRotation, int xRotation, int xOffset, int yOffset, int zOffset)
 	{
 		field1871[0] = -1;
+		// (re?)Calculate magnitude as necessary
 		if (this.boundsType != 2 && this.boundsType != 1)
 		{
-			this.method2691();
+			this.boundsType = 2;
+			this.XYZMag = 0;
+
+			for (int var1 = 0; var1 < this.verticesCount; ++var1)
+			{
+				int x = this.verticesX[var1];
+				int y = this.verticesY[var1];
+				int z = this.verticesZ[var1];
+				int magnitude_squared = x * x + z * z + y * y;
+				if (magnitude_squared > this.XYZMag)
+				{
+					this.XYZMag = magnitude_squared;
+				}
+			}
+
+			this.XYZMag = (int) (Math.sqrt((double) this.XYZMag) + 0.99D);
+			this.radius = this.XYZMag;
+			this.diameter = this.XYZMag + this.XYZMag;
 		}
 
-		int var8 = Graphics3D.centerX;
-		int var9 = Graphics3D.centerY;
-		int var10 = Model_sine[var1];
-		int var11 = Model_cosine[var1];
-		int var12 = Model_sine[var2];
-		int var13 = Model_cosine[var2];
-		int var14 = Model_sine[var3];
-		int var15 = Model_cosine[var3];
-		int var16 = Model_sine[var4];
-		int var17 = Model_cosine[var4];
-		int var18 = var16 * var6 + var17 * var7 >> 16;
+		// rotate + perspective transform
+		int sinX = Model_sine[xRotation];
+		int cosX = Model_cosine[xRotation];
+		int zRelatedVariable = sinX * yOffset + cosX * zOffset >> 16;
 
-		for (int var19 = 0; var19 < this.verticesCount; ++var19)
+		for (int i = 0; i < this.verticesCount; ++i)
 		{
-			int var20 = this.verticesX[var19];
-			int var21 = this.verticesY[var19];
-			int var22 = this.verticesZ[var19];
-			int var23;
-			if (var3 != 0)
+			int x = this.verticesX[i];
+			int y = this.verticesY[i];
+			int z = this.verticesZ[i];
+			if (zRotation != 0)
 			{
-				var23 = var21 * var14 + var20 * var15 >> 16;
-				var21 = var21 * var15 - var20 * var14 >> 16;
-				var20 = var23;
+				int sinZ = Model_sine[zRotation];
+				int cosZ = Model_cosine[zRotation];
+				int tmp;
+				tmp = y * sinZ + x * cosZ >> 16;
+				y = y * cosZ - x * sinZ >> 16;
+				x = tmp;
 			}
 
-			if (var1 != 0)
+			if (rotation_1 != 0)
 			{
-				var23 = var21 * var11 - var22 * var10 >> 16;
-				var22 = var21 * var10 + var22 * var11 >> 16;
-				var21 = var23;
+				int sinR1 = Model_sine[rotation_1];
+				int cosR1 = Model_cosine[rotation_1];
+				int tmp;
+				tmp = y * cosR1 - z * sinR1 >> 16;
+				z = y * sinR1 + z * cosR1 >> 16;
+				y = tmp;
 			}
 
-			if (var2 != 0)
+			if (yRotation != 0)
 			{
-				var23 = var22 * var12 + var20 * var13 >> 16;
-				var22 = var22 * var13 - var20 * var12 >> 16;
-				var20 = var23;
+				int sinY = Model_sine[yRotation];
+				int cosY = Model_cosine[yRotation];
+				int tmp;
+				tmp = z * sinY + x * cosY >> 16;
+				z = z * cosY - x * sinY >> 16;
+				x = tmp;
 			}
 
-			var20 += var5;
-			var21 += var6;
-			var22 += var7;
-			var23 = var21 * var17 - var22 * var16 >> 16;
-			var22 = var21 * var16 + var22 * var17 >> 16;
-			field1866[var19] = var22 - var18;
-			modelViewportYs[var19] = var20 * Graphics3D.Rasterizer3D_zoom / var22 + var8;
-			modelViewportXs[var19] = var23 * Graphics3D.Rasterizer3D_zoom / var22 + var9;
+			x += xOffset;
+			y += yOffset;
+			z += zOffset;
+			int tmp = y * cosX - z * sinX >> 16;
+			z = y * sinX + z * cosX >> 16;
+			modelViewportZs[i] = z - zRelatedVariable;
+			modelViewportYs[i] = x * Graphics3D.Rasterizer3D_zoom / z + Graphics3D.centerX;
+			modelViewportXs[i] = tmp * Graphics3D.Rasterizer3D_zoom / z + Graphics3D.centerY;
 			if (this.field1852 > 0)
 			{
-				yViewportBuffer[var19] = var20;
-				field1839[var19] = var23;
-				field1869[var19] = var22;
+				yViewportBuffer[i] = x;
+				field1839[i] = tmp;
+				field1869[i] = z;
 			}
 		}
 
@@ -731,9 +727,9 @@ public class Model extends Renderable
 		{
 			this.method0(false, false, false, 0);
 		}
-		catch (Exception var25)
+		catch (Exception e)
 		{
-			var25.printStackTrace();
+			e.printStackTrace();
 		}
 
 	}
@@ -821,7 +817,7 @@ public class Model extends Renderable
 						if (var14 * var22 + var17 * var23 + var20 * var24 > 0)
 						{
 							field1885[var26] = true;
-							int var25 = (field1866[var7] + field1866[var27] + field1866[var9]) / 3 + this.radius;
+							int var25 = (modelViewportZs[var7] + modelViewportZs[var27] + modelViewportZs[var9]) / 3 + this.radius;
 							field1868[var25][field1871[var25]++] = var26;
 						}
 					}
@@ -873,7 +869,7 @@ public class Model extends Renderable
 								field1887[var26] = true;
 							}
 
-							var13 = (field1866[var7] + field1866[var27] + field1866[var9]) / 3 + this.radius;
+							var13 = (modelViewportZs[var7] + modelViewportZs[var27] + modelViewportZs[var9]) / 3 + this.radius;
 							field1868[var13][field1871[var13]++] = var26;
 						}
 					}
@@ -1462,7 +1458,7 @@ public class Model extends Renderable
 //                        }
 //
 //                        if(var45) {
-//                           if(this.field1849) {
+//                           if(this.isItemModel) {
 //                              BoundingBox.method49(var9);
 //                           } else {
 //                              var44 = true;
@@ -1498,7 +1494,7 @@ public class Model extends Renderable
 //                        var38 = var41;
 //                        var41 = var3 * var39 - var40 * var2 >> 16;
 //                        var40 = var39 * var2 + var3 * var40 >> 16;
-//                        field1866[var37] = var40 - var11;
+//                        modelViewportZs[var37] = var40 - var11;
 //                        if(var40 >= 50) {
 //                           modelViewportYs[var37] = var38 * Graphics3D.Rasterizer3D_zoom / var40 + var33;
 //                           modelViewportXs[var37] = var41 * Graphics3D.Rasterizer3D_zoom / var40 + var34;
@@ -1515,7 +1511,7 @@ public class Model extends Renderable
 //                     }
 //
 //                     try {
-//                        this.method0(var23, var44, this.field1849, var9);
+//                        this.method0(var23, var44, this.isItemModel, var9);
 //                     } catch (Exception var43) {
 //                        ;
 //                     }

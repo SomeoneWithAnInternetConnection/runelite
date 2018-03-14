@@ -36,55 +36,60 @@ public final class SpritePixels extends Rasterizer2D
 	}
 
 
-	public void method5838(int var1)
+	public void drawBorder(int color)
 	{
-		int[] var2 = new int[this.width * this.height];
-		int var3 = 0;
+		int[] newPixels = new int[this.width * this.height];
+		int pixelIndex = 0;
 
-		for (int var4 = 0; var4 < this.height; ++var4)
+		for (int y = 0; y < this.height; ++y)
 		{
-			for (int var5 = 0; var5 < this.width; ++var5)
+			for (int x = 0; x < this.width; ++x)
 			{
-				int var6 = this.pixels[var3];
-				if (var6 == 0)
+				int pixel = this.pixels[pixelIndex];
+				if (pixel == 0)
 				{
-					if (var5 > 0 && this.pixels[var3 - 1] != 0)
+					// W
+					if (x > 0 && this.pixels[pixelIndex - 1] != 0)
 					{
-						var6 = var1;
+						pixel = color;
 					}
-					else if (var4 > 0 && this.pixels[var3 - this.width] != 0)
+					// N
+					else if (y > 0 && this.pixels[pixelIndex - this.width] != 0)
 					{
-						var6 = var1;
+						pixel = color;
 					}
-					else if (var5 < this.width - 1 && this.pixels[var3 + 1] != 0)
+					// E
+					else if (x < this.width - 1 && this.pixels[pixelIndex + 1] != 0)
 					{
-						var6 = var1;
+						pixel = color;
 					}
-					else if (var4 < this.height - 1 && this.pixels[var3 + this.width] != 0)
+					// S
+					else if (y < this.height - 1 && this.pixels[pixelIndex + this.width] != 0)
 					{
-						var6 = var1;
+						pixel = color;
 					}
 				}
 
-				var2[var3++] = var6;
+				newPixels[pixelIndex++] = pixel;
 			}
 		}
 
-		this.pixels = var2;
+		this.pixels = newPixels;
 	}
 
 
-	public void method5886(int var1)
+	public void drawShadow(int color)
 	{
-		for (int var2 = this.height - 1; var2 > 0; --var2)
+		for (int y = this.height - 1; y > 0; --y)
 		{
-			int var3 = var2 * this.width;
+			int rowOffset = y * this.width;
 
-			for (int var4 = this.width - 1; var4 > 0; --var4)
+			for (int x = this.width - 1; x > 0; --x)
 			{
-				if (this.pixels[var4 + var3] == 0 && this.pixels[var4 + var3 - 1 - this.width] != 0)
+				// if *this* pixel is black/unset AND the pixel to the NW isn't black/unset
+				if (this.pixels[x + rowOffset] == 0 && this.pixels[x + rowOffset - 1 - this.width] != 0)
 				{
-					this.pixels[var4 + var3] = var1;
+					this.pixels[x + rowOffset] = color;
 				}
 			}
 		}

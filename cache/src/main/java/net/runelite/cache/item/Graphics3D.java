@@ -110,7 +110,7 @@ public class Graphics3D extends Rasterizer2D
 	}
 
 
-	public static final void Rasterizer3D_method1()
+	public static final void setRasterClipping()
 	{
 		setRasterClipping(Rasterizer2D.draw_region_x, Rasterizer2D.drawingAreaTop, Rasterizer2D.drawingAreaBottom, Rasterizer2D.drawingAreaRight);
 	}
@@ -158,13 +158,13 @@ public class Graphics3D extends Rasterizer2D
 	}
 
 
-	public static final void method2780(int var0, int var1)
+	public static final void setOffset(int x, int y)
 	{
 		int var2 = rasterClipY[0];
 		int var3 = var2 / Rasterizer2D.graphicsPixelsWidth;
 		int var4 = var2 - var3 * Rasterizer2D.graphicsPixelsWidth;
-		centerX = var0 - var4;
-		centerY = var1 - var3;
+		centerX = x - var4;
+		centerY = y - var3;
 		Rasterizer3D_clipNegativeMidX = -centerX;
 		Rasterizer3D_clipMidX2 = rasterClipX - centerX;
 		Rasterizer3D_clipNegativeMidY = -centerY;
