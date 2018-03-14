@@ -24,37 +24,37 @@ class Model extends Renderable
 	int[] modelViewportYs = new int[4700];
 
 
-	static int[] modelViewportXs;
+	int[] modelViewportXs= new int[4700];
 
-	static int[] modelViewportZs;
-
-
-	static int[] yViewportBuffer;
-
-	static int[] field1839;
-
-	static int[] field1869;
-
-	static int[] field1871;
-
-	static int[][] field1868;
-
-	static int[] field1872;
-
-	static int[][] field1874;
-
-	static int[] field1857;
-
-	static int[] field1863;
-
-	static int[] field1877;
-
-	static int[] field1831;
-
-	static int[] field1837;
+	int[] modelViewportZs = new int[4700];
 
 
-	static int[] xViewportBuffer;
+	int[] yViewportBuffer = new int[4700];
+
+	 int[] field1839=new int[4700];
+
+	 int[] field1869=new int[4700];
+
+	int[] field1871= new int[1600];
+
+	 int[][] field1868=new int[1600][512];
+
+	int[] field1872=new int[12];
+
+	 int[][] field1874=new int[12][2000];
+
+	int[] field1857=new int[2000];
+
+	 int[] field1863= new int[2000];
+
+	 int[] field1877= new int[12];
+
+	int[] field1831= new int[10];
+
+	 int[] field1837= new int[10];
+
+
+	 int[] xViewportBuffer=new int[10];
 
 //	static int field1881;
 //
@@ -168,21 +168,21 @@ class Model extends Renderable
 //		field1887 = new boolean[4700];
 //		field1885 = new boolean[4700];
 //		modelViewportYs = new int[4700];
-		modelViewportXs = new int[4700];
-		modelViewportZs = new int[4700];
-		yViewportBuffer = new int[4700];
-		field1839 = new int[4700];
-		field1869 = new int[4700];
-		field1871 = new int[1600];
-		field1868 = new int[1600][512];
-		field1872 = new int[12];
-		field1874 = new int[12][2000];
-		field1857 = new int[2000];
-		field1863 = new int[2000];
-		field1877 = new int[12];
-		field1831 = new int[10];
-		field1837 = new int[10];
-		xViewportBuffer = new int[10];
+//		modelViewportXs = new int[4700];
+//		modelViewportZs = new int[4700];
+//		yViewportBuffer = new int[4700];
+//		field1839 = new int[4700];
+		//field1869 = new int[4700];
+//		field1871 = new int[1600];
+		//field1868 = new int[1600][512];
+//		field1872 = new int[12];
+//		field1874 = new int[12][2000];
+//		field1857 = new int[2000];
+//		field1863 = new int[2000];
+//		field1877 = new int[12];
+		//field1831 = new int[10];
+	//	field1837 = new int[10];
+		//xViewportBuffer = new int[10];
 		Model_sine = Graphics3D.SINE;
 		Model_cosine = Graphics3D.COSINE;
 //		field1889 = Graphics3D.colorPalette;
