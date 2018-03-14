@@ -7,21 +7,21 @@ class Model extends Renderable
 {
 
 
-	static Model field1862;
+//	static Model field1862;
 
-	static byte[] field1824;
-
-
-	static Model field1825;
-
-	static byte[] field1826;
-
-	static boolean[] field1887;
-
-	static boolean[] field1885;
+//	static byte[] field1824;
 
 
-	static int[] modelViewportYs;
+//	static Model field1825;
+
+//	static byte[] field1826;
+
+	boolean[] field1887 = new boolean[4700];
+
+	boolean[] field1885 = new boolean[4700];
+
+
+	int[] modelViewportYs = new int[4700];
 
 
 	static int[] modelViewportXs;
@@ -56,11 +56,11 @@ class Model extends Renderable
 
 	static int[] xViewportBuffer;
 
-	static int field1881;
-
-	static int field1845;
-
-	static int field1883;
+//	static int field1881;
+//
+//	static int field1845;
+//
+//	static int field1883;
 
 
 	static int[] Model_sine;
@@ -120,9 +120,9 @@ class Model extends Renderable
 
 	int[] field1846;
 
-	int[][] field1847;
-
-	int[][] field1848;
+//	int[][] field1847;
+//
+//	int[][] field1848;
 
 	public boolean isItemModel;
 
@@ -142,13 +142,13 @@ class Model extends Renderable
 	int radius;
 
 
-	public int centerX;
-
-
-	public int centerY;
-
-
-	public int centerZ;
+//	public int centerX;
+//
+//
+//	public int centerY;
+//
+//
+//	public int centerZ;
 
 
 	public int extremeX;
@@ -161,13 +161,13 @@ class Model extends Renderable
 
 	static
 	{
-		field1862 = new Model();
-		field1824 = new byte[1];
-		field1825 = new Model();
-		field1826 = new byte[1];
-		field1887 = new boolean[4700];
-		field1885 = new boolean[4700];
-		modelViewportYs = new int[4700];
+//		field1862 = new Model();
+//		field1824 = new byte[1];
+//		field1825 = new Model();
+//		field1826 = new byte[1];
+//		field1887 = new boolean[4700];
+//		field1885 = new boolean[4700];
+//		modelViewportYs = new int[4700];
 		modelViewportXs = new int[4700];
 		modelViewportZs = new int[4700];
 		yViewportBuffer = new int[4700];
