@@ -154,38 +154,8 @@ public final class SpritePixels extends Rasterizer2D
 
 		for (int var10 = -height; var10 < 0; ++var10)
 		{
-			for (int i = var9; i < 0; ++i)
+			for (int i = var9 * 4; i < 0; ++i)
 			{
-				var2 = spritePixels[var3++];
-				if (var2 != 0)
-				{
-					rasterizerPixels[pixelIndex++] = var2;
-				}
-				else
-				{
-					++pixelIndex;
-				}
-
-				var2 = spritePixels[var3++];
-				if (var2 != 0)
-				{
-					rasterizerPixels[pixelIndex++] = var2;
-				}
-				else
-				{
-					++pixelIndex;
-				}
-
-				var2 = spritePixels[var3++];
-				if (var2 != 0)
-				{
-					rasterizerPixels[pixelIndex++] = var2;
-				}
-				else
-				{
-					++pixelIndex;
-				}
-
 				var2 = spritePixels[var3++];
 				if (var2 != 0)
 				{
