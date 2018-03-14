@@ -213,7 +213,7 @@ public interface RSClient extends RSGameEngine, Client
 	@Override
 	@Import("getObjectDefinition")
 	RSObjectComposition getObjectDefinition(int objectId);
-	
+
 	@Override
 	@Import("getNpcDefinition")
 	RSNPCComposition getNpcDefinition(int npcId);
@@ -498,6 +498,12 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("pitchCos")
 	void setPitchCos(int v);
+
+	@Import("Rasterizer3D_zoom")
+	int get3dZoom();
+
+	@Import("Rasterizer3D_zoom")
+	void set3dZoom(int zoom);
 
 	@Import("renderOverview")
 	RSRenderOverview getRenderOverview();

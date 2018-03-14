@@ -160,7 +160,8 @@ public class DevToolsOverlay extends Overlay
 				composition = composition.transform();
 			}
 
-			String text = composition.getName() + " (ID: " + composition.getId() + ") (A: " + npc.getAnimation() + ") (G: " + npc.getGraphic() + ")";
+			String text = composition.getName() + " (ID: " + composition.getId() + ") (A: " + npc.getAnimation() 
+					+ ") (G: " + npc.getGraphic() + ")";			
 			if (npc.getCombatLevel() > 1)
 			{
 				OverlayUtil.renderActorOverlay(graphics, npc, text, YELLOW);

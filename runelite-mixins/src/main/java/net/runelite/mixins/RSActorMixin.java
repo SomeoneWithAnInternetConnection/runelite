@@ -24,14 +24,11 @@
  */
 package net.runelite.mixins;
 
-import static net.runelite.client.callback.Hooks.eventBus;
-
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.api.Actor;
 import net.runelite.api.Model;
 import net.runelite.api.NPC;
@@ -41,12 +38,13 @@ import net.runelite.api.Point;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
+import net.runelite.api.events.AnimationChanged;
+import static net.runelite.client.callback.Hooks.eventBus;
 import net.runelite.api.model.Jarvis;
 import net.runelite.api.model.Vertex;
 import net.runelite.rs.api.RSActor;
