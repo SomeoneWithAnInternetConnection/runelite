@@ -34,16 +34,19 @@ public class ItemSpriteFactoryTest
 //			graphics.Rasterizer3D_zoom = 512; // you don't actually need to set this
 			//Graphics3D.setBrightness(0.6D); // .6 - .9
 
+			SpriteManager spriteManager = new SpriteManager(store);
+			spriteManager.load();
+
 			TextureManager textureManager = new TextureManager(store);
 			textureManager.load();
 
-			Graphics3D.textureLoader = new TextureProvider(textureManager);
-			ItemSpriteFactory.spriteManager = new SpriteManager(store);
-			ItemSpriteFactory.spriteManager.load();
+			Graphics3D.textureLoader = new TextureProvider(textureManager, spriteManager);
+//			ItemSpriteFactory.spriteManager = new SpriteManager(store);
+//			ItemSpriteFactory.spriteManager.load();
 
 			SpritePixels sprite = ItemSpriteFactory.createSprite(store, def, 1, 1, 3153952, 0, false);
 
-			File out = new File("/tmp/itemsprites/" + itemID + ".png");
+			File out = new File("D:\\rs\\07\\temp\\" + itemID + ".png");
 			BufferedImage img = sprite.toBufferedImage();
 			ImageIO.write(img, "PNG", out);
 

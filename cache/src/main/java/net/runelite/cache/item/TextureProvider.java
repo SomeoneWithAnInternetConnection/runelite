@@ -1,19 +1,21 @@
 package net.runelite.cache.item;
 
+import net.runelite.cache.SpriteManager;
 import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.TextureDefinition;
 
 class TextureProvider
 {
+	private final SpriteManager spriteManager;
 	TextureDefinition[] textures;
 	int maxSize;
 	int size;
 	double brightness;
 	int width;
 
-	//new TextureProvider(class62.indexTextures, WorldMapRegion.indexSprites, 20, 0.8D, Client.lowMemory?64:128);
-	public TextureProvider(TextureManager textureManager)
+	public TextureProvider(TextureManager textureManager, SpriteManager spriteManager)
 	{
+		this.spriteManager = spriteManager;
 		this.size = 0;
 		this.brightness = 1.0D;
 		this.width = 128;
@@ -123,7 +125,7 @@ class TextureProvider
 				return var2.pixels;
 			}
 
-			boolean var3 = var2.method2680(this.brightness, this.width, ItemSpriteFactory.spriteManager);
+			boolean var3 = var2.method2680(this.brightness, this.width, spriteManager);
 			return var2.pixels;
 //         if(var3) {
 //            if(this.size == 0) {

@@ -14,8 +14,6 @@ import net.runelite.cache.models.VertexNormal;
 
 public class ItemSpriteFactory
 {
-	public static SpriteManager spriteManager;
-
 	public static final SpritePixels createSprite(Store store, ItemDefinition item, int quantity, int border, int shadowColor, int stackable, boolean noted) throws IOException
 	{
 		if (quantity == -1)

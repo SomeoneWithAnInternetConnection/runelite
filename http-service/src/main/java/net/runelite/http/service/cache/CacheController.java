@@ -217,7 +217,7 @@ public class CacheController
 		CacheStorage cacheStorage = new CacheStorage(cacheService);
 		Store store = new Store(cacheStorage);
 		store.load();
-//		return null
+		return null;
 	}
 
 	@RequestMapping("object/{objectId}")
