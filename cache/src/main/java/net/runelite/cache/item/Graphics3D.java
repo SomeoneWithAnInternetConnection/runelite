@@ -1002,7 +1002,7 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	public final void rasterFlat(int var0, int var1, int var2, int var3, int var4, int var5, int var6)
+	public final void rasterFlat(int var0, int var1, int row, int var3, int var4, int var5, int color)
 	{
 		int var7 = 0;
 		if (var0 != var1)
@@ -1011,18 +1011,18 @@ class Graphics3D extends Rasterizer2D
 		}
 
 		int var8 = 0;
-		if (var2 != var1)
+		if (row != var1)
 		{
-			var8 = (var5 - var4 << 14) / (var2 - var1);
+			var8 = (var5 - var4 << 14) / (row - var1);
 		}
 
 		int var9 = 0;
-		if (var0 != var2)
+		if (var0 != row)
 		{
-			var9 = (var3 - var5 << 14) / (var0 - var2);
+			var9 = (var3 - var5 << 14) / (var0 - row);
 		}
 
-		if (var0 <= var1 && var0 <= var2)
+		if (var0 <= var1 && var0 <= row)
 		{
 			if (var0 < Rasterizer3D_clipHeight)
 			{
@@ -1031,12 +1031,12 @@ class Graphics3D extends Rasterizer2D
 					var1 = Rasterizer3D_clipHeight;
 				}
 
-				if (var2 > Rasterizer3D_clipHeight)
+				if (row > Rasterizer3D_clipHeight)
 				{
-					var2 = Rasterizer3D_clipHeight;
+					row = Rasterizer3D_clipHeight;
 				}
 
-				if (var1 < var2)
+				if (var1 < row)
 				{
 					var5 = var3 <<= 14;
 					if (var0 < 0)
@@ -1055,7 +1055,7 @@ class Graphics3D extends Rasterizer2D
 
 					if ((var0 == var1 || var9 >= var7) && (var0 != var1 || var9 <= var8))
 					{
-						var2 -= var1;
+						row -= var1;
 						var1 -= var0;
 						var0 = rasterClipY[var0];
 
@@ -1066,20 +1066,20 @@ class Graphics3D extends Rasterizer2D
 							{
 								while (true)
 								{
-									--var2;
-									if (var2 < 0)
+									--row;
+									if (row < 0)
 									{
 										return;
 									}
 
-									method2842(graphicsPixels, var0, var6, 0, var4 >> 14, var5 >> 14);
+									method2842(graphicsPixels, var0, color, var4 >> 14, var5 >> 14);
 									var5 += var9;
 									var4 += var8;
 									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var0, var6, 0, var3 >> 14, var5 >> 14);
+							method2842(graphicsPixels, var0, color, var3 >> 14, var5 >> 14);
 							var5 += var9;
 							var3 += var7;
 							var0 += graphicsPixelsWidth;
@@ -1087,7 +1087,7 @@ class Graphics3D extends Rasterizer2D
 					}
 					else
 					{
-						var2 -= var1;
+						row -= var1;
 						var1 -= var0;
 						var0 = rasterClipY[var0];
 
@@ -1098,20 +1098,20 @@ class Graphics3D extends Rasterizer2D
 							{
 								while (true)
 								{
-									--var2;
-									if (var2 < 0)
+									--row;
+									if (row < 0)
 									{
 										return;
 									}
 
-									method2842(graphicsPixels, var0, var6, 0, var5 >> 14, var4 >> 14);
+									method2842(graphicsPixels, var0, color, var5 >> 14, var4 >> 14);
 									var5 += var9;
 									var4 += var8;
 									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var0, var6, 0, var5 >> 14, var3 >> 14);
+							method2842(graphicsPixels, var0, color, var5 >> 14, var3 >> 14);
 							var5 += var9;
 							var3 += var7;
 							var0 += graphicsPixelsWidth;
@@ -1129,22 +1129,22 @@ class Graphics3D extends Rasterizer2D
 					}
 
 					var5 <<= 14;
-					if (var2 < 0)
+					if (row < 0)
 					{
-						var5 -= var8 * var2;
-						var2 = 0;
+						var5 -= var8 * row;
+						row = 0;
 					}
 
-					if (var0 != var2 && var9 < var7 || var0 == var2 && var8 > var7)
+					if (var0 != row && var9 < var7 || var0 == row && var8 > var7)
 					{
-						var1 -= var2;
-						var2 -= var0;
+						var1 -= row;
+						row -= var0;
 						var0 = rasterClipY[var0];
 
 						while (true)
 						{
-							--var2;
-							if (var2 < 0)
+							--row;
+							if (row < 0)
 							{
 								while (true)
 								{
@@ -1154,14 +1154,14 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(graphicsPixels, var0, var6, 0, var5 >> 14, var3 >> 14);
+									method2842(graphicsPixels, var0, color, var5 >> 14, var3 >> 14);
 									var5 += var8;
 									var3 += var7;
 									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var0, var6, 0, var4 >> 14, var3 >> 14);
+							method2842(graphicsPixels, var0, color, var4 >> 14, var3 >> 14);
 							var4 += var9;
 							var3 += var7;
 							var0 += graphicsPixelsWidth;
@@ -1169,14 +1169,14 @@ class Graphics3D extends Rasterizer2D
 					}
 					else
 					{
-						var1 -= var2;
-						var2 -= var0;
+						var1 -= row;
+						row -= var0;
 						var0 = rasterClipY[var0];
 
 						while (true)
 						{
-							--var2;
-							if (var2 < 0)
+							--row;
+							if (row < 0)
 							{
 								while (true)
 								{
@@ -1186,14 +1186,14 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(graphicsPixels, var0, var6, 0, var3 >> 14, var5 >> 14);
+									method2842(graphicsPixels, var0, color, var3 >> 14, var5 >> 14);
 									var5 += var8;
 									var3 += var7;
 									var0 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var0, var6, 0, var3 >> 14, var4 >> 14);
+							method2842(graphicsPixels, var0, color, var3 >> 14, var4 >> 14);
 							var4 += var9;
 							var3 += var7;
 							var0 += graphicsPixelsWidth;
@@ -1202,13 +1202,13 @@ class Graphics3D extends Rasterizer2D
 				}
 			}
 		}
-		else if (var1 <= var2)
+		else if (var1 <= row)
 		{
 			if (var1 < Rasterizer3D_clipHeight)
 			{
-				if (var2 > Rasterizer3D_clipHeight)
+				if (row > Rasterizer3D_clipHeight)
 				{
-					var2 = Rasterizer3D_clipHeight;
+					row = Rasterizer3D_clipHeight;
 				}
 
 				if (var0 > Rasterizer3D_clipHeight)
@@ -1216,7 +1216,7 @@ class Graphics3D extends Rasterizer2D
 					var0 = Rasterizer3D_clipHeight;
 				}
 
-				if (var2 < var0)
+				if (row < var0)
 				{
 					var3 = var4 <<= 14;
 					if (var1 < 0)
@@ -1227,22 +1227,22 @@ class Graphics3D extends Rasterizer2D
 					}
 
 					var5 <<= 14;
-					if (var2 < 0)
+					if (row < 0)
 					{
-						var5 -= var9 * var2;
-						var2 = 0;
+						var5 -= var9 * row;
+						row = 0;
 					}
 
-					if ((var2 == var1 || var7 >= var8) && (var2 != var1 || var7 <= var9))
+					if ((row == var1 || var7 >= var8) && (row != var1 || var7 <= var9))
 					{
-						var0 -= var2;
-						var2 -= var1;
+						var0 -= row;
+						row -= var1;
 						var1 = rasterClipY[var1];
 
 						while (true)
 						{
-							--var2;
-							if (var2 < 0)
+							--row;
+							if (row < 0)
 							{
 								while (true)
 								{
@@ -1252,14 +1252,14 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(graphicsPixels, var1, var6, 0, var5 >> 14, var3 >> 14);
+									method2842(graphicsPixels, var1, color, var5 >> 14, var3 >> 14);
 									var3 += var7;
 									var5 += var9;
 									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var1, var6, 0, var4 >> 14, var3 >> 14);
+							method2842(graphicsPixels, var1, color, var4 >> 14, var3 >> 14);
 							var3 += var7;
 							var4 += var8;
 							var1 += graphicsPixelsWidth;
@@ -1267,14 +1267,14 @@ class Graphics3D extends Rasterizer2D
 					}
 					else
 					{
-						var0 -= var2;
-						var2 -= var1;
+						var0 -= row;
+						row -= var1;
 						var1 = rasterClipY[var1];
 
 						while (true)
 						{
-							--var2;
-							if (var2 < 0)
+							--row;
+							if (row < 0)
 							{
 								while (true)
 								{
@@ -1284,14 +1284,14 @@ class Graphics3D extends Rasterizer2D
 										return;
 									}
 
-									method2842(graphicsPixels, var1, var6, 0, var3 >> 14, var5 >> 14);
+									method2842(graphicsPixels, var1, color, var3 >> 14, var5 >> 14);
 									var3 += var7;
 									var5 += var9;
 									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var1, var6, 0, var3 >> 14, var4 >> 14);
+							method2842(graphicsPixels, var1, color, var3 >> 14, var4 >> 14);
 							var3 += var7;
 							var4 += var8;
 							var1 += graphicsPixelsWidth;
@@ -1317,7 +1317,7 @@ class Graphics3D extends Rasterizer2D
 
 					if (var7 < var8)
 					{
-						var2 -= var0;
+						row -= var0;
 						var0 -= var1;
 						var1 = rasterClipY[var1];
 
@@ -1328,20 +1328,20 @@ class Graphics3D extends Rasterizer2D
 							{
 								while (true)
 								{
-									--var2;
-									if (var2 < 0)
+									--row;
+									if (row < 0)
 									{
 										return;
 									}
 
-									method2842(graphicsPixels, var1, var6, 0, var3 >> 14, var4 >> 14);
+									method2842(graphicsPixels, var1, color, var3 >> 14, var4 >> 14);
 									var3 += var9;
 									var4 += var8;
 									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var1, var6, 0, var5 >> 14, var4 >> 14);
+							method2842(graphicsPixels, var1, color, var5 >> 14, var4 >> 14);
 							var5 += var7;
 							var4 += var8;
 							var1 += graphicsPixelsWidth;
@@ -1349,7 +1349,7 @@ class Graphics3D extends Rasterizer2D
 					}
 					else
 					{
-						var2 -= var0;
+						row -= var0;
 						var0 -= var1;
 						var1 = rasterClipY[var1];
 
@@ -1360,20 +1360,20 @@ class Graphics3D extends Rasterizer2D
 							{
 								while (true)
 								{
-									--var2;
-									if (var2 < 0)
+									--row;
+									if (row < 0)
 									{
 										return;
 									}
 
-									method2842(graphicsPixels, var1, var6, 0, var4 >> 14, var3 >> 14);
+									method2842(graphicsPixels, var1, color, var4 >> 14, var3 >> 14);
 									var3 += var9;
 									var4 += var8;
 									var1 += graphicsPixelsWidth;
 								}
 							}
 
-							method2842(graphicsPixels, var1, var6, 0, var4 >> 14, var5 >> 14);
+							method2842(graphicsPixels, var1, color, var4 >> 14, var5 >> 14);
 							var5 += var7;
 							var4 += var8;
 							var1 += graphicsPixelsWidth;
@@ -1382,7 +1382,7 @@ class Graphics3D extends Rasterizer2D
 				}
 			}
 		}
-		else if (var2 < Rasterizer3D_clipHeight)
+		else if (row < Rasterizer3D_clipHeight)
 		{
 			if (var0 > Rasterizer3D_clipHeight)
 			{
@@ -1397,11 +1397,11 @@ class Graphics3D extends Rasterizer2D
 			if (var0 < var1)
 			{
 				var4 = var5 <<= 14;
-				if (var2 < 0)
+				if (row < 0)
 				{
-					var4 -= var8 * var2;
-					var5 -= var9 * var2;
-					var2 = 0;
+					var4 -= var8 * row;
+					var5 -= var9 * row;
+					row = 0;
 				}
 
 				var3 <<= 14;
@@ -1414,8 +1414,8 @@ class Graphics3D extends Rasterizer2D
 				if (var8 < var9)
 				{
 					var1 -= var0;
-					var0 -= var2;
-					var2 = rasterClipY[var2];
+					var0 -= row;
+					row = rasterClipY[row];
 
 					while (true)
 					{
@@ -1430,24 +1430,24 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(graphicsPixels, var2, var6, 0, var4 >> 14, var3 >> 14);
+								method2842(graphicsPixels, row, color, var4 >> 14, var3 >> 14);
 								var4 += var8;
 								var3 += var7;
-								var2 += graphicsPixelsWidth;
+								row += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(graphicsPixels, var2, var6, 0, var4 >> 14, var5 >> 14);
+						method2842(graphicsPixels, row, color, var4 >> 14, var5 >> 14);
 						var4 += var8;
 						var5 += var9;
-						var2 += graphicsPixelsWidth;
+						row += graphicsPixelsWidth;
 					}
 				}
 				else
 				{
 					var1 -= var0;
-					var0 -= var2;
-					var2 = rasterClipY[var2];
+					var0 -= row;
+					row = rasterClipY[row];
 
 					while (true)
 					{
@@ -1462,28 +1462,28 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(graphicsPixels, var2, var6, 0, var3 >> 14, var4 >> 14);
+								method2842(graphicsPixels, row, color, var3 >> 14, var4 >> 14);
 								var4 += var8;
 								var3 += var7;
-								var2 += graphicsPixelsWidth;
+								row += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(graphicsPixels, var2, var6, 0, var5 >> 14, var4 >> 14);
+						method2842(graphicsPixels, row, color, var5 >> 14, var4 >> 14);
 						var4 += var8;
 						var5 += var9;
-						var2 += graphicsPixelsWidth;
+						row += graphicsPixelsWidth;
 					}
 				}
 			}
 			else
 			{
 				var3 = var5 <<= 14;
-				if (var2 < 0)
+				if (row < 0)
 				{
-					var3 -= var8 * var2;
-					var5 -= var9 * var2;
-					var2 = 0;
+					var3 -= var8 * row;
+					var5 -= var9 * row;
+					row = 0;
 				}
 
 				var4 <<= 14;
@@ -1496,8 +1496,8 @@ class Graphics3D extends Rasterizer2D
 				if (var8 < var9)
 				{
 					var0 -= var1;
-					var1 -= var2;
-					var2 = rasterClipY[var2];
+					var1 -= row;
+					row = rasterClipY[row];
 
 					while (true)
 					{
@@ -1512,24 +1512,24 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(graphicsPixels, var2, var6, 0, var4 >> 14, var5 >> 14);
+								method2842(graphicsPixels, row, color, var4 >> 14, var5 >> 14);
 								var4 += var7;
 								var5 += var9;
-								var2 += graphicsPixelsWidth;
+								row += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(graphicsPixels, var2, var6, 0, var3 >> 14, var5 >> 14);
+						method2842(graphicsPixels, row, color, var3 >> 14, var5 >> 14);
 						var3 += var8;
 						var5 += var9;
-						var2 += graphicsPixelsWidth;
+						row += graphicsPixelsWidth;
 					}
 				}
 				else
 				{
 					var0 -= var1;
-					var1 -= var2;
-					var2 = rasterClipY[var2];
+					var1 -= row;
+					row = rasterClipY[row];
 
 					while (true)
 					{
@@ -1544,17 +1544,17 @@ class Graphics3D extends Rasterizer2D
 									return;
 								}
 
-								method2842(graphicsPixels, var2, var6, 0, var5 >> 14, var4 >> 14);
+								method2842(graphicsPixels, row, color, var5 >> 14, var4 >> 14);
 								var4 += var7;
 								var5 += var9;
-								var2 += graphicsPixelsWidth;
+								row += graphicsPixelsWidth;
 							}
 						}
 
-						method2842(graphicsPixels, var2, var6, 0, var5 >> 14, var3 >> 14);
+						method2842(graphicsPixels, row, color, var5 >> 14, var3 >> 14);
 						var3 += var8;
 						var5 += var9;
-						var2 += graphicsPixelsWidth;
+						row += graphicsPixelsWidth;
 					}
 				}
 			}
@@ -1562,119 +1562,35 @@ class Graphics3D extends Rasterizer2D
 	}
 
 
-	final void method2842(int[] var0, int var1, int var2, int var3, int var4, int var5)
+	final void method2842(int[] graphicsPixels, int row, int color, int left, int right)
 	{
+		int pixelIdx = row + left;
+
 		if (rasterClipEnable)
 		{
-			if (var5 > rasterClipX)
+			if (right > rasterClipX)
 			{
-				var5 = rasterClipX;
+				right = rasterClipX;
 			}
 
-			if (var4 < 0)
+			if (left < 0)
 			{
-				var4 = 0;
+				left = 0;
 			}
 		}
 
-		if (var4 < var5)
+		if (left >= right)
 		{
-			var1 += var4;
-			var3 = var5 - var4 >> 2;
-			if (rasterAlpha != 0)
-			{
-				if (rasterAlpha == 254)
-				{
-					while (true)
-					{
-						--var3;
-						if (var3 < 0)
-						{
-							var3 = var5 - var4 & 3;
+			return;
+		}
 
-							while (true)
-							{
-								--var3;
-								if (var3 < 0)
-								{
-									return;
-								}
-
-								var0[var1++] = var0[var1];
-							}
-						}
-
-						var0[var1++] = var0[var1];
-						var0[var1++] = var0[var1];
-						var0[var1++] = var0[var1];
-						var0[var1++] = var0[var1];
-					}
-				}
-				else
-				{
-					int var6 = rasterAlpha;
-					int var7 = 256 - rasterAlpha;
-					var2 = (var7 * (var2 & 65280) >> 8 & 65280) + (var7 * (var2 & 16711935) >> 8 & 16711935);
-
-					while (true)
-					{
-						--var3;
-						int var8;
-						if (var3 < 0)
-						{
-							var3 = var5 - var4 & 3;
-
-							while (true)
-							{
-								--var3;
-								if (var3 < 0)
-								{
-									return;
-								}
-
-								var8 = var0[var1];
-								var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280);
-							}
-						}
-
-						var8 = var0[var1];
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280);
-						var8 = var0[var1];
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280);
-						var8 = var0[var1];
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280);
-						var8 = var0[var1];
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280);
-					}
-				}
-			}
-			else
-			{
-				while (true)
-				{
-					--var3;
-					if (var3 < 0)
-					{
-						var3 = var5 - var4 & 3;
-
-						while (true)
-						{
-							--var3;
-							if (var3 < 0)
-							{
-								return;
-							}
-
-							var0[var1++] = var2;
-						}
-					}
-
-					var0[var1++] = var2;
-					var0[var1++] = var2;
-					var0[var1++] = var2;
-					var0[var1++] = var2;
-				}
-			}
+		for (int widthCounter = right - left; widthCounter > 0; widthCounter--, pixelIdx++)
+		{
+			graphicsPixels[pixelIdx] =
+				((256 - rasterAlpha) * (color & 0xff00ff) >> 8 & 0xff00ff) +
+				((256 - rasterAlpha) * (color & 0x00ff00) >> 8 & 0x00ff00) +
+				(rasterAlpha * (graphicsPixels[pixelIdx] & 0xff00ff) >> 8 & 0xff00ff) +
+				(rasterAlpha * (graphicsPixels[pixelIdx] & 0x00ff00)  >> 8 & 0x00ff00);
 		}
 	}
 
