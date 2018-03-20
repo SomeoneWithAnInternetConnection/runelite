@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Map;
 
+import javax.inject.Inject;
 import net.runelite.api.NPC;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -41,6 +42,7 @@ public class NpcMinimapOverlay extends Overlay
 	private final NpcHighlightConfig config;
 	private final NpcHighlightPlugin plugin;
 
+	@Inject
 	NpcMinimapOverlay(NpcHighlightConfig config, NpcHighlightPlugin plugin)
 	{
 		this.config = config;

@@ -69,9 +69,11 @@ public class NpcHighlightPlugin extends Plugin
 	@Inject
 	private NpcHighlightConfig config;
 
-	NpcClickboxOverlay npcClickboxOverlay;
+	@Inject
+	private NpcClickboxOverlay npcClickboxOverlay;
 
-	NpcMinimapOverlay npcMinimapOverlay;
+	@Inject
+	private NpcMinimapOverlay npcMinimapOverlay;
 
 	@Getter(AccessLevel.PACKAGE)
 	private final Set<Integer> npcTags = new HashSet<>();
@@ -82,7 +84,8 @@ public class NpcHighlightPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private Map<NPC, String> highlightedNpcs = new HashMap<>();
 
-	private void toggleTag(int npcId) {
+	private void toggleTag(int npcId)
+	{
 		boolean removed = npcTags.remove(npcId);
 		if (!removed)
 			npcTags.add(npcId);
@@ -97,9 +100,15 @@ public class NpcHighlightPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		npcClickboxOverlay = new NpcClickboxOverlay(client, config, this);
-		npcMinimapOverlay = new NpcMinimapOverlay(config, this);
 		menuManager.addNpcMenuOption(TAG);
+	}
+
+	@Override
+	protected void shutDown() throws Exception
+	{
+		npcTags.clear();
+		taggedNpcs.clear();
+		menuManager.removeNpcMenuOption(TAG);
 	}
 
 	@Subscribe
@@ -137,7 +146,7 @@ public class NpcHighlightPlugin extends Plugin
 //				}
 //			}
 //		}
-		highlightedNpcs= buildNpcsToHighlight();
+		highlightedNpcs = buildNpcsToHighlight();
 		if (npcTags.isEmpty()) return;
 		taggedNpcs.clear();
 		for (NPC npc : client.getNpcs())
@@ -153,13 +162,6 @@ public class NpcHighlightPlugin extends Plugin
 		}
 	}
 
-	@Override
-	protected void shutDown() throws Exception
-	{
-		npcTags.clear();
-		taggedNpcs.clear();
-		menuManager.removeNpcMenuOption(TAG);
-	}
 
 	@Override
 	public Collection<Overlay> getOverlays()
@@ -200,6 +202,7 @@ public class NpcHighlightPlugin extends Plugin
 
 	/**
 	 * Get npc composition, account for imposters
+	 *
 	 * @param npc
 	 * @return
 	 */

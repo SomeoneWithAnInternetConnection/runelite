@@ -34,6 +34,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
@@ -48,6 +49,7 @@ public class NpcClickboxOverlay extends Overlay
 	private final NpcHighlightConfig config;
 	private final NpcHighlightPlugin plugin;
 
+	@Inject
 	NpcClickboxOverlay(Client client, NpcHighlightConfig config, NpcHighlightPlugin plugin)
 	{
 		this.client = client;
