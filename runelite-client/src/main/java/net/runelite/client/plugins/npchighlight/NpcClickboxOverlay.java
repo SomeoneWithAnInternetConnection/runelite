@@ -60,7 +60,7 @@ public class NpcClickboxOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics, Point parent)
 	{
-		Map<NPC, String> npcMap = plugin.getNpcsToHighlight();
+		Map<NPC, String> npcMap = plugin.getHighlightedNpcs();
 		for (NPC npc : npcMap.keySet())
 		{
 			renderNpcOverlay(graphics, npc, npcMap.get(npc), config.getNpcColor());

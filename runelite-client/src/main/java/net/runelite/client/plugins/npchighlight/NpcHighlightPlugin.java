@@ -75,6 +75,9 @@ public class NpcHighlightPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private final List<NPC> taggedNpcs = new ArrayList<>();
 
+	@Getter(AccessLevel.PACKAGE)
+	private Map<NPC, String> highlightedNpcs = new HashMap<>();
+
 	private void toggleTag(int npcId) {
 		boolean removed = npcTags.remove(npcId);
 		if (!removed)
@@ -129,6 +132,7 @@ public class NpcHighlightPlugin extends Plugin
 				}
 			}
 		}
+		highlightedNpcs= buildNpcsToHighlight();
 		if (npcTags.isEmpty()) return;
 		taggedNpcs.clear();
 		for (NPC npc : client.getNpcs())
@@ -157,7 +161,7 @@ public class NpcHighlightPlugin extends Plugin
 		return Arrays.asList(npcClickboxOverlay, npcMinimapOverlay);
 	}
 
-	protected Map<NPC, String> getNpcsToHighlight()
+	private Map<NPC, String> buildNpcsToHighlight()
 	{
 		Map<NPC, String> npcMap = new HashMap<>();
 
