@@ -199,10 +199,11 @@ public abstract class RSActorMixin implements RSActor
 	@Override
 	public Polygon getConvexHull()
 	{
-		int localX = getX();
-		int localY = getY();
 		RSModel model = getModel();
-		int orientation = getOrientation();
-		return model.getConvexHull(localX, localY, orientation);
+		if (model == null)
+		{
+			return null;
+		}
+		return model.getConvexHull(getX(), getY(), getOrientation());
 	}
 }
