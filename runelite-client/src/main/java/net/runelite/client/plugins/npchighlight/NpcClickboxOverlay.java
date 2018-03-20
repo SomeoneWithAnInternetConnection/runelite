@@ -47,14 +47,12 @@ public class NpcClickboxOverlay extends Overlay
 	private final Client client;
 	private final NpcHighlightConfig config;
 	private final NpcHighlightPlugin plugin;
-	private final Set<Integer> npcTags;
 
 	NpcClickboxOverlay(Client client, NpcHighlightConfig config, NpcHighlightPlugin plugin)
 	{
 		this.client = client;
 		this.config = config;
 		this.plugin = plugin;
-		this.npcTags = new HashSet<>();
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
@@ -70,34 +68,18 @@ public class NpcClickboxOverlay extends Overlay
 
 		if (config.isTagEnabled())
 		{
-			for (NPC npc : client.getNpcs())
+			for (NPC npc : plugin.getTaggedNpcs())
 			{
-				if (npcTags.contains(npc.getIndex()))
-				{
-					NPCComposition composition = plugin.getComposition(npc);
-					if (npc == null || composition == null || composition.getName() == null)
-						continue;
+				NPCComposition composition = plugin.getComposition(npc);
+				if (composition == null || composition.getName() == null)
+					continue;
 
-					String name = composition.getName().replace('\u00A0', ' ');
-					renderNpcOverlay(graphics, npc, name, config.getTagColor());
-				}
+				String name = composition.getName().replace('\u00A0', ' ');
+				renderNpcOverlay(graphics, npc, name, config.getTagColor());
 			}
 		}
 
 		return null;
-	}
-
-	protected void toggleTag(int tag)
-	{
-		if (npcTags.contains(tag))
-			npcTags.remove(tag);
-		else
-			npcTags.add(tag);
-	}
-
-	protected void clearTags()
-	{
-		npcTags.clear();
 	}
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color)

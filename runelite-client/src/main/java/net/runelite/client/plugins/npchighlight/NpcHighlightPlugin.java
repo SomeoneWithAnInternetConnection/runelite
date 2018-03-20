@@ -24,17 +24,22 @@
  */
 package net.runelite.client.plugins.npchighlight;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Set;
 import javax.inject.Inject;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Provides;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
@@ -64,6 +69,18 @@ public class NpcHighlightPlugin extends Plugin
 
 	NpcMinimapOverlay npcMinimapOverlay;
 
+	@Getter(AccessLevel.PACKAGE)
+	private final Set<Integer> npcTags = new HashSet<>();
+
+	@Getter(AccessLevel.PACKAGE)
+	private final List<NPC> taggedNpcs = new ArrayList<>();
+
+	private void toggleTag(int npcId) {
+		boolean removed = npcTags.remove(npcId);
+		if (!removed)
+			npcTags.add(npcId);
+	}
+
 	@Provides
 	NpcHighlightConfig provideConfig(ConfigManager configManager)
 	{
@@ -81,7 +98,7 @@ public class NpcHighlightPlugin extends Plugin
 	public void onMenuObjectClicked(MenuOptionClicked click)
 	{
 		if (click.getMenuOption().equals(TAG))
-			npcClickboxOverlay.toggleTag(click.getId());
+			toggleTag(click.getId());
 	}
 
 	@Subscribe
@@ -112,12 +129,26 @@ public class NpcHighlightPlugin extends Plugin
 				}
 			}
 		}
+		if (npcTags.isEmpty()) return;
+		taggedNpcs.clear();
+		for (NPC npc : client.getNpcs())
+		{
+			if (npcTags.contains(npc.getIndex()))
+			{
+				NPCComposition composition = getComposition(npc);
+				if (composition == null || composition.getName() == null)
+					continue;
+
+				taggedNpcs.add(npc);
+			}
+		}
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		npcClickboxOverlay.clearTags();
+		npcTags.clear();
+		taggedNpcs.clear();
 	}
 
 	@Override
@@ -157,7 +188,11 @@ public class NpcHighlightPlugin extends Plugin
 		return npcMap;
 	}
 
-	// sometimes the composition isn't the true composition, so we need to check
+	/**
+	 * Get npc composition, account for imposters
+	 * @param npc
+	 * @return
+	 */
 	protected NPCComposition getComposition(NPC npc)
 	{
 		if (npc == null)
