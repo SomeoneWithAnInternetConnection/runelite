@@ -53,6 +53,7 @@ import net.runelite.rs.api.RSCombatInfo1;
 import net.runelite.rs.api.RSCombatInfo2;
 import net.runelite.rs.api.RSCombatInfoList;
 import net.runelite.rs.api.RSCombatInfoListHolder;
+import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSNode;
 
 @Mixin(RSActor.class)
@@ -200,48 +201,8 @@ public abstract class RSActorMixin implements RSActor
 	{
 		int localX = getX();
 		int localY = getY();
-		
-		Model model = getModel();
+		RSModel model = getModel();
 		int orientation = getOrientation();
-		
-		List<Vertex> vertices = model.getVertices();
-
-		// rotate vertices
-		for (int i = 0; i < vertices.size(); ++i)
-		{
-			Vertex v = vertices.get(i);
-			vertices.set(i, v.rotate(orientation));
-		}
-
-		List<Point> points = new ArrayList<Point>();
-
-		for (Vertex v : vertices)
-		{
-			// Compute canvas location of vertex
-			Point p = Perspective.worldToCanvas(client,
-				localX - v.getX(),
-				localY - v.getZ(),
-				-v.getY());
-			if (p != null)
-			{
-				points.add(p);
-			}
-		}
-
-		// Run Jarvis march algorithm
-		points = Jarvis.convexHull(points);
-		if (points == null)
-		{
-			return null;
-		}
-
-		// Convert to a polygon
-		Polygon p = new Polygon();
-		for (Point point : points)
-		{
-			p.addPoint(point.getX(), point.getY());
-		}
-
-		return p;
+		return model.getConvexHull(localX, localY, orientation);
 	}
 }

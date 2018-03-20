@@ -31,7 +31,7 @@ import net.runelite.mapping.Import;
 public interface RSGameObject extends GameObject
 {
 	@Import("renderable")
-	Renderable getRenderable();
+	RSRenderable getRenderable();
 
 	@Import("plane")
 	int getPlane();

@@ -35,5 +35,5 @@ public interface RSRenderable extends RSNode, Renderable
 
 	@Import("getModel")
 	@Override
-	Model getModel();
+	RSModel getModel();
 }

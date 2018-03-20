@@ -44,7 +44,7 @@ public interface RSDecorativeObject extends DecorativeObject
 	int getOrientation();
 
 	@Import("renderable1")
-	Renderable getRenderable();
+	RSRenderable getRenderable();
 
 	void setPlane(int plane);
 }
