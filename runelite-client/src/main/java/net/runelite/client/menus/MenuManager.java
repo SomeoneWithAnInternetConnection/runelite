@@ -32,7 +32,9 @@ import com.google.common.eventbus.Subscribe;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -40,8 +42,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.NPCComposition;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.NpcActionChanged;
 import net.runelite.api.events.PlayerMenuOptionClicked;
 import net.runelite.api.events.PlayerMenuOptionsChanged;
 import net.runelite.api.events.WidgetMenuOptionClicked;
@@ -64,12 +68,25 @@ public class MenuManager
 	private final Map<Integer, String> playerMenuIndexMap = new HashMap<>();
 	//Used to manage custom non-player menu options
 	private final Multimap<Integer, WidgetMenuOption> managedMenuOptions = HashMultimap.create();
+	private final Set<String> npcMenuOptions = new HashSet<>();
 
 	@Inject
 	public MenuManager(Provider<Client> clientProvider, EventBus eventBus)
 	{
 		this.clientProvider = clientProvider;
 		this.eventBus = eventBus;
+	}
+
+	public void addNpcMenuOption(String option)
+	{
+		npcMenuOptions.add(option);
+	}
+
+	public void removeNpcMenuOption(String option)
+	{
+		npcMenuOptions.remove(npcMenuOptions);
+
+		// need to remove this from all npc composition now
 	}
 
 	/**
@@ -184,6 +201,38 @@ public class MenuManager
 
 		playerMenuIndexMap.remove(idx);
 		addPlayerMenuItem(newIdx, menuText);
+	}
+
+	@Subscribe
+	public void onNpcActionChanged(NpcActionChanged event)
+	{
+		NPCComposition composition = event.getNpcComposition();
+		for (String npcOption : npcMenuOptions)
+		{
+			addNpcOption(composition, npcOption);
+		}
+	}
+
+	private void addNpcOption(NPCComposition composition, String npcOption)
+	{
+		String[] actions = composition.getActions();
+		int unused = -1;
+		for (int i = 0; i < actions.length; ++i)
+		{
+			if (actions[i] == null && unused == -1)
+			{
+				unused = i;
+			}
+			else if (actions[i] != null && actions[i].equals(npcOption))
+			{
+				return;
+			}
+		}
+		if (unused == -1)
+		{
+			return;
+		}
+		actions[unused] = npcOption;
 	}
 
 	@Subscribe

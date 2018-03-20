@@ -46,6 +46,7 @@ import net.runelite.api.NPCComposition;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.Overlay;
@@ -61,6 +62,9 @@ public class NpcHighlightPlugin extends Plugin
 
 	@Inject
 	private Client client;
+
+	@Inject
+	private MenuManager menuManager;
 
 	@Inject
 	private NpcHighlightConfig config;
@@ -95,6 +99,7 @@ public class NpcHighlightPlugin extends Plugin
 	{
 		npcClickboxOverlay = new NpcClickboxOverlay(client, config, this);
 		npcMinimapOverlay = new NpcMinimapOverlay(config, this);
+		menuManager.addNpcMenuOption(TAG);
 	}
 
 	@Subscribe
@@ -108,30 +113,30 @@ public class NpcHighlightPlugin extends Plugin
 	// add a 'Tag' option to all NPCs with a combat level
 	public void onGameTick(GameTick tick)
 	{
-		for (NPC npc : client.getNpcs())
-		{
-			if (npc.getCombatLevel() > 0)
-			{
-				NPCComposition comp = getComposition(npc);
-				if (comp == null)
-					continue;
-
-				for (int i = comp.getActions().length - 1; i >= 0; i--)
-				{
-					if ((comp.getActions()[i] == null || comp.getActions()[i].isEmpty()) && config.isTagEnabled())
-					{
-						comp.getActions()[i] = TAG;
-						break;
-					}
-					if (comp.getActions()[i] != null && comp.getActions()[i].equals(TAG))
-					{
-						if (!config.isTagEnabled())
-							comp.getActions()[i] = null;
-						break;
-					}
-				}
-			}
-		}
+//		for (NPC npc : client.getNpcs())
+//		{
+//			if (npc.getCombatLevel() > 0)
+//			{
+//				NPCComposition comp = getComposition(npc);
+//				if (comp == null)
+//					continue;
+//
+//				for (int i = comp.getActions().length - 1; i >= 0; i--)
+//				{
+//					if ((comp.getActions()[i] == null || comp.getActions()[i].isEmpty()) && config.isTagEnabled())
+//					{
+//						comp.getActions()[i] = TAG;
+//						break;
+//					}
+//					if (comp.getActions()[i] != null && comp.getActions()[i].equals(TAG))
+//					{
+//						if (!config.isTagEnabled())
+//							comp.getActions()[i] = null;
+//						break;
+//					}
+//				}
+//			}
+//		}
 		highlightedNpcs= buildNpcsToHighlight();
 		if (npcTags.isEmpty()) return;
 		taggedNpcs.clear();
@@ -153,6 +158,7 @@ public class NpcHighlightPlugin extends Plugin
 	{
 		npcTags.clear();
 		taggedNpcs.clear();
+		menuManager.removeNpcMenuOption(TAG);
 	}
 
 	@Override
